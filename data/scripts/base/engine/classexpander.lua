@@ -707,14 +707,12 @@ if(not isOverworld) then
 		end
 	
 		if filename ~= nil then
-			local episodeindex = mem(0x00B2C628, FIELD_WORD) --current episode
-	
-			local EP_LIST_COUNT = mem(0x00B250E8, FIELD_WORD)
-			local EP_LIST_PTR = mem(0x00B250FC, FIELD_DWORD)
+			local episodeindex = Episode.id() --current episode
+
 			if episodename ~= nil then
 				local hasFound = false
-				for indexer = 1, EP_LIST_COUNT do
-					local name = tostring(mem(EP_LIST_PTR + (indexer - 1) * 0x18 + 0x0, FIELD_STRING))
+				for indexer = 1, #Episode.list() do
+					local name = Episode.list()[indexer].episodeName
 					if name == episodename then
 						episodeindex = indexer
 						hasFound = true
@@ -723,7 +721,7 @@ if(not isOverworld) then
 				end
 				if hasFound then
 					mem(0x00B25720, FIELD_STRING, filename) -- GM_NEXT_LEVEL_FILENAME
-					mem(0x00B2C628, FIELD_WORD, episodeindex) -- Index of the episode
+					Episode.changeEpisodeDirectory(episodeindex) -- Index of the episode
 				else
 					Misc.warn("Episode of name '" ..episodename.."' could not be found. Aborting.")
 					return

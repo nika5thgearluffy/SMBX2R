@@ -6,8 +6,8 @@ local imagic = require("imagic");
 local marioChallenge = {}
 
 local EP_LIST_PTR = mem(0x00B250FC, FIELD_DWORD)
-local EP_LIST_COUNT = mem(0x00B250E8, FIELD_WORD)
-local currentEpisodeIndex = mem(0x00B2C628, FIELD_WORD)
+local EP_LIST_COUNT = Episode.count()
+local currentEpisodeIndex = Episode.id()
 
 local rerollCount = 150;
 
@@ -365,7 +365,7 @@ local function loadLevel(filename, episodeIndex, warpIdx, dontFlush)
 	-- Set teleport destination
 	mem(0x00B2C6DA, FIELD_WORD, warpIdx)    -- GM_NEXT_LEVEL_WARPIDX
 	mem(0x00B25720, FIELD_STRING, filename) -- GM_NEXT_LEVEL_FILENAME
-	mem(0x00B2C628, FIELD_WORD, episodeIndex) -- Index of the episode
+	Episode.changeEpisodeDirectory(episodeIndex) -- Index of the episode
 	
 	-- Force modes such that we trigger level exit
 	mem(0x00B250B4, FIELD_WORD, 0)  -- GM_IS_EDITOR_TESTING_NON_FULLSCREEN
@@ -391,10 +391,10 @@ end
 local function getFullLevelList()
 	local episodeData = {}
 	local finalList = {}
-	for indexer = 1, EP_LIST_COUNT do
+	for indexer = 1, Episode.count() do
 		episodeData[indexer] = {}
-		episodeData[indexer].episodeName = tostring(mem(EP_LIST_PTR + (indexer - 1) * 0x18 + 0x0, FIELD_STRING))
-		episodeData[indexer].episodePath = tostring(mem(EP_LIST_PTR + ((indexer - 1) * 0x18) + 0x4, FIELD_STRING))
+		episodeData[indexer].episodeName = Episode.list()[indexer].episodeName
+		episodeData[indexer].episodePath = Episode.list()[indexer].episodePath
 		if episodeData[indexer].episodeName == topEpisodeName then
 			mcTable.hubLocation = indexer;
 		end
@@ -620,7 +620,7 @@ local function loadNextLevel(dontIncrement)
 end
 
 local function isWinning()
-	if tostring(mem(EP_LIST_PTR + (currentEpisodeIndex - 1) * 0x18 + 0x0, FIELD_STRING)) == topEpisodeName and not mcTable.hasWon and not mcTable.hasLost then
+	if Episode.list()[Episode.id()].episodeName == topEpisodeName and not mcTable.hasWon and not mcTable.hasLost then
 		return true
 	else
 		return false
