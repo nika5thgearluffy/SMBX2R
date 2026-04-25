@@ -24,7 +24,7 @@ local coinToBlock = {
 
 local snake = {}
 
-local DEF_SFX_PATH = "smw-switch.spc"
+local DEF_SFX_PATH = "smw/smw-switch.spc"
 snake.sfxFile = SFX.open(Misc.resolveFile(DEF_SFX_PATH) or Misc.resolveFile("music/"..DEF_SFX_PATH))
 
 npcManager.setNpcSettings{
