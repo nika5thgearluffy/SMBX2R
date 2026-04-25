@@ -36,8 +36,51 @@ you can take here: http://midieditor.sourceforge.net/
 
 Music list:
 
+Converted from Super Mario 64 Nuntendo64 Chiptunes into OGG:
+sm64-desert
 
-Original Super Mario All Stars SNES Chiptunes (SPC)
+MIDI-Remakes of original Super Mario 64 themes:
+mario64-boss
+mario64-snowmountain
+mario64-water
+
+
+SPC-Remakes of original Super Mario 64 themes downloaded from SMW-Central:
+mario64-castle
+mario64-maintheme
+mario64-cave
+
+
+Original Super Mario RPG SNES Chiptunes (SPC):
+mariorpg-bowser
+mariorpg-forestmaze
+mariorpg-mariospad
+mariorpg-nimbusland
+mariorpg-rosetown
+mariorpg-seasidetown
+mariorpg-tadpolepond
+
+
+SPC-Remakes of original New Super Mario Bros. overworld theme, downloaded from SMW-Central:
+nsmb-overworld
+
+
+Original from Star-Fox SNES Chiptune (SPC)
+sf-corneria
+
+
+Original from Super Metroid SNES Chiptune (SPC)
+sm-brain
+sm-brinstar
+sm-crateria
+sm-itemroom
+
+
+The Legend of Zelda: A Link to the Past SNES Chiptune (SPC)
+z3-lost-woods
+
+
+Original Super Mario All Stars SNES Chiptune (SPC)
 smb-castle
 smb-overworld
 smb-underground
@@ -64,7 +107,8 @@ smb3-world7
 smb3-world8
 
 
-Original Super Mario World SNES Chiptunes (SPC)
+
+Converted from Super Mario World SNES Chiptune
 smw-boss
 smw-bowserscastle
 smw-castle
@@ -82,67 +126,33 @@ smw-yoshisisland
 smw-special
 
 
-Original Super Mario RPG SNES Chiptunes (SPC):
-mariorpg-bowser
-mariorpg-forestmaze
-mariorpg-mariospad
-mariorpg-nimbusland
-mariorpg-rosetown
-mariorpg-seasidetown
-mariorpg-tadpolepond
+SPC-based remixes downloaded from SMW Central:
+ssbb-airship (replaced with Super Mario Galaxy Airships attak theme)
+pm-shiver-mountain
 
 
-Converted from Super Mario 64 Nintendo 64 Chiptunes into OGG:
-mario64-boss
-mario64-castle
-mario64-cave
-mario64-maintheme
-mario64-snowmountain
-mario64-water
-sm64-desert
-
-
-Converted from original New Super Mario Bros. into OGG:
-nsmb-overworld
-
-
-Original from Star-Fox SNES Chiptune (SPC)
-sf-corneria
-
-
-Original from Super Metroid SNES Chiptunes (SPC)
-sm-brain
-sm-brinstar
-sm-crateria
-sm-itemroom
-
-
-Original The Legend of Zelda: A Link to the Past SNES Chiptune (SPC)
-z3-lost-woods
+MIDI-based remixes:
+smg-beach-bowl-galaxy
+mkwii-mushroom-gorge
+pm-yoshis-village
 
 
 Downloaded from smashcustommusic.com and converted into OGG:
 
-Mario Kart Wii:
-mkwii-mushroom-gorge
-
-Paper Mario 64:
-pm-shiver-mountain
-pm-yoshis-village
-
 Super Smash Bros. Brawl:
 nsmb-world (fragment of SMB3-Remake)
-ssbb-airship
 ssbb-waluigi
 ssbb-zelda2
 ssbb-underground
 ssbb-meta
 
 Super Mario Galaxy (1, 2):
-smg-beach-bowl-galaxy
-smg-star-reactor
-smg-title
 smg2-fg
+smg-star-reactor (replaced with SPC-Remix for Super Mario 64'th Bowser's castle, because same theme)
+smg-title
 
 Tetris-DS:
-tds-metroid-charge
+tds-metroid-charge (replaced with NSF chiptune of original Metroid game)
+
+
+
