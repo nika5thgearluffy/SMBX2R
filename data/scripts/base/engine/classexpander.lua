@@ -690,10 +690,10 @@ end
 
 if(not isOverworld) then
 
-	--I want this for overworld too but alas
+	-- This is only for levels, the overworld one is defined with LunaDLL
 	function Level.load(filename, episodename, warpindex)
 		--Filename specified = new level! Else reload current level.
-	
+
 		--warp index should also be settable if reloading into same level
 		if warpindex ~= nil and warpindex >= 0 then
 			mem(0x00B2C6DA, FIELD_WORD, warpindex)    -- GM_NEXT_LEVEL_WARPIDX
@@ -748,6 +748,19 @@ if(not isOverworld) then
 		local f = Level.filename()
 		return f:sub(f:match(".*%.()"))
 	end
+
+    -- The true Level.name() to avoid confusion between the level name set on the editor (Level -> Properties) and the level filename's name itself
+    -- If the level name is blank or not set, the level filename's name is used, else it uses the name set on the editor
+    local oldLevelName = Level.name
+    function Level.name()
+        local headerData = FileFormats.openLevelHeader(Level.filename())
+        local levelName = headerData.levelName
+        if levelName == "" or levelName == nil then
+            return oldLevelName()
+        else
+            return levelName
+        end
+    end
 end
 
 do --Table helper functions

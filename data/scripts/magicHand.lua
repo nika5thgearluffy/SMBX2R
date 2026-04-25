@@ -521,7 +521,7 @@ function magicHand.checkEditorEntity()
     if Misc.inEditor() then
         prePlacedItem = Editor.getItem()
         
-        if prePlacedItem == "nil" then
+        if prePlacedItem == "" then
             return {}
         end
 
@@ -534,7 +534,7 @@ function magicHand.checkEditorEntity()
         for values in tbl.sendItemPlacing:gmatch("([^\n]+)") do 
             table.insert(draftTable, values)
         end
-        if (draftTable[1] ~= "nil" and draftTable[1] ~= nil) then
+        if (draftTable[1] ~= "" and draftTable[1] ~= nil) then
             splitValues = splitString(draftTable[2], ";")
 
             for i = 1,#editorValues do
