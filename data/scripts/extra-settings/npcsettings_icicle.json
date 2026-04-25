@@ -1,0 +1,13 @@
+{
+	"style" : "groupbox",
+	"title" : "Icicle Settings",
+	"layout": [
+		{
+			"control": "checkbox",
+			"name": "respawnable",
+			"title": "Respawns?",
+			"tooltip": "Does the icicle respawn? (Respawn timer is changable from 'respawntimer' in the NPC configuration.)",
+			"value-default": true
+		}
+	]
+}

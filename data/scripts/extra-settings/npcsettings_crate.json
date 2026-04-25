@@ -1,0 +1,187 @@
+{
+  "style": "groupbox",
+  "title": "Crate Settings",
+  "layout": [
+    {
+			"control": "listGroup",
+			"name": "contentList",
+      "collapse": true,
+      "default-collapsed": false,
+			"title": "Contents",
+			"children": [
+        {
+          "control": "itemSelect",
+          "name": "id",
+          "title": "NPC",
+          "type": "npc",
+          "tooltip": "Which NPC should be in the crate.",
+          "value-default": 0
+        },
+        {
+					"control": "spinBox",
+					"type": "int",
+					"name": "count",
+					"title" : "Amount",
+          "tooltip": "Number of this NPC to spawn.",
+					"value-default": 1,
+					"value-min": 1,
+					"value-max": 99
+				},
+        {
+          "control": "group",
+          "collapse": true,
+          "default-collapsed": true,
+          "name": "advanced",
+          "title": "Advanced Data",
+          "children": [
+          {
+            "control": "spinBox",
+            "type": "int",
+            "name": "stack",
+            "title" : "Stack",
+            "tooltip": "Spawns additional NPCs in a stack. Can be positive (down) or negative (up). Useful for Pokeys or Ladders.",
+            "value-default": 0,
+            "value-min": -50,
+            "value-max": 50
+          },
+          {
+            "control": "spinBox",
+            "type": "double",
+            "name": "speed",
+            "title" : "Speed Multiplier",
+            "tooltip": "Multiplier for the velocity of the NPC when the crate breaks.",
+            "value-default": 1,
+            "value-min": -5,
+            "value-max": 5
+          },
+          {
+            "control": "spinBox",
+            "type": "double",
+            "name": "angle",
+            "title" : "Angle",
+            "tooltip": "Angle of the NPC on ejection.",
+            "value-default": 0,
+            "value-min": -180,
+            "value-max": 180
+          },
+          {
+            "control": "spinBox",
+            "type": "double",
+            "name": "delay",
+            "title" : "Delay",
+            "tooltip": "Time spent intangible after coming out of the crate.",
+            "value-default": 60,
+            "value-min": 0,
+            "value-max": 90
+          },
+          {
+            "control": "checkBox",
+            "name": "floaty",
+            "title" : "Floaty",
+            "tooltip": "If true, the NPC has no gravity acting upon it during the intangible period.",
+            "value-default": false
+          },
+          {
+            "control": "spinBox",
+            "type": "int",
+            "name": "ai1",
+            "title" : "Ai1",
+            "tooltip": "Ai1 field of the spawned NPC.",
+            "value-default": 0,
+            "value-min": 0,
+            "value-max": 99999
+          },
+          {
+            "control": "spinBox",
+            "type": "int",
+            "name": "ai2",
+            "title" : "Ai2",
+            "tooltip": "Ai2 field of the spawned NPC.",
+            "value-default": 0,
+            "value-min": 0,
+            "value-max": 99999
+          },
+          {
+            "control": "spinBox",
+            "type": "int",
+            "name": "ai3",
+            "title" : "Ai3",
+            "tooltip": "Ai3 field of the spawned NPC.",
+            "value-default": 0,
+            "value-min": 0,
+            "value-max": 99999
+          },
+          {
+            "control": "spinBox",
+            "type": "int",
+            "name": "ai4",
+            "title" : "Ai4",
+            "tooltip": "Ai4 field of the spawned NPC.",
+            "value-default": 0,
+            "value-min": 0,
+            "value-max": 99999
+          },
+          {
+            "control": "spinBox",
+            "type": "int",
+            "name": "ai5",
+            "title" : "Ai5",
+            "tooltip": "Ai5 field of the spawned NPC.",
+            "value-default": 0,
+            "value-min": 0,
+            "value-max": 99999
+          },
+          {
+            "control": "checkBox",
+            "name": "friendly",
+            "title" : "Friendly",
+            "tooltip": "If true, the NPC spawns as friendly.",
+            "value-default": false
+          },
+          {
+            "control": "checkBox",
+            "name": "dontMove",
+            "title" : "Don't Move",
+            "tooltip": "If true, the NPC spawns with the Don't Move flag set.",
+            "value-default": false
+          },
+          {
+            "control": "lineEdit",
+            "name": "layerName",
+            "title": "Layer Name",
+            "tooltip": "Layer to spawn the NPC onto.",
+            "value-default": ""
+          },
+          {
+            "control": "lineEdit",
+            "name": "noMoreObjInLayer",
+            "title": "Layer is Empty Event",
+            "tooltip": "Event to trigger when the layer is empty.",
+            "value-default": ""
+          },
+          {
+            "control": "lineEdit",
+            "name": "deathEventName",
+            "title": "Death Event",
+            "tooltip": "Event to trigger when the spawned NPC dies.",
+            "value-default": ""
+          },
+          {
+            "control": "lineEdit",
+            "name": "talkEventName",
+            "title": "Talk Event",
+            "tooltip": "Event to trigger when the NPC is talked to.",
+            "value-default": ""
+          }
+        ]}
+			]
+		},
+    {
+      "control": "lineEdit",
+      "name": "contents",
+      "title": "(Legacy) Contents",
+      "tooltip": "Used to be used to define the crate's contents. Kept for compatibility. Use crate.lua to reference the args. Example: {2, 3} or to specify the properties of an NPC to spawn, use a table like so: {{id=2, count=5}}",
+      "value-default": ""
+    }
+  ]
+}

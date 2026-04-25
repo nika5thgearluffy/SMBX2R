@@ -1,0 +1,93 @@
+{
+	"style" : "groupbox",
+	"title" : "Costume Block Settings",
+	"layout": [
+		{
+			"control": "checkbox",
+			"name": "clear",
+			"title": "Clear costume",
+			"tooltip": "If true, this block clears the currently equipped costume.",
+			"value-default": false
+		},
+		{
+			"control": "lineEdit",	"name": "costume1",	"title": "Mario",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume2",	"title": "Luigi",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume3",	"title": "Peach",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume4",	"title": "Toad",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume5",	"title": "Link",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume6",	"title": "Mega Man",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume7",	"title": "Wario",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume8",	"title": "Bowser",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume9",	"title": "Klonoa",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume10",	"title": "Ninja Bomberman",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume11",	"title": "Rosalina",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume12",	"title": "Snake",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume13",	"title": "Zelda",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume14",	"title": "Ultimate Rinka",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume15",	"title": "Uncle Broadsword",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		},
+		{
+			"control": "lineEdit",	"name": "costume16",	"title": "Samus",
+			"tooltip": "Set to the name of a costume folder for this character. Leave empty for cycle.",
+			"value-default": ""
+		}
+	]
+}

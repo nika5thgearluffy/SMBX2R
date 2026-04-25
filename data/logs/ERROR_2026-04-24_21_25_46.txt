@@ -1,0 +1,33 @@
+== Crash Summary ==
+LunaLua Version: LUNALUA V0.7.3.2 BETA
+Exception Code: 0xc0000005 (Access Violation)
+
+== Stack Trace ==
+0: 60B4F678 (LunaDll): gUserFilesPathUTF8
+1: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\luabind\make_function.hpp (58): luabind::detail::function_object_impl<std::basic_string<char,std::char_traits<char>,std::allocator<char> > (__cdecl*)(void),luabind::meta::type_list<std::basic_string<char,std::char_traits<char>,std::allocator<char> > >,luabind::meta::type_list<> >::invoke_defer
+2: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\luabind\make_function.hpp (79): luabind::detail::function_object_impl<std::basic_string<char,std::char_traits<char>,std::allocator<char> > (__cdecl*)(void),luabind::meta::type_list<std::basic_string<char,std::char_traits<char>,std::allocator<char> > >,luabind::meta::type_list<> >::entry_point
+3: 6044283B (LunaDll): lj_BC_FUNCC
+4: 606D55D4 (LunaDll): lj_tab_dup
+5: 606C3236 (LunaDll): lua_pcall
+6: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\src\pcall.cpp (43): luabind::detail::pcall
+7: 15AC0008 ((module-name not available)): (function-name not available)
+8: 00010000 ((module-name not available)): (function-name not available)
+9: 1B777480 ((module-name not available)): (function-name not available)
+10: 15AC2570 ((module-name not available)): (function-name not available)
+11: 1B6BC598 ((module-name not available)): (function-name not available)
+
+== Counts ==
+numWater=0
+numWarps=0
+numBlock=1162
+numBackground=567
+numNPCs=0
+numEffects=0
+numPlayers =1
+
+== Reporting ==
+If you like to help us finding the error then please post this log at:
+* The Codehaus Discord server or
+* https://www.smbxgame.com/forums/viewforum.php?f=35 or
+* https://talkhaus.raocow.com/viewforum.php?f=36
+

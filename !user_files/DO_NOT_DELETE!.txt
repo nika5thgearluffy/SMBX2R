@@ -1,0 +1,3 @@
+This folder is used for managing files globally outside of any episode.
+
+DO NOT DELETE THIS FOLDER! If you delete this folder, SMBX2R will not work.

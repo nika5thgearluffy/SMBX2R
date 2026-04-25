@@ -1,0 +1,4 @@
+[1]
+import=AI_TWISTER
+lifetime=64
+speedY = -1

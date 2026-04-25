@@ -1,0 +1,69 @@
+{
+	"style" : "groupbox",
+	"title" : "Piranha Plant Settings",
+	"layout": [
+		{
+			"control": "itemSelect",
+			"type": "npc",
+			"name": "fireID",
+			"title": "Fire ID",
+			"tooltip": "The NPC ID of the fire shot by the NPC. If nil or 0, no fire will be shot.",
+			"value-default": 0
+		},
+		{
+			"control": "spinBox",
+			"type": "int",
+			"name": "fireSpurts",
+			"title": "Fire Spurts",
+			"tooltip": "How many spurts of fire the NPC will shoot before retracting.",
+			"value-default": 1,
+			"value-min": 0,
+			"value-max": 1000,
+			"single-step": 1
+		},
+		{
+			"control": "spinBox",
+			"type": "int",
+			"name": "firePerSpurt",
+			"title": "Fire Per Spurts",
+			"tooltip": "How many fire NPCs are shot in each spurt.",
+			"value-default": 2,
+			"value-min": 0,
+			"value-max": 1000,
+			"single-step": 1
+		},
+		{
+			"control": "spinBox",
+			"type": "int",
+			"name": "fireSpurtDelay",
+			"title": "Fire Spurt Delay",
+			"tooltip": "How many frames of delay there are between each spurt.",
+			"value-default": 16,
+			"value-min": 0,
+			"value-max": 1000,
+			"single-step": 1
+		},
+		{
+			"control": "spinBox",
+			"type": "double",
+			"name": "fireSpeed",
+			"title": "Fire Speed",
+			"tooltip": "The speed of each fire NPC shot by the NPC.",
+			"value-default": 6,
+			"value-min": 0,
+			"value-max": 1000,
+			"single-step": 0.1
+		},
+		{
+			"control": "spinBox",
+			"type": "double",
+			"name": "fireAngle",
+			"title": "Fire Angle",
+			"tooltip": "The angle of each fire NPC shot by the NPC. Increases with each spurt.",
+			"value-default": 25,
+			"value-min": 0,
+			"value-max": 1000,
+			"single-step": 0.1
+		}
+	]
+}

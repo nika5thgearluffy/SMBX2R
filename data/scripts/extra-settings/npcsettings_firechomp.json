@@ -1,0 +1,33 @@
+{
+    "style": "groupbox",
+    "title": "Flame Chomp Settings",
+    "layout": [
+        {
+            "control": "spinBox",
+            "name": "length",
+            "title": "Length",
+            "tooltip": "Number of the initial firebal tails. If it reach 0, the Flame Chomp explodes.",
+			"type": "int",
+			"value-default": 4,
+			"value-min": 0,
+			"value-max": 100
+        },
+		{
+			"control": "checkbox",
+			"name": "respawns",
+			"title": "Respawns?",
+			"tooltip": "If checked, this NPC will respawn a set time after it is defeated.",
+			"value-default": false
+		},
+        {
+            "control": "spinBox",
+            "name": "respawndelay",
+            "title": "Respawn Delay",
+            "tooltip": "Number of seconds after which the Flame Chomp should respawn.",
+			"type": "double",
+			"value-default": 10,
+			"value-min": 0,
+			"value-max": 100
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+== Crash Summary ==
+LunaLua Version: LUNALUA V0.7.3.2 BETA
+Exception Code: 0xc0000005 (Access Violation)
+
+== Stack Trace ==
+0: 606C1826 (LunaDll): lj_err_unwind_win
+1: 77AF46B2 (ntdll): RtlInterlockedCompareExchange64
+2: 77AF4684 (ntdll): RtlInterlockedCompareExchange64
+3: 77ABB5AF (ntdll): KiUserExceptionDispatcher
+
+== Counts ==
+numWater=0
+numWarps=7
+numBlock=1263
+numBackground=271
+numNPCs=67
+numEffects=0
+numPlayers =1
+
+== Reporting ==
+If you like to help us finding the error then please post this log at:
+* The Codehaus Discord server or
+* https://www.smbxgame.com/forums/viewforum.php?f=35 or
+* https://talkhaus.raocow.com/viewforum.php?f=36
+

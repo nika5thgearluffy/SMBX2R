@@ -1,0 +1,768 @@
+{
+	"style" : "frame",
+	"title" : "Section Settings",
+	"layout": [{
+			"control": "group",
+			"name": "darkness",
+			"title": "Darkness",
+			"children": [{
+						"control": "checkbox",
+						"name": "enableDarkness",
+						"title": "Dark",
+						"tooltip": "Enable this to turn this section into a dark section.",
+						"text-visible": false,
+						"value-default": false
+						},
+						{
+						"control": "color",
+						"name": "ambient",
+						"title": "Ambient Light",
+						"tooltip": "The color of the darkness, when no light is present.",
+						"value-default": "#0D0D19"
+						},
+						{
+						"control": "comboBox",
+						"name": "shadows",
+						"title": "Shadow Type",
+						"tooltip": "Which type of shadow casting to use (please note that shadows are very resource intensive, and may cause lag).",
+						"elements": ["None", "Raymarch Soft", "Raymarch Hard"],
+						"value-default": 0
+						},
+						{
+						"control": "comboBox",
+						"name": "falloff",
+						"title": "Falloff Type",
+						"tooltip": "Which type of light falloff to use.",
+						"elements": ["Inverse Square", "Linear", "Sigmoid", "Hard", "Stepped", "Inverse Square Stepped"],
+						"value-default": 0
+						},
+						{
+						"control": "spinBox",
+						"name": "maxlights",
+						"title": "Maximum Lights",
+						"tooltip": "How many lights can be visible at any one time (you should try and keep this as low as possible, as higher values may cause lag).",
+						"type": "int",
+						"value-min": 1,
+						"value-max": 512,
+						"value-default": 60
+						},
+						{
+						"control": "checkbox",
+						"name": "addbright",
+						"title": "Additive Brightness",
+						"tooltip": "If enabled, brightnesses above 1 will create a 'bloom' effect.",
+						"text-visible": false,
+						"value-default": true
+						},
+						
+						{
+							"control": "group",
+							"name": "playerlight",
+							"title": "Player Light",
+							"children": [{
+										"control": "checkbox",
+										"name": "enabled",
+										"title": "Enabled",
+										"tooltip": "Whether players should emit light.",
+										"text-visible": false,
+										"value-default": false
+										},
+										{
+										"control": "color",
+										"name": "color",
+										"title": "Color",
+										"tooltip": "The color of the light.",
+										"value-default": "#FFFFFF"
+										},
+										{
+											"control": "spinBox",
+											"name": "radius",
+											"title": "Radius",
+											"tooltip": "How far the light will spread away from the source.",
+											"type": "double",
+											"value-min": 0,
+											"value-max": 1000,
+											"value-default": 128
+										},
+										{
+											"control": "spinBox",
+											"name": "brightness",
+											"title": "Brightness",
+											"tooltip": "How bright the light will be.",
+											"type": "double",
+											"value-min": 0,
+											"value-max": 20,
+											"value-default": 1
+										},
+										{
+										"control": "checkbox",
+										"name": "flicker",
+										"title": "Flicker",
+										"tooltip": "Whether the light should flicker.",
+										"text-visible": false,
+										"value-default": false
+										}]
+						}]
+			},
+			{
+				"control": "group",
+				"name": "effects",
+				"title": "Effects",
+				"children": [{
+								"control": "comboBox",
+								"name": "weather",
+								"title": "Weather",
+								"tooltip": "Which weather effect (if any) should be visible in this section.",
+								"elements": ["None", "Rain", "Snow", "Fog", "Sandstorm", "Cinders", "Wisps", "Rain (Vertical)", "Starfall", "Sand Breeze", "Dust"],
+								"value-default": 0
+							},
+							{
+							"control": "spinBox",
+							"name": "weatherPriority",
+							"title": "Weather Priority",
+							"tooltip": "Render priority of the weather effect.",
+							"type": "double",
+							"value-min": -100,
+							"value-max": 10,
+							"value-default": -5
+							},
+							{
+							"control": "checkbox",
+							"name": "weatherFlipX",
+							"title": "Flip X",
+							"tooltip": "If checked, the weather effect is flipped horizontally.",
+							"text-visible": false,
+							"value-default": false
+							},
+							{
+							"control": "checkbox",
+							"name": "weatherFlipY",
+							"title": "Flip Y",
+							"tooltip": "If checked, the weather effect is flipped vertically.",
+							"text-visible": false,
+							"value-default": false
+							},
+							{
+							"control": "checkbox",
+							"name": "weatherUseCustom",
+							"title": "Use Custom",
+							"tooltip": "If checked, the below string is loaded as a custom weather effect.",
+							"text-visible": false,
+							"value-default": false
+							},
+							{
+							"control": "lineEdit",
+							"name": "weatherCustomPath",
+							"title": "Custom Weather Path",
+							"tooltip": "Path to the custom weather particle.ini file.",
+							"text-visible": false,
+							"value-default": ""
+							},
+							{
+								"control": "comboBox",
+								"name": "screenEffects",
+								"title": "Screen Effects",
+								"tooltip": "Which full screen effect (if any) should apply in this section.",
+								"elements": ["None", "Wavy", "Lava", "Caustics", "Underwater", "Mist", "Sepia", "Grayscale", "Inverted", "Gameboy", "Dithered Gameboy", "Simple Caustics", "Simple Underwater", "Aurora", "Lightbeams", "Retro", "Dream"],
+								"value-default": 0,
+								"children": [
+									[],
+									[
+										{
+											"control": "comboBox",
+											"name": "type",
+											"title": "Type",
+											"tooltip": "Which type of wave effect to use.",
+											"elements": ["Horizontal", "Vertical"],
+											"value-default": 0
+										},
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority 1",
+											"tooltip": "Priority of the first wave.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": -100,
+											"decimals": 1,
+											"single-step": 1
+										},
+										{
+											"control": "spinBox",
+											"name": "intensity1",
+											"title": "Intensity 1",
+											"tooltip": "Intensity of the first wave.",
+											"type": "double",
+											"value-min": -1000,
+											"value-max": 1000,
+											"value-default": 1.5,
+											"decimals": 2,
+											"single-step": 0.1
+										},
+										{
+											"control": "spinBox",
+											"name": "priority2",
+											"title": "Priority 2",
+											"tooltip": "Priority of the first wave.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										},
+										{
+											"control": "spinBox",
+											"name": "intensity2",
+											"title": "Intensity 2",
+											"tooltip": "Intensity of the second wave.",
+											"type": "double",
+											"value-min": -1000,
+											"value-max": 1000,
+											"value-default": 0.8,
+											"decimals": 2,
+											"single-step": 0.1
+										}
+									],
+									[
+										{
+											"control": "checkBox",
+											"name": "enabled3",
+											"title": "Wave Enabled",
+											"tooltip": "Whether to use a wave effect.",
+											"value-default": false,
+											"children": [
+												[],
+												[
+													{
+														"control": "comboBox",
+														"name": "type",
+														"title": "Wave Type",
+														"tooltip": "Which type of wave effect to use.",
+														"elements": ["Horizontal", "Vertical"],
+														"value-default": 0
+													},
+													{
+														"control": "spinBox",
+														"name": "priority3",
+														"title": "Wave Priority 1",
+														"tooltip": "Priority of the first wave.",
+														"type": "double",
+														"value-min": -100,
+														"value-max": 10,
+														"value-default": -100,
+														"decimals": 1,
+														"single-step": 1
+													},
+													{
+														"control": "spinBox",
+														"name": "intensity3",
+														"title": "Wave Intensity 1",
+														"tooltip": "Intensity of the first wave.",
+														"type": "double",
+														"value-min": -1000,
+														"value-max": 1000,
+														"value-default": 1.5,
+														"decimals": 2,
+														"single-step": 0.1
+													},
+													{
+														"control": "spinBox",
+														"name": "priority4",
+														"title": "Wave Priority 2",
+														"tooltip": "Priority of the first wave.",
+														"type": "double",
+														"value-min": -100,
+														"value-max": 10,
+														"value-default": 0,
+														"decimals": 1,
+														"single-step": 1
+													},
+													{
+														"control": "spinBox",
+														"name": "intensity4",
+														"title": "Wave Intensity 2",
+														"tooltip": "Intensity of the second wave.",
+														"type": "double",
+														"value-min": -1000,
+														"value-max": 1000,
+														"value-default": 0.8,
+														"decimals": 2,
+														"single-step": 0.1
+													}
+												]
+											]
+										},
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Mist Priority",
+											"tooltip": "Priority of the first wave.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": -100,
+											"decimals": 1,
+											"single-step": 1
+										},
+										{
+											"control": "color",
+											"name": "color",
+											"title": "Mist Color",
+											"tooltip": "The color of the mist.",
+											"value-default": "#b38066"
+										},
+										{
+											"control": "pointBox",
+											"name": "size",
+											"title": "Size Range",
+											"tooltip": "Size of mist. X is minimum, Y is maximum.",
+											"type": "double",
+											"value-min": {
+												"x": 0.5,
+												"y": 0.5
+											},
+											"value-max": {
+												"x": 1000,
+												"y": 1000
+											},
+											"value-default": {
+												"x": 0.5,
+												"y": 300
+											},
+											"decimals": 1,
+											"single-step": 10
+										},
+										{
+											"control": "spinBox",
+											"name": "priority2",
+											"title": "Lava Priority",
+											"tooltip": "Priority of the lava effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										},
+										{
+											"control": "color",
+											"name": "col1",
+											"title": "Base Lava Color",
+											"tooltip": "Base color of the lava gradient.",
+											"value-default": "#ff0000"
+										},
+										{
+											"control": "color",
+											"name": "col2",
+											"title": "Highlight Lava Color 1",
+											"tooltip": "Highlight color of the lava gradient.",
+											"value-default": "#002600"
+										},
+										{
+											"control": "color",
+											"name": "col3",
+											"title": "Highlight Lava Color 2",
+											"tooltip": "Highlight color of the lava gradient.",
+											"value-default": "#005900"
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "intensity1",
+											"title": "Intensity",
+											"tooltip": "Intensity of the caustics effect.",
+											"type": "double",
+											"value-min": 0,
+											"value-max": 5,
+											"value-default": 1,
+											"decimals": 2,
+											"single-step": 0.05
+										},
+										{
+											"control": "pointBox",
+											"name": "speed",
+											"title": "Speed",
+											"tooltip": "Speed multipliers for the caustics effect.",
+											"type": "double",
+											"value-min": {
+												"x": -10,
+												"y": -10
+											},
+											"value-max": {
+												"x": 10,
+												"y": 10
+											},
+											"value-default": {
+												"x": 1,
+												"y": 1
+											},
+											"decimals": 2,
+											"single-step": 0.1
+										}
+									],
+									[
+										{
+											"control": "comboBox",
+											"name": "type",
+											"title": "Type",
+											"tooltip": "Which type of wave effect to use.",
+											"elements": ["Horizontal", "Vertical"],
+											"value-default": 0
+										},
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Wave Priority 1",
+											"tooltip": "Priority of the first wave.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": -100,
+											"decimals": 1,
+											"single-step": 1
+										},
+										{
+											"control": "spinBox",
+											"name": "intensity1",
+											"title": "Wave Intensity 1",
+											"tooltip": "Intensity of the first wave.",
+											"type": "double",
+											"value-min": -1000,
+											"value-max": 1000,
+											"value-default": 1.5,
+											"decimals": 2,
+											"single-step": 0.1
+										},
+										{
+											"control": "spinBox",
+											"name": "priority2",
+											"title": "Wave Priority 2",
+											"tooltip": "Priority of the first wave.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										},
+										{
+											"control": "spinBox",
+											"name": "intensity2",
+											"title": "Wave Intensity 2",
+											"tooltip": "Intensity of the second wave.",
+											"type": "double",
+											"value-min": -1000,
+											"value-max": 1000,
+											"value-default": 0.8,
+											"decimals": 2,
+											"single-step": 0.1
+										},
+										{
+											"control": "spinBox",
+											"name": "intensity3",
+											"title": "Caustics Intensity",
+											"tooltip": "Intensity of the caustics effect.",
+											"type": "double",
+											"value-min": 0,
+											"value-max": 5,
+											"value-default": 1,
+											"decimals": 2,
+											"single-step": 0.05
+										},
+										{
+											"control": "pointBox",
+											"name": "speed",
+											"title": "Caustics Speed",
+											"tooltip": "Speed multipliers for the caustics effect.",
+											"type": "double",
+											"value-min": {
+												"x": -10,
+												"y": -10
+											},
+											"value-max": {
+												"x": 10,
+												"y": 10
+											},
+											"value-default": {
+												"x": 1,
+												"y": 1
+											},
+											"decimals": 2,
+											"single-step": 0.1
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority of the mist.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": -5,
+											"decimals": 1,
+											"single-step": 1
+										},
+										{
+											"control": "color",
+											"name": "color",
+											"title": "Mist Color",
+											"tooltip": "The color of the mist.",
+											"value-default": "#ffffff"
+										},
+										{
+											"control": "pointBox",
+											"name": "size",
+											"title": "Size Range",
+											"tooltip": "Size of mist. X is minimum, Y is maximum.",
+											"type": "double",
+											"value-min": {
+												"x": 0.5,
+												"y": 0.5
+											},
+											"value-max": {
+												"x": 1000,
+												"y": 1000
+											},
+											"value-default": {
+												"x": 0.5,
+												"y": 1000
+											},
+											"decimals": 1,
+											"single-step": 10
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority for the effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority for the effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority for the effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority for the effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										},
+										{
+											"control": "color",
+											"name": "col1",
+											"title": "Color 1",
+											"tooltip": "The brightest color.",
+											"value-default": "#9bbc0f"
+										},
+										{
+											"control": "color",
+											"name": "col2",
+											"title": "Color 2",
+											"tooltip": "The second brightest color.",
+											"value-default": "#8bac0f"
+										},
+										{
+											"control": "color",
+											"name": "col3",
+											"title": "Color 3",
+											"tooltip": "The second darkest color.",
+											"value-default": "#306230"
+										},
+										{
+											"control": "color",
+											"name": "col4",
+											"title": "Color 4",
+											"tooltip": "The darkest color.",
+											"value-default": "#0f380f"
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority for the effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										},
+										{
+											"control": "color",
+											"name": "col1",
+											"title": "Color 1",
+											"tooltip": "The brightest color.",
+											"value-default": "#9bbc0f"
+										},
+										{
+											"control": "color",
+											"name": "col2",
+											"title": "Color 2",
+											"tooltip": "The second brightest color.",
+											"value-default": "#8bac0f"
+										},
+										{
+											"control": "color",
+											"name": "col3",
+											"title": "Color 3",
+											"tooltip": "The second darkest color.",
+											"value-default": "#306230"
+										},
+										{
+											"control": "color",
+											"name": "col4",
+											"title": "Color 4",
+											"tooltip": "The darkest color.",
+											"value-default": "#0f380f"
+										}
+									],
+									[],
+									[],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority for the effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority for the effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority for the effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										}
+									],
+									[
+										{
+											"control": "spinBox",
+											"name": "priority1",
+											"title": "Priority",
+											"tooltip": "Priority for the effect.",
+											"type": "double",
+											"value-min": -100,
+											"value-max": 10,
+											"value-default": 0,
+											"decimals": 1,
+											"single-step": 1
+										}
+									]
+								]
+							}]
+			},
+			{
+				"control": "group",
+				"name": "beat",
+				"title": "Beat Timer",
+				"children": [{
+								"control": "checkbox",
+								"name": "enabled",
+								"title": "Enabled",
+								"tooltip": "When checked, the beat timer will be overwritten with these settings when entering this section.",
+								"text-visible": false,
+								"value-default": false
+							},
+							{
+								"control": "spinBox",
+								"name": "bpm",
+								"title": "BPM",
+								"tooltip": "How fast the beat should be in Beats Per Minute.",
+								"type": "double",
+								"value-min": 1,
+								"value-max": 1000,
+								"value-default": 40,
+								"decimals": 2
+							},
+							{
+								"control": "checkbox",
+								"name": "useMusicClock",
+								"title": "Use Music Clock",
+								"tooltip": "When checked, the beat timer will be synchronised to the music clock. Otherwise, it will just tick along with game time.",
+								"text-visible": false,
+								"value-default": false
+							},
+							{
+								"control": "spinBox",
+								"name": "timeSignature",
+								"title": "Time Signature",
+								"tooltip": "The number of beats per bar (some events will occur once per bar).",
+								"type": "int",
+								"value-min": 1,
+								"value-max": 16,
+								"value-default": 4
+							}]
+			}]
+}

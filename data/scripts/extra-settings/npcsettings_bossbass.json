@@ -1,0 +1,24 @@
+{
+	"style" : "groupbox",
+	"title" : "Boss Bass Settings",
+	"layout": [
+		{
+			"control": "checkbox",
+			"name": "respawn",
+			"title": "Respawn",
+			"tooltip": "If checked, the NPC will respawn after a while.",
+			"value-default": false
+		},
+		{
+			"control": "spinbox",
+			"name": "timer",
+			"title": "Respawn Delay",
+			"type": "int",
+			"tooltip": "The number of ticks between a Boss Bass's death and the next one's spawn.",
+			"value-default": 320,
+			"value-min": 1,
+			"value-max": 6400
+		}
+	]
+}
+

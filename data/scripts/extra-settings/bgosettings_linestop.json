@@ -1,0 +1,18 @@
+{
+	"style" : "groupbox",
+	"title" : "Line Stop Settings",
+	"layout": [
+		{
+			"control": "spinBox",
+			"name": "timer",
+			"tooltip": "Seconds of wait time. Set to 0 for infinite.",
+			"title" : "Timer",
+			"value-default": 1,
+			"value-min": 0.0,
+			"value-max": 60,
+			"type": "double",
+			"single-step": 0.5,
+			"decimals": 1
+		}
+	]
+}

@@ -1,0 +1,24 @@
+{
+	"style" : "groupbox",
+	"title" : "Platform Settings",
+	"layout": [
+		{
+			"control": "combobox",
+			"name": "activeByDefault",
+			"title": "Start Active",
+			"tooltip": "If 'No', the platform won't start moving until a player holds onto it. Default uses the default NPC config for this ID. Yes and no override the default setting.",
+			"elements": ["Default", "Yes", "No"],
+			"value-default": 0
+		},
+		{
+			"control": "spinbox",
+			"name": "width",
+			"title": "Width",
+			"type": "int",
+			"tooltip": "The width of the platform (in blocks).",
+			"value-default": 3,
+			"value-min": 0,
+			"value-max": 100
+		}
+	]
+}

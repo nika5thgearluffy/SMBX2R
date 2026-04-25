@@ -1,0 +1,16 @@
+Warning: (:0, ): QMetaObject::connectSlotsByName: No matching signal for on_section_use_update(int,bool)
+Warning: (:0, ): QMetaObject::connectSlotsByName: No matching signal for on_tilesetGroup_currentIndexChanged(int)
+Warning: (:0, ): libpng warning: iCCP: known incorrect sRGB profile
+Warning: (:0, ): libpng warning: iCCP: cHRM chunk does not match sRGB
+Warning: (:0, ): libpng warning: iCCP: known incorrect sRGB profile
+Warning: (:0, ): libpng warning: iCCP: cHRM chunk does not match sRGB
+Warning: (:0, ): libpng warning: iCCP: known incorrect sRGB profile
+Warning: (:0, ): libpng warning: iCCP: cHRM chunk does not match sRGB
+Warning: (:0, ): libpng warning: iCCP: known incorrect sRGB profile
+Warning: (:0, ): libpng warning: iCCP: cHRM chunk does not match sRGB
+Warning: Error of the script : 
+Uncaught exception at line 10:
+SyntaxError: Unexpected token `?'
+Warning: Error while loading main.js in test-plugin-with-error, skipping...
+Warning: (:0, ): libpng warning: iCCP: known incorrect sRGB profile
+Warning: (:0, ): libpng warning: iCCP: cHRM chunk does not match sRGB

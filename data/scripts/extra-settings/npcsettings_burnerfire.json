@@ -1,0 +1,47 @@
+{
+	"style" : "groupbox",
+	"title" : "Burner Settings",
+	"layout": [
+		{
+			"control": "spinBox",
+			"name": "startAngle",
+			"title": "Start Angle",
+			"type": "int",
+			"tooltip": "The angle the fire starts at.",
+			"value-default": 0,
+			"value-min": -360,
+			"value-max": 360
+		},
+		{
+			"control": "spinBox",
+			"name": "speedMultiplier",
+			"title": "Speed Multiplier",
+			"type": "double",
+			"tooltip": "Modifies the speed of rotation.",
+			"value-default": 1,
+			"value-min": 0.01,
+			"value-max": 20
+		},
+		{
+			"control": "spinBox",
+			"name": "lifetime",
+			"title": "Lifetime",
+			"type": "double",
+			"tooltip": "How long the flame is alive before extinguishing, in seconds. 0 means forever.",
+			"value-default": 4,
+			"value-min": 0,
+			"value-max": 60
+		},
+		{
+			"control": "spinBox",
+			"name": "fireScale",
+			"title": "Fire Scale",
+			"type": "double",
+			"tooltip": "Stretches/squashes the fire by this multiplier.",
+			"value-default": 1,
+			"value-min": 0.05,
+			"value-max": 10
+		}
+	]
+}
+

@@ -1,0 +1,7 @@
+[2]
+gravity=0.26
+xAlign=CENTER
+yAlign=CENTER
+spawnBindX=CENTER
+spawnBindY=CENTER
+framestyle=0

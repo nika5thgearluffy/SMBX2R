@@ -1,0 +1,16 @@
+# Keep the worlds folder, but don't include anything except ".gitkeep"
+/data/worlds/*
+!.gitkeep
+
+# Ignore everything in the user files folder except the do not delete file
+/!user_files/*
+!DO_NOT_DELETE!.txt
+
+# Ignore other misc LunarLuna build files that's used for debugging
+/data/LunaDll.exp
+/data/LunaDll.lib
+/data/LunaDll.map
+/data/LunaDll.pdb
+/data/LunaLoader.iobj
+/data/LunaLoader.ipdb
+/data/LunaLoader.pdb

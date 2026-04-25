@@ -1,0 +1,86 @@
+{
+	"style" : "groupbox",
+	"title" : "Targeting Fishbone Settings",
+	"layout": [
+		{
+			"control": "checkbox",
+			"name": "startsAggro",
+			"title": "Starts Aggressive",
+			"tooltip": "When checked, this NPC instantly homes in at the specified angle.",
+			"text-visible": true,
+			"value-default": false
+		},
+		{
+			"control": "checkbox",
+			"name": "fixedAngle",
+			"title": "Fixed Angle",
+			"tooltip": "When checked, this NPC does not face away from its specified angle when attacking a player.",
+			"text-visible": true,
+			"value-default": false
+		},
+		{
+			"control": "checkbox",
+			"name": "fixedDirection",
+			"title": "Fixed Direction",
+			"tooltip": "When checked, this NPC will not flip directions when moving back and forth.",
+			"text-visible": true,
+			"value-default": false
+		},
+		{
+			"control": "spinBox",
+			"type": "double",
+			"name": "angle",
+			"title": "Attack angle",
+			"tooltip": "The default angle of attack if no target is found. If Fixed Angle is true, this is also used for the NPC's movement.",
+			"value-default": 0,
+			"value-min": -360,
+			"value-max": 360,
+			"single-step": 1
+		},
+		{
+			"control": "spinBox",
+			"name": "xAmplitude",
+			"title": "X Amplitude",
+			"type": "double",
+			"tooltip": "Amplitude of horizontal movement.",
+			"value-default": 50,
+			"value-min": 0,
+			"value-max": 9999,
+			"single-step": 0.1
+		},
+		{
+			"control": "spinBox",
+			"name": "xFrequency",
+			"title": "X Frequency",
+			"type": "double",
+			"tooltip": "Frequency of horizontal movement.",
+			"value-default": 1,
+			"value-min": -5,
+			"value-max": 5,
+			"single-step": 0.1
+		},
+		{
+			"control": "spinBox",
+			"name": "yAmplitude",
+			"title": "Y Amplitude",
+			"type": "double",
+			"tooltip": "Amplitude of vertical movement.",
+			"value-default": 8,
+			"value-min": 0,
+			"value-max": 9999,
+			"single-step": 0.1
+		},
+		{
+			"control": "spinBox",
+			"name": "yFrequency",
+			"title": "Y Frequency",
+			"type": "double",
+			"tooltip": "Frequency of vertical movement.",
+			"value-default": 2,
+			"value-min": -5,
+			"value-max": 5,
+			"single-step": 0.1
+		}
+	]
+}
+

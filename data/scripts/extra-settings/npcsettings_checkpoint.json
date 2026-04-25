@@ -1,0 +1,38 @@
+{
+  "style": "groupbox",
+  "title": "Checkpoint Settings",
+  "layout": [
+    {
+		"control": "spinBox",
+		"name": "warpID",
+		"title": "Warp ID",
+		"type": "int",
+		"tooltip": "If set to a valid Warp ID, the player will spawn at that warp's exit location rather than on the checkpoint location.",
+		"value-default": 0,
+		"value-min": 0,
+		"value-max": 2000
+	},
+	{
+		"control": "lineEdit",
+		"name": "sound",
+		"title": "Sound",
+		"tooltip": "The ID of or path to the sound effect to play.",
+		"value-default": "58"
+	},
+	{
+		"control": "comboBox",
+		"name": "powerup",
+		"title": "Powerup",
+		"tooltip": "Which powerup to grant upon collecting this checkpoint.",
+		"elements": ["None", "Small", "Big", "Fire", "Leaf", "Tanooki", "Hammer", "Ice"],
+		"value-default": 2
+	},
+	{
+		"control": "checkBox",
+		"name": "ignoreTierCheck",
+		"title": "Can power down",
+		"tooltip": "If set to true, the checkpoint can force a big player down to small state. Otherwise, powering down to small or big is not possible.",
+		"value-default": false
+	}
+  ]
+}

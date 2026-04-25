@@ -1,0 +1,34 @@
+{
+	"style" : "groupbox",
+	"title" : "Blooper Settings",
+	"layout": [
+		{
+			"control": "checkbox",
+			"name": "chase",
+			"title": "Chase Player",
+			"tooltip": "When checked, the Height Gain setting is ignored and the Blooper chases players in both directions.",
+			"text-visible": false,
+			"value-default": true
+		},
+		{
+			"control": "spinbox",
+			"name": "heightGain",
+			"title": "Height Gain",
+			"tooltip": "Per movement cycle, how many pixels does the blooper rise? Negative values indicate a drop.",
+			"type": "int",
+			"value-default": 0,
+			"value-min": -320,
+			"value-max": 320
+		},
+		{
+			"control": "spinbox",
+			"name": "riseDuration",
+			"title": "Rise Duration",
+			"tooltip": "The number of frames a blooper rises in a movement cycle.",
+			"type": "int",
+			"value-default": 60,
+			"value-min": 1,
+			"value-max": 999
+		}
+	]
+}

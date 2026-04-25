@@ -1,0 +1,127 @@
+{
+	"style" : "frame",
+	"title" : "Level Settings",
+	"layout": [{
+				"control": "checkbox",
+				"name": "showInMarioChallenge",
+				"title": "Appear in Mario Challenge",
+				"tooltip": "When checked, this level will appear in the random level roulette for the Mario Challenge. Disable this for hubs or levels that won't be possible to finish on their own.\nLevels with this checked will not appear if their episode is excluded from Mario Challenge.",
+				"text-visible": false,
+				"value-default": true
+			}, 
+			{
+				"control": "group",
+				"name": "player",
+				"title": "Player settings",
+				"children": [
+					{
+						"control": "comboBox",
+						"name": "player1",
+						"title": "Player 1 Character",
+						"type": "int",
+						"tooltip": "Use the drop-down to force a specific character for this player.",
+						"value-default": 0,
+						"elements": ["Default",
+							"Mario",
+							"Luigi",
+							"Peach",
+							"Toad",
+							"Link",
+							"Mega Man",
+							"Wario",
+							"Bowser",
+							"Klonoa",
+							"Ninja Bomberman",
+							"Rosalina",
+							"Snake",
+							"Zelda",
+							"Ultimate Rinka",
+							"Uncle Broadsword",
+							"Samus"
+						]
+					},
+					{
+						"control": "checkbox",
+						"name": "setCostume1",
+						"title": "Set Player 1's Costume?",
+						"tooltip": "When checked, this player's costume will be set to the value in the text field below.",
+						"value-default": false
+					},
+					{
+						"control": "lineEdit",	"name": "costume1",	"title": "Player 1 Costume",
+						"tooltip": "Set to the name of a costume folder for this character.",
+						"value-default": ""
+					},
+					{
+						"control": "comboBox",
+						"name": "player2",
+						"title": "Player 2 Character",
+						"type": "int",
+						"tooltip": "Use the drop-down to force a specific character for this player.",
+						"value-default": 0,
+						"elements": ["Default",
+							"Mario",
+							"Luigi",
+							"Peach",
+							"Toad",
+							"Link",
+							"Mega Man",
+							"Wario",
+							"Bowser",
+							"Klonoa",
+							"Ninja Bomberman",
+							"Rosalina",
+							"Snake",
+							"Zelda",
+							"Ultimate Rinka",
+							"Uncle Broadsword",
+							"Samus"
+						]
+					},
+					{
+						"control": "checkbox",
+						"name": "setCostume2",
+						"title": "Set Player 2's Costume?",
+						"tooltip": "When checked, this player's costume will be set to the value in the text field below.",
+						"value-default": false
+					},
+					{
+						"control": "lineEdit",	"name": "costume2",	"title": "Player 2 Costume",
+						"tooltip": "Set to the name of a costume folder for this character.",
+						"value-default": ""
+					}
+				]
+			},
+			{
+				"control": "group",
+				"name": "timer",
+				"title": "Level Timer",
+				"children": [{
+								"control": "checkbox",
+								"name": "enable",
+								"title": "Enable",
+								"tooltip": "When checked, the timer will be active in this level.",
+								"text-visible": false,
+								"value-default": false
+							},
+							{
+								"control": "spinBox",
+								"type": "int",
+								"name": "time",
+								"title": "Time",
+								"tooltip": "The length of the timer, in seconds. When the timer hits 0, the player will be killed.",
+								"value-default": 500,
+								"value-min": 1,
+								"value-max": 999999999
+							},
+							{
+							"control": "comboBox",
+							"name": "result",
+							"title": "When Timer Ends:",
+							"tooltip": "What occurs when the level timer ends.",
+							"elements": ["Kill players", "Call event 'Level Timer - End'"],
+							"value-default": 0
+							}]
+			}
+	]
+}

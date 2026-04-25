@@ -1,0 +1,36 @@
+== Crash Summary ==
+LunaLua Version: LUNALUA V0.7.3.2 BETA
+Exception Code: 0xc0000005 (Access Violation)
+
+== Stack Trace ==
+0: 7714CB50 (ole32): OleCreateFontIndirectExt
+1: 7714DCA0 (ole32): OleCreateFontIndirectExt
+2: 5701456E (MSVBVM60): BASIC_DISPINTERFACE_GetTypeInfo
+3: 5700A715 (MSVBVM60): rtcLeftVar
+4: 57009B80 (MSVBVM60): rtcLeftVar
+5: 57008EE6 (MSVBVM60): rtcLeftVar
+6: 57014274 (MSVBVM60): BASIC_DISPINTERFACE_GetTypeInfo
+7: 57000145 (MSVBVM60): EbLoadRunTime
+8: 56FFE4C8 (MSVBVM60): EbSetContextWorkerThread
+9: 56FF0FA7 (MSVBVM60): EbLibraryLoad
+10: 56FFADE6 (MSVBVM60): ThunRTMain
+11: 56FFACEC (MSVBVM60): ThunRTMain
+12: 0040BDE2 ((module-name not available)): (function-name not available)
+13: 7727D83B (ntdll): RtlInitializeExceptionChain
+14: 7727D7C1 (ntdll): RtlGetAppContainerNamedObjectPath
+
+== Counts ==
+numWater=0
+numWarps=0
+numBlock=0
+numBackground=0
+numNPCs=0
+numEffects=0
+numPlayers =0
+
+== Reporting ==
+If you like to help us finding the error then please post this log at:
+* The Codehaus Discord server or
+* https://www.smbxgame.com/forums/viewforum.php?f=35 or
+* https://talkhaus.raocow.com/viewforum.php?f=36
+

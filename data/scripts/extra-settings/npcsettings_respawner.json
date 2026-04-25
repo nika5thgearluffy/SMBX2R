@@ -1,0 +1,85 @@
+{
+	"style" : "groupbox",
+	"title" : "Respawner Settings",
+	"layout": [
+		{
+			"control": "spinBox",
+			"name": "idx",
+			"title": "Index",
+			"tooltip": "The index of the respawner controlled by these settings.",
+			"type": "int",
+			"value-min": 0,
+			"value-max": 999,
+			"value-default": 1
+		},
+		{
+			"control": "spinBox",
+			"name": "sound",
+			"title": "Sound Effect",
+			"tooltip": "The sound that plays when the NPC spawns.",
+			"type": "int",
+			"value-min": 0,
+			"value-max": 91,
+			"value-default": 0
+		},
+		{
+			"control": "itemSelect",
+			"name": "npc",
+			"title": "NPC",
+			"type": "npc",
+			"tooltip": "The NPC spawned once this spawner is triggered. Setting it to Empty disables the respawner.",
+			"value-default": 0
+		},
+		{
+			"control": "spinBox",
+			"name": "delay",
+			"title": "Delay",
+			"tooltip": "Delay between the NPC dying and the NPC respawning.",
+			"type": "int",
+			"value-min": 1,
+			"value-max": 999,
+			"value-default": 140
+		},
+		{
+			"control": "checkbox",
+			"name": "freezeX",
+			"title": "Use Spawner X",
+			"tooltip": "If true, the spawner's X coordinate will be used for every instance of the NPC spawned.",
+			"text-visible": false,
+			"value-default": false
+		},
+		{
+			"control": "checkbox",
+			"name": "freezeY",
+			"title": "Use Spawner Y",
+			"tooltip": "If true, the spawner's Y coordinate will be used for every instance of the NPC spawned.",
+			"text-visible": false,
+			"value-default": true
+		},
+		{
+			"control": "checkbox",
+			"name": "offscreenX",
+			"title": "Offscreen X",
+			"tooltip": "If true, the NPC will attempt to spawn offscreen on the X-Axis.",
+			"text-visible": false,
+			"value-default": true
+		},
+		{
+			"control": "checkbox",
+			"name": "offscreenY",
+			"title": "Offscreen Y",
+			"tooltip": "If true, the NPC will attempt to spawn offscreen on the Y-Axis.",
+			"text-visible": false,
+			"value-default": false
+		},
+		{
+			"control": "combobox",
+			"name": "despawnMethod",
+			"title": "Despawn Method",
+			"tooltip": "Effect to despawn the NPC with if the content is set to empty.",
+			"elements": ["Don't despawn", "Stomp Kill", "Hit Kill", "Spinjump Kill", "Vanish", "Flee left", "Flee right", "Flee up", "Flee down"],
+			"value-default": 0
+		}
+	]
+}
+

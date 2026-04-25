@@ -1,0 +1,74 @@
+{
+	"style" : "groupbox",
+	"title" : "Burner Settings",
+	"layout": [
+		{
+			"control": "spinBox",
+			"name": "startAngle",
+			"title": "Start Angle",
+			"type": "int",
+			"tooltip": "The angle of the burner.",
+			"value-default": 0,
+			"value-min": -45,
+			"value-max": 90
+		},
+		{
+			"control": "spinBox",
+			"name": "fireLifetime",
+			"title": "Fire Lifetime",
+			"type": "double",
+			"tooltip": "How long the flame is alive before extinguishing, in seconds. 0 means forever.",
+			"value-default": 4,
+			"value-min": 0,
+			"value-max": 60
+		},
+		{
+			"control": "spinBox",
+			"name": "downtime",
+			"title": "Downtime",
+			"type": "double",
+			"tooltip": "The amount of seconds between cycles.",
+			"value-default": 0.75,
+			"value-min": 0,
+			"value-max": 60
+		},
+		{
+			"control": "spinBox",
+			"name": "cycleCount",
+			"title": "Cycle Count",
+			"type": "int",
+			"tooltip": "The amount of cycles of burners with different cycle indices taking turns.",
+			"value-default": 2,
+			"value-min": 1,
+			"value-max": 99
+		},
+		{
+			"control": "spinBox",
+			"name": "cycleIndex",
+			"title": "Cycle Index",
+			"type": "int",
+			"tooltip": "The cycle this burner is on.",
+			"value-default": 1,
+			"value-min": 1,
+			"value-max": 99
+		},
+		{
+			"control": "spinBox",
+			"name": "fireScale",
+			"title": "Fire Scale",
+			"type": "double",
+			"tooltip": "Stretches/squashes the fire by this multiplier.",
+			"value-default": 1,
+			"value-min": 0.05,
+			"value-max": 10
+		},
+		{
+			"control": "checkbox",
+			"name": "isGlobal",
+			"title": "Is Global?",
+			"tooltip": "Is the burner globally connected? (will not despawn, but makes it sync with other global burners)",
+			"value-default": false
+		}
+	]
+}
+

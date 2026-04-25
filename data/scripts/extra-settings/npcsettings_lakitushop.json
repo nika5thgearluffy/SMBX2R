@@ -1,0 +1,13 @@
+{
+  "style": "groupbox",
+  "title": "Lakitu Shop Settings",
+  "layout": [
+    {
+      "control": "lineEdit",
+      "name": "preset",
+      "title": "Preset",
+      "tooltip": "Name of the preset to use.<br/>Configure presets in your lua code, following the documentation guide at<br/>https://docs.codehaus.moe/#/modules/lakitushop.<br/>If no preset is supplied,<br/>all items marked as visible at the time of opening will be available in the shop.",
+      "value-default": ""
+    }
+  ]
+}

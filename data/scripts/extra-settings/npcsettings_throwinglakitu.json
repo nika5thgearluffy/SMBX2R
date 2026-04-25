@@ -1,0 +1,14 @@
+{
+	"style" : "groupbox",
+	"title" : "Hiding Lakitu Settings",
+	"layout": [
+		{
+			"control": "comboBox",
+			"name": "horizontalDirection",
+			"title": "Horizontal Direction",
+			"elements": ["Face Nearest Player","Left","Right"],
+			"value-default": 0
+		}
+	]
+}
+

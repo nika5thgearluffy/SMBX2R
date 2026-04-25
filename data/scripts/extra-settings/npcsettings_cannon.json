@@ -1,0 +1,108 @@
+{
+	"style" : "groupbox",
+	"title" : "Directional Cannon Settings",
+	"layout": [
+		{
+			"control": "group",
+			"name": "bOptions",
+            "title": "Basic Options",
+            "children": [
+				{
+					"control": "spinBox",
+					"name": "shootAngle",
+					"title": "Shooting Angle",
+					"type": "int",
+					"tooltip": "The angle that defines the direction the cannon will shoot at.",
+					"value-default": 0,
+					"value-min": -360,
+					"value-max": 360
+				},
+				{
+					"control": "checkBox",
+					"name": "hidden",
+					"title": "Invisible",
+					"tooltip": "When true, the cannon is hidden and bullets will appear to be shot from nothing. Intended for use with blocks",
+					"value-default": false
+				},
+				{
+					"control": "checkBox",
+					"name": "noblockcollision",
+					"title": "No Collision",
+					"tooltip": "When true, the projectile fired by the cannon will pass through blocks regardless of its individual settings.",
+					"value-default": true
+				}
+			]
+		},
+		{
+			"control": "group",
+			"name": "aOptions",
+            "title": "Advanced Options",
+            "children": [
+				{
+					"control": "spinBox",
+					"name": "roundDelay",
+					"title": "Delay Between Rounds",
+					"type": "double",
+					"tooltip": "The amount of time that the cannon will wait before shooting another round of cannonballs, measured in seconds.",
+					"value-default": 2,
+					"value-min": 0.1,
+					"value-max": 60
+				},
+				{
+					"control": "spinBox",
+					"name": "shootDelay",
+					"title": "Delay Between Shots",
+					"type": "double",
+					"tooltip": "The amount of time that the cannon will wait before shooting in the same round, measured in seconds.",
+					"value-default": 1,
+					"value-min": 0.1,
+					"value-max": 60
+				},
+				{
+					"control": "spinBox",
+					"name": "shotsPerRound",
+					"title": "Shots per Round",
+					"type": "int",
+					"tooltip": "The amount of cannonballs that the cannon will shoot every round.",
+					"value-default": 1,
+					"value-min": 1,
+					"value-max": 99
+				},
+				{
+					"control": "spinBox",
+					"name": "multiplier",
+					"title": "Speed Multiplier",
+					"type": "double",
+					"tooltip": "Modifies the speed at which projectiles are shot.",
+					"value-default": 1,
+					"value-min": 0.1,
+					"value-max": 20
+				},
+				{
+					"control": "checkBox",
+					"name": "projectile",
+					"title": "Projectile",
+					"tooltip": "If true, the spawned NPC has its 'Projectile' flag set.",
+					"value-default": false
+				},
+				{
+					"control": "spinBox",
+					"name": "constantRotation",
+					"title": "Constant Rotation",
+					"type": "double",
+					"tooltip": "The cannon will constantly rotate by this value per second if this option is not 0.",
+					"value-default": 0,
+					"value-min": -99999,
+					"value-max": 99999
+				},
+				{
+					"control": "checkBox",
+					"name": "pAim",
+					"title": "Aims at Player?",
+					"tooltip": "Enabling this will make the cannon aim at the nearest player (Will disable constant rotation).",
+					"value-default": false
+				}
+			]
+		}
+	]
+}

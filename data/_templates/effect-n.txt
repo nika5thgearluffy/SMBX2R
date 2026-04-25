@@ -1,0 +1,50 @@
+;Each layer is an effect instance.
+[Layer1]
+;Imports
+;import = AI_ARC ;imports an AI from effectconfig.lua
+;onTick = TICK_WIGGLE ;imports an onTick function from effectconfig.lua
+;onDeath = DEATH_EGG ;imports an onDraw function from effectconfig.lua
+
+;Positioning
+xOffset = 0
+;xOffset = -4:4 ;ranges are supported
+yOffset = 0
+xAlign = LEFT
+yAlign = TOP
+spawnBindX = LEFT
+spawnBindY = TOP
+
+;Sprite Sheet
+;img=25 ;sets the effect image to use for this effect
+frames = 1 ;Total frames per direction for one variant
+framestyle = 0 ;Same as for NPCs
+framespeed = 8
+variants = 1 ;The number of variants on the sprite sheet, vertically stacked
+variant = 1 ;Good with ranges
+frameOffset = 0 ;Good with ranges
+xScale = 1
+yScale = 1
+
+;Life cycle
+lifetime = 65
+delay = 0
+
+;Movement
+gravity = 0
+speedX = 0
+speedY = 0
+maxSpeedX=-1
+maxSpeedY=-1
+angle = 0 ;Good with ranges
+rotation = 0
+
+;Rendering
+priority = FOREGROUND
+opacity = 1
+
+;Miscellaneous
+npcID = 0
+;sound = 1 ;plays a sound by ID
+
+;[Layer2]
+;template=Layer1 ;Copies properties from another layer

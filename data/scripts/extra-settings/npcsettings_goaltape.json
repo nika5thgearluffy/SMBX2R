@@ -1,0 +1,14 @@
+{
+	"style" : "groupbox",
+	"title" : "Goal Tape Settings",
+	"layout": [
+		{
+			"control": "checkbox",
+			"name": "stopBehind",
+			"title": "Stop Behind",
+			"tootip": "Whether or not the player will stop behind the goal post.",
+			"text-visible": false,
+			"value-default": false
+		}
+	]
+}

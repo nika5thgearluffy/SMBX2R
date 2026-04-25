@@ -1,0 +1,6 @@
+[first]
+onTick = TICK_ICICLEDRIP
+priority=-80
+xAlign = MID
+lifetime = 16:48
+speedY=5

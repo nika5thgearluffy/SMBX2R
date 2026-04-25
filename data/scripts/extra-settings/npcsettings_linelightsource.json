@@ -1,0 +1,61 @@
+{
+	"style" : "groupbox",
+	"title" : "Light Source Settings",
+	"layout": [
+		{
+			"control": "color",
+			"name": "color",
+			"title": "Color",
+			"tooltip": "The color of the light.",
+			"value-default": "#FFFFFF"
+		},
+		{
+			"control": "spinBox",
+			"name": "radius",
+			"title": "Radius",
+			"tooltip": "How far the light will spread away from the source.",
+			"type": "double",
+			"value-min": 0,
+			"value-max": 1000,
+			"value-default": 128
+		},
+		{
+			"control": "spinBox",
+			"name": "minradius",
+			"title": "Minimum Radius",
+			"tooltip": "How far away from the source the light will emit from.",
+			"type": "double",
+			"value-min": 0,
+			"value-max": 1000,
+			"value-default": 0
+		},
+		{
+			"control": "spinBox",
+			"name": "brightness",
+			"title": "Brightness",
+			"tooltip": "How bright the light will be.",
+			"type": "double",
+			"value-min": 0,
+			"value-max": 20,
+			"value-default": 1
+		},
+		{
+			"control": "pointBox",
+			"name": "sourceEnd",
+			"title": "Source End",
+			"tooltip": "The end point of the line source, relative to the base location.",
+			"type": "double",
+			"value-min": {"x":-10000, "y":-10000},
+			"value-max": {"x":10000, "y":10000},
+			"value-default": {"x":32, "y":0}
+		},
+		{
+		"control": "checkbox",
+		"name": "flicker",
+		"title": "Flicker",
+		"tooltip": "Whether the light should flicker.",
+		"text-visible": false,
+		"value-default": false
+		}
+	]
+}

@@ -1,0 +1,37 @@
+== Crash Summary ==
+LunaLua Version: LUNALUA V0.7.3.2 BETA
+Exception Code: 0xc0000005 (Access Violation)
+
+== Stack Trace ==
+0: 73F27637 (LunaDll): lua_close
+1: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\luamain\lunaluamain.cpp (172): CLunaLua::shutdown
+2: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\luamain\lunaluamain.h (129): CLunaLua::callLuaFunction<lua_State *,char const *,std::shared_ptr<Event> >
+3: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\luamain\lunaluamain.h (162): CLunaLua::callEvent<>
+4: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\luamain\lunaluamain.cpp (1570): CLunaLua::triggerOnStart
+5: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\misc\runtimehookcomponents\runtimehookhooks.cpp (625): __vbaStrCmp_TriggerSMBXEventHook
+6: 00AA4357 ((module-name not available)): (function-name not available)
+7: 008C1FD9 ((module-name not available)): (function-name not available)
+8: 74D20145 (MSVBVM60): EbLoadRunTime
+9: 74D1E4C8 (MSVBVM60): EbSetContextWorkerThread
+10: 74D10FA7 (MSVBVM60): EbLibraryLoad
+11: 74D1ADE6 (MSVBVM60): ThunRTMain
+12: 74D1ACEC (MSVBVM60): ThunRTMain
+13: 0040BDE2 ((module-name not available)): (function-name not available)
+14: 7758D6DB (ntdll): RtlInitializeExceptionChain
+15: 7758D661 (ntdll): RtlGetAppContainerNamedObjectPath
+
+== Counts ==
+numWater=0
+numWarps=2
+numBlock=830
+numBackground=201
+numNPCs=27
+numEffects=0
+numPlayers =1
+
+== Reporting ==
+If you like to help us finding the error then please post this log at:
+* The Codehaus Discord server or
+* https://www.smbxgame.com/forums/viewforum.php?f=35 or
+* https://talkhaus.raocow.com/viewforum.php?f=36
+

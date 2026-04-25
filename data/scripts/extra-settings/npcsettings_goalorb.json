@@ -1,0 +1,13 @@
+{
+	"style" : "groupbox",
+	"title" : "Goal Orb Settings",
+	"layout": [
+		{
+			"control": "checkBox",
+			"name": "noGravity",
+			"title": "No Gravity",
+			"tooltip": "If checked, the NPC will have no gravity and ignore collision.",
+			"value-default": false
+		}
+	]
+}

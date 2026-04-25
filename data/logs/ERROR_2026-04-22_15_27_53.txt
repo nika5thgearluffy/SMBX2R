@@ -1,0 +1,73 @@
+== Crash Summary ==
+LunaLua Version: LUNALUA V0.7.3.2 BETA
+Exception Code: 0xc0000005 (Access Violation)
+
+== Stack Trace ==
+0: 7741FB44 (OLEAUT32): SysFreeString
+1: 61AED870 (MSVBVM60): _vbaStrCopy
+2: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\episode\episodemain.cpp (771): EpisodeMain::LoadWorldMapLevel
+3: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\luamain\luaproxycomponent\luaproxyglobalfunctions\luaproxyglobalfunclevel.cpp (26): LuaProxy::Level::worldLoad
+4: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\luabind\detail\call.hpp (525): luabind::detail::invoke_struct<luabind::meta::type_list<>,luabind::meta::type_list<void,std::basic_string<char,std::char_traits<char>,std::allocator<char> > >,void (__cdecl*)(std::basic_string<char,std::char_traits<char>,std::allocator<char> >)>::invoke
+5: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\luabind\make_function.hpp (41): luabind::detail::function_object_impl<void (__cdecl*)(std::basic_string<char,std::char_traits<char>,std::allocator<char> >),luabind::meta::type_list<void,std::basic_string<char,std::char_traits<char>,std::allocator<char> > >,luabind::meta::type_list<> >::call
+6: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\luabind\detail\call.hpp (517): luabind::detail::invoke_struct<luabind::meta::type_list<>,luabind::meta::type_list<void,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int>,void (__cdecl*)(std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int)>::invoke
+7: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\luabind\make_function.hpp (58): luabind::detail::function_object_impl<void (__cdecl*)(std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int),luabind::meta::type_list<void,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int>,luabind::meta::type_list<> >::invoke_defer
+8: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\luabind\make_function.hpp (79): luabind::detail::function_object_impl<void (__cdecl*)(std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int),luabind::meta::type_list<void,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int>,luabind::meta::type_list<> >::entry_point
+9: 6044283B (LunaDll): lj_BC_FUNCC
+10: 606C0316 (LunaDll): lua_pcall
+11: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\src\pcall.cpp (43): luabind::detail::pcall
+12: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\libs\luabind-deboostified\luabind\detail\call_function.hpp (156): luabind::call_function<void,luabind::meta::type_list<>,std::shared_ptr<Event> &,int &,bool &,std::basic_string<char,std::char_traits<char>,std::allocator<char> > &,int &>
+13: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\luamain\lunaluamain.h (115): CLunaLua::callLuaFunction<lua_State *,char const *,std::shared_ptr<Event>,int,bool,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int>
+14: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\luamain\lunaluamain.h (162): CLunaLua::callEvent<int,bool,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int>
+15: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\misc\runtimehookcomponents\runtimehookgeneral.cpp (416): ProcessRawKeyPress
+16: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\misc\runtimehookcomponents\runtimehookgeneral.cpp (708): ProcessRawInput_OrigFunc
+17: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\misc\runtimehookcomponents\runtimehookgeneral.cpp (758): ProcessRawInput
+18: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\misc\runtimehookcomponents\runtimehookgeneral.cpp (1090): HandleWndProc
+19: 752297B3 (USER32): Ordinal2713
+20: 752185AD (USER32): MsgWaitForMultipleObjectsEx
+21: 75217D1A (USER32): CallWindowProcW
+22: 60DA159D (OPENGL32): glDebugEntry
+23: 752297B3 (USER32): Ordinal2713
+24: 752185AD (USER32): MsgWaitForMultipleObjectsEx
+25: 7521757A (USER32): DispatchMessageW
+26: 7529EEF1 (USER32): DispatchMessageA
+27: 61AD3E6B (MSVBVM60): _vbaInStr
+28: 61AD3DD1 (MSVBVM60): _vbaInStr
+29: 61AD3CAF (MSVBVM60): _vbaInStr
+30: 61AD3B43 (MSVBVM60): _vbaInStr
+31: 61AD9948 (MSVBVM60): _vbaVarCat
+32: 61AD997F (MSVBVM60): rtcDoEvents
+33: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\luamain\lunaluamain.h (142): CLunaLua::callLuaFunction<lua_State *,char const *,std::shared_ptr<Event>,int,bool,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int>
+34: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\luamain\lunaluamain.h (162): CLunaLua::callEvent<int,bool,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,int>
+35: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\misc\runtimehookcomponents\runtimehookgeneral.cpp (416): ProcessRawKeyPress
+36: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\misc\runtimehookcomponents\runtimehookgeneral.cpp (708): ProcessRawInput_OrigFunc
+37: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\misc\runtimehookcomponents\runtimehookgeneral.cpp (758): ProcessRawInput
+38: e:\drive\____source_code_archives\_smbx2_programs\lunarlua\lunadll\misc\runtimehookcomponents\runtimehookgeneral.cpp (1090): HandleWndProc
+39: 752297B3 (USER32): Ordinal2713
+40: 752185AD (USER32): MsgWaitForMultipleObjectsEx
+41: 75217D1A (USER32): CallWindowProcW
+42: 60DA159D (OPENGL32): glDebugEntry
+43: 752297B3 (USER32): Ordinal2713
+44: 752185AD (USER32): MsgWaitForMultipleObjectsEx
+45: 7521757A (USER32): DispatchMessageW
+46: 7529EEF1 (USER32): DispatchMessageA
+47: 61AD3E6B (MSVBVM60): _vbaInStr
+48: 61AD3DD1 (MSVBVM60): _vbaInStr
+49: 61AD3CAF (MSVBVM60): _vbaInStr
+50: 61AD3B43 (MSVBVM60): _vbaInStr
+51: 61AD9978 (MSVBVM60): rtcDoEvents
+
+== Counts ==
+numWater=0
+numWarps=0
+numBlock=0
+numBackground=0
+numNPCs=0
+numEffects=0
+numPlayers =1
+
+== Reporting ==
+If you like to help us finding the error then please post this log at:
+* The Codehaus Discord server or
+* https://www.smbxgame.com/forums/viewforum.php?f=35 or
+* https://talkhaus.raocow.com/viewforum.php?f=36
+

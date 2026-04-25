@@ -1,0 +1,33 @@
+{
+	"style" : "groupbox",
+	"title" : "Cannon Settings",
+	"layout": [
+		{
+			"control": "spinBox",
+			"name": "fireDelayTicks",
+			"title": "Timer",
+			"type": "int",
+			"tooltip": "Number of frames the cannon waits before firing.",
+			"value-default": 128,
+			"value-min": 1,
+			"value-max": 6400
+		},
+		{
+			"control": "spinBox",
+			"name": "soundID",
+			"title": "Sound",
+			"type": "int",
+			"tooltip": "ID of sound effect to play.",
+			"value-default": 22,
+			"value-min": 1,
+			"value-max": 91
+		},
+		{
+			"control": "checkBox",
+			"name": "spawnAttached",
+			"title": "Spawn Attached",
+			"tooltip": "If set to true, the spawned NPC will follow the NPC's path and no new NPCs will be spawned until the attached NPC is dead. Use with, for example, Dino Torch Fire.",
+			"value-default": false
+		}
+	]
+}

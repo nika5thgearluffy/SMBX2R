@@ -1,0 +1,14 @@
+
+fill-color = #000000
+
+[BG]
+img=72
+
+repeatX=true
+repeatY=true
+alignY=BOTTOM
+
+parallaxX=0.25
+parallaxY=0.25
+depth=100
+frames = 4

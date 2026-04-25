@@ -1,0 +1,15 @@
+{
+	"style" : "groupbox",
+	"title" : "Clear Vase Settings",
+	"layout": [
+		{
+			"control": "checkbox",
+			"name": "invisible",
+			"title": "Draw only contained NPC",
+			"tooltip": "When checked, the vase is hidden and only the contained NPC is drawn.",
+			"text-visible": false,
+			"value-default": false
+		}
+	]
+}
+

@@ -1,0 +1,34 @@
+{
+	"style" : "groupbox",
+	"title" : "Bros Settings",
+	"layout" : [
+		{
+			"control" : "checkBox",
+			"name" : "regularJumpNoBlockCollision",
+			"title" : "Don't bonk ceilings",
+			"tooltip" : "If set to true, regular jumps will pass through blocks and always land at the same Y coordinate as they started.",
+			"value-default" : false
+		},
+		{
+			"control" : "spinbox",
+			"name" : "ledgeSeekRange",
+			"title" : "Ledge Radius",
+			"type" : "int",
+			"tooltip" : "How far up/down this bro is willing to jump to find another ledge.",
+			"value-default" : 0,
+			"value-min" : 0,
+			"value-max" : 999,
+			"single-step": 32
+		},
+		{
+			"control" : "spinbox",
+			"name" : "ledgeJumpChance",
+			"title" : "Ledge Jump Chance",
+			"type" : "double",
+			"tooltip" : "Does not take effect if the Ledge Radius is 0. % of jumps that are ledge jumps instead of normal jumps.",
+			"value-default" : 0.5,
+			"value-min" : 0,
+			"value-max" : 1
+		}
+	]
+}

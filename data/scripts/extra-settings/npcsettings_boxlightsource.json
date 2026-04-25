@@ -1,0 +1,69 @@
+{
+	"style" : "groupbox",
+	"title" : "Light Source Settings",
+	"layout": [
+		{
+			"control": "color",
+			"name": "color",
+			"title": "Color",
+			"tooltip": "The color of the light.",
+			"value-default": "#FFFFFF"
+		},
+		{
+		"control": "checkbox",
+		"name": "centered",
+		"title": "Centered",
+		"tooltip": "Whether the light is centered on the npc (top-left anchored if not).",
+		"text-visible": false,
+		"value-default": true
+		},
+		{
+			"control": "spinBox",
+			"name": "radius",
+			"title": "Radius",
+			"tooltip": "How far the light will spread away from the source.",
+			"type": "double",
+			"value-min": 0,
+			"value-max": 1000,
+			"value-default": 128
+		},
+		{
+			"control": "spinBox",
+			"name": "minradius",
+			"title": "Minimum Radius",
+			"tooltip": "How far away from the source the light will emit from.",
+			"type": "double",
+			"value-min": 0,
+			"value-max": 1000,
+			"value-default": 0
+		},
+		{
+			"control": "spinBox",
+			"name": "brightness",
+			"title": "Brightness",
+			"tooltip": "How bright the light will be.",
+			"type": "double",
+			"value-min": 0,
+			"value-max": 20,
+			"value-default": 1
+		},
+		{
+			"control": "sizeBox",
+			"name": "sourceSize",
+			"title": "Source Size",
+			"tooltip": "How large the source of the light will be.",
+			"type": "double",
+			"value-min": {"w":0, "h":0},
+			"value-max": {"w":10000, "h":10000},
+			"value-default": {"w":32, "h":32}
+		},
+		{
+		"control": "checkbox",
+		"name": "flicker",
+		"title": "Flicker",
+		"tooltip": "Whether the light should flicker.",
+		"text-visible": false,
+		"value-default": false
+		}
+	]
+}
