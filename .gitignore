@@ -6,6 +6,10 @@
 /!user_files/*
 !DO_NOT_DELETE!.txt
 
+# Ignore everything in the logs folder except ".gitkeep"
+/data/logs/*
+!.gitkeep
+
 # Ignore other misc LunarLuna build files that's used for debugging
 /data/LunaDll.exp
 /data/LunaDll.lib
