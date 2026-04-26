@@ -583,6 +583,8 @@ do
         local folderList = {
             getSMBXPath().."\\",
             Misc.episodePath(),
+            getSMBXPath().."\\music\\",
+            Misc.episodePath().."\\music\\",
         }
 
         local existsOrNot;

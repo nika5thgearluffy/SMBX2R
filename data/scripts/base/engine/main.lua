@@ -685,6 +685,169 @@ do
 	end
 end
 
+-----------------------
+-- Music.ini Parsing --
+-----------------------
+
+local loadMusicIni
+local AUDIO_MUSIC_OVERWORLD = 1
+local AUDIO_MUSIC_SPECIAL = 2
+local AUDIO_MUSIC_LEVEL = 3
+
+do
+    local tableinsert = table.insert
+    local iniparse = basegameRequire("configFileReader")
+
+    function testMusicIdx(soundIdx, category)
+        return type(soundIdx) == "number" and math.floor(soundIdx) == soundIdx and soundIdx >= 1 and soundIdx <= Audio.MusicCount()[category]
+    end
+
+    function parseMusicIni(path)
+        local data = {}
+        local headers = {}
+        local index = nil
+        local folderpath = path
+        path = path.."music.ini"
+        
+        local check=io.open(path, "r")      
+      
+        if check == nil then
+            return
+        else
+            check:close()
+        end
+        
+        local maxId = {}
+        maxId[1] = 0
+        maxId[2] = 0
+        maxId[3] = 0
+        
+        local finalId = {}
+        finalId[1] = 0
+        finalId[2] = 0
+        finalId[3] = 0
+        
+        local id1
+        local id2
+        local id3
+        
+        local inilines = io.readFileLines(path)
+        assert(inilines ~= nil, "Error loading music.ini")
+        for _,v in ipairs(inilines) do
+            if v ~= nil then
+                local header = v:match("^%s*%[%s*(%S+)%s*%]%s*$")
+                if header then
+                    if data[header] == nil then
+                        data[header] = {}
+                        tableinsert(headers, header)
+                    end
+                    index = header
+                elseif index ~= nil and data[index] ~= nil then
+                    tableinsert(data[index], v)
+                end
+            end
+        end
+        
+        for idxNum,h in ipairs(headers) do
+            id1 = h:lower():match("special%s*%-%s*music%s*%-%s*(%d+)")
+
+            --special
+            if id1 ~= nil then
+                id1 = tonumber(id1)
+                if id1 ~= nil and testMusicIdx(id1, AUDIO_MUSIC_SPECIAL) then
+                    local l = iniparse.dataParse(data[h], enums, allowranges)
+                    if l.file[1] == "/" or l.file[1] == "\\" then
+                        l.file = l.file:sub(2,-1)
+                    end
+                    local file = Misc.resolveMusicFile(l.file)
+                    if file then
+                        Audio.MusicChangeIndex(AUDIO_MUSIC_SPECIAL, id1, file)
+                    else
+                        Misc.warn("Could not load special song from music.ini: "..l.file)
+                    end
+                else
+                    Misc.warn("Invalid music ID "..id1.." found in music.ini (Special music)")
+                end
+            end
+
+            --overworld
+            id2 = h:lower():match("world%s*%-%s*music%s*%-%s*(%d+)")
+            
+            if id2 ~= nil then
+                id2 = tonumber(id2)
+                if id2 ~= 17 then
+                    if testMusicIdx(id2, AUDIO_MUSIC_OVERWORLD) then
+                        local l = iniparse.dataParse(data[h], enums, allowranges)
+                        if l.file[1] == "/" or l.file[1] == "\\" then
+                            l.file = l.file:sub(2,-1)
+                        end
+                        local file = Misc.resolveMusicFile(l.file)
+                        if file then
+                            Audio.MusicChangeIndex(AUDIO_MUSIC_OVERWORLD, id2, file)
+                        else
+                            Misc.warn("Could not load overworld song from music.ini: "..l.file)
+                        end
+                    else
+                        Misc.warn("Invalid music ID "..id2.." found in music.ini (World music)")
+                    end
+                end
+            end
+
+            --level
+            id3 = h:lower():match("level%s*%-%s*music%s*%-%s*(%d+)")
+            
+            if id3 ~= nil then
+                id3 = tonumber(id3)
+                if id3 ~= 24 then
+                    if testMusicIdx(id3, AUDIO_MUSIC_LEVEL) then
+                        local l = iniparse.dataParse(data[h], enums, allowranges)
+                        if l.file[1] == "/" or l.file[1] == "\\" then
+                            l.file = l.file:sub(2,-1)
+                        end
+                        local file = Misc.resolveMusicFile(l.file)
+                        if file then
+                            Audio.MusicChangeIndex(AUDIO_MUSIC_LEVEL, id3, file)
+                        else
+                            Misc.warn("Could not load level song from music.ini: "..l.file)
+                        end
+                    else
+                        Misc.warn("Invalid music ID "..id3.." found in music.ini (Level music)")
+                    end
+                end
+            end
+        end
+    end
+
+    function loadMusicsIni()
+        parseMusicIni(getSMBXPath().."/")
+        if not Misc.inEditor() then
+            local epidx = Episode.id();
+            
+            if epidx >= 0 then
+                local eppath = Episode.list()[epidx].episodePath
+                parseMusicIni(eppath)
+            
+                if not isOverworld then
+                    local f = Level.filename()
+                    local i = f:match(".*%.()")
+                    if i ~= nil then
+                        parseMusicIni(eppath..f:sub(1,(i-2)).."/")
+                    end
+                end
+            end
+        else
+            parseMusicIni(Misc.episodePath())
+            if not isOverworld then
+                local f = Level.filename()
+                local i = f:match(".*%.()")
+                if i ~= nil then
+                    parseMusicIni(Misc.episodePath()..f:sub(1,(i-2)).."/")
+                end
+            end
+        end
+    end
+end
+
 
 
 ---------------------------------------------------------------------------
@@ -845,8 +1008,9 @@ function __onInit(episodePath, lvlName)
 			lowLevelLibraryContext._G.vector = basegameContext._G.vector
 		end
 		
-		-- Parse and load sounds.ini file (this can throw warnings, which is why we need it here)
+		-- Parse and load sounds.ini and music.ini files (this can throw warnings, which is why we need it here)
 		loadSoundsIni()
+        loadMusicsIni()
 		
 		-- Core libraries
 		-- Libraries which provide core functionality, but do not affect the global
