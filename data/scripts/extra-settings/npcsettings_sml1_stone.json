@@ -1,0 +1,26 @@
+{
+	"style" : "groupbox",
+	"title" : "Falling Stone Settings",
+	"layout": [
+		{
+			"control": "spinBox",
+			"name": "range",
+			"type": "int",
+			"title": "Range",
+			"tooltip": "How many pixels from the falling stone's edges does the game check for players?\n\n(one block is generally 32 pixels)\n\nNote: this range is not from the middle but from the left and right edges!",
+			"value-default": 32,
+			"value-min": 0,
+			"value-max": 1000
+		},
+		{
+			"control": "spinBox",
+			"name": "speed",
+			"type": "int",
+			"title": "Speed",
+			"tooltip": "The speed of the falling block.",
+			"value-default": 4,
+			"value-min": 1,
+			"value-max": 8
+		}
+	]
+}

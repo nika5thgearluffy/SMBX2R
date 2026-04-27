@@ -24,3 +24,4 @@ data/PGE/settings/pge_editor.ini
 
 # Ignore any other configs on the editor
 data/PGE/configs/TheXTech-SDK
+data/PGE/settings/pge_editor_config_TheXTech-SDK.ini
