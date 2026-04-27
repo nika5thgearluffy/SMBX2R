@@ -21,3 +21,6 @@
 
 # Ignore editor files that's set by the user
 data/PGE/settings/pge_editor.ini
+
+# Ignore any other configs on the editor
+data/PGE/configs/TheXTech-SDK
