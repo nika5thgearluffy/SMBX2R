@@ -366,6 +366,10 @@ function cfg.onTick.TICK_RADIALTIMER(v)
 	end
 end
 
+function cfg.onTick.TICK_SML(v)
+	v.speedX = 2 * -v.direction
+end
+
 --place onDeath presets here
 
 function cfg.onDeath.DEATH_TURNBLOCK(v)

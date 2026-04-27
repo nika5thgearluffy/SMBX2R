@@ -268,7 +268,7 @@ function npcManager.onPostNPCKill(npc, reason)
 			width = npc.width,
 			height = npc.height
 		}
-		local a = Effect.spawn(aid,momentum, variant, npcID, drawOnlyMask);
+		local a = Effect.spawn(aid, momentum, variant, npcID, drawOnlyMask);
 		a.x = a.x-((rex)*a.width);
 		a.y = a.y-((rey)*a.height);
 		a.speedX = speedX or a.speedX
