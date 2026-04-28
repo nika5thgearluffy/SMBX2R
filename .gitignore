@@ -3,7 +3,7 @@
 !.gitkeep
 
 # Ignore everything in the user files folder except the do not delete file
-/!user_files/*
+/!user-files/*
 !DO_NOT_DELETE!.txt
 
 # Ignore everything in the logs folder except ".gitkeep"
