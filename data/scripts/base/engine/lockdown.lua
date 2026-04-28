@@ -68,6 +68,18 @@ if File ~= nil then
                 return
             end
         end)
+
+        local ogFolderCreation = File.createFolder
+        File.createFolder = (function(filePath)  
+            local canWrite
+            filePath, canWrite = io.makeSafeAbsolutePath(filePath2)
+            if canWrite then
+                ogFolderCreation(filePath)
+            else
+                error("Making a folder at '" .. filePath .. "' is not allowed.")
+                return
+            end
+        end)
     end
 end
 
