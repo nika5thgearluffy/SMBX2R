@@ -57,10 +57,10 @@ npcManager.registerHarmTypes(npcID, {
     HARM_TYPE_SPINJUMP,  HARM_TYPE_OFFSCREEN,
     HARM_TYPE_SWORD
 }, {
-    [HARM_TYPE_JUMP] = 318,
-    [HARM_TYPE_FROMBELOW] = 318,
-    [HARM_TYPE_NPC] = 318,
-    [HARM_TYPE_PROJECTILE_USED] = 318,
+    [HARM_TYPE_JUMP] = 317,
+    [HARM_TYPE_FROMBELOW] = 317,
+    [HARM_TYPE_NPC] = 317,
+    [HARM_TYPE_PROJECTILE_USED] = 317,
     [HARM_TYPE_LAVA] = {
         id = 13,
         xoffset = 0.5,
@@ -68,10 +68,10 @@ npcManager.registerHarmTypes(npcID, {
         yoffset = 1,
         yoffsetBack = 1.5
     },
-    [HARM_TYPE_HELD] = 318,
-    [HARM_TYPE_TAIL] = 318,
+    [HARM_TYPE_HELD] = 317,
+    [HARM_TYPE_TAIL] = 317,
     [HARM_TYPE_SPINJUMP] = 10,
-     [HARM_TYPE_OFFSCREEN]= 317,
+    [HARM_TYPE_OFFSCREEN] = 318,
     [HARM_TYPE_SWORD] = 10
 });
 
