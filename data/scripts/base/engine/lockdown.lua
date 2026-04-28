@@ -72,7 +72,7 @@ if File ~= nil then
         local ogFolderCreation = File.createFolder
         File.createFolder = (function(filePath)  
             local canWrite
-            filePath, canWrite = io.makeSafeAbsolutePath(filePath2)
+            filePath, canWrite = io.makeSafeAbsolutePath(filePath)
             if canWrite then
                 ogFolderCreation(filePath)
             else
