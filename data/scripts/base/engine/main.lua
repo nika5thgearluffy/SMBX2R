@@ -823,7 +823,7 @@ do
         if not Misc.inEditor() then
             local epidx = Episode.id();
             
-            if epidx >= 0 then
+            if epidx ~= nil and epidx >= 0 then
                 local eppath = Episode.list()[epidx].episodePath
                 parseMusicIni(eppath)
             

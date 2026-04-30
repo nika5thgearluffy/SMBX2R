@@ -636,6 +636,11 @@ function Misc.givePoints(index, position, supressSound)
 	end
 end
 
+-- This is the same as Misc.dialog, except it doesn't have a cancel button
+function Misc.dialogSimple(message)
+    return Text.windowDebugSimple(message)
+end
+
 
 local offset_lives = 0x00B2C5AC
 local offset_coins = 0x00B2C5A8

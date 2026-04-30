@@ -83,6 +83,25 @@ if File ~= nil then
     end
 end
 
+------------------------
+-- Lock down Internet --
+------------------------
+if Internet ~= nil then
+    do
+        local ogInternetDL = Internet.downloadFile
+        Internet.downloadFile = (function(url, filePath)  
+            local canWrite
+            filePath, canWrite = io.makeSafeAbsolutePath(filePath)
+            if canWrite then
+                ogInternetDL(url, filePath)
+            else
+                error("Downloading a file at '" .. filePath .. "' is not allowed.")
+                return
+            end
+        end)
+    end
+end
+
 ------------------
 -- Lock down io --
 ------------------

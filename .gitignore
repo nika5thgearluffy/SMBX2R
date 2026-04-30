@@ -18,6 +18,7 @@
 /data/LunaLoader.iobj
 /data/LunaLoader.ipdb
 /data/LunaLoader.pdb
+/data/LunaDll.ilk
 
 # Ignore editor files that's set by the user
 data/PGE/settings/pge_editor.ini

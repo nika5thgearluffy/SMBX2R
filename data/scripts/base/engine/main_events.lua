@@ -41,6 +41,7 @@ Misc.LUNALUA_EVENTS = {
     "onGIFRecord", "onScreenCapture", "onLetterboxToggle",
     "onPlayerDie", "onPostPlayerDie", "onPlayersDead", "onPostPlayersDead",
     "onBattleModeWin",
+    "onDownloadStart", "onDownloadComplete",
     -- "HIDDEN" functions (Not exactly, but still)
     "_onDrawOverworld",
 }
