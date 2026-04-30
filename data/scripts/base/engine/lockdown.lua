@@ -90,13 +90,19 @@ if Internet ~= nil then
     do
         local ogInternetDL = Internet.downloadFile
         Internet.downloadFile = (function(url, filePath)  
-            local canWrite
-            filePath, canWrite = io.makeSafeAbsolutePath(filePath)
-            if canWrite then
-                ogInternetDL(url, filePath)
+            -- Writing to a file
+            if filePath ~= "" then
+                local canWrite
+                filePath, canWrite = io.makeSafeAbsolutePath(filePath)
+                if canWrite then
+                    ogInternetDL(url, filePath)
+                else
+                    error("Downloading a file at '" .. filePath .. "' is not allowed.")
+                    return
+                end
             else
-                error("Downloading a file at '" .. filePath .. "' is not allowed.")
-                return
+                -- Writing to the buffer
+                ogInternetDL(url, filePath)
             end
         end)
     end
