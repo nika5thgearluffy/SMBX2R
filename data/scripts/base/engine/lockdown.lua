@@ -86,7 +86,7 @@ end
 ------------------------
 -- Lock down Internet --
 ------------------------
-if Internet ~= nil then
+--[[if Internet ~= nil then
     do
         local ogInternetDL = Internet.downloadFile
         Internet.downloadFile = (function(url, filePath)  
@@ -106,7 +106,7 @@ if Internet ~= nil then
             end
         end)
     end
-end
+end]]
 
 ------------------
 -- Lock down io --
