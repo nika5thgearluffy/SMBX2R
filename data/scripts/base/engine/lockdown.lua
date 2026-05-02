@@ -21,7 +21,7 @@ if os ~= nil then
     do
         newOS.remove = (function(filePath)
             local canWrite
-            filePath, canWrite = makeSafeAbsolutePath(filePath)
+            filePath, canWrite = io.makeSafeAbsolutePathNoFileRestrictions(filePath)
             if canWrite then
                 osRemove(filePath)
             else
@@ -32,9 +32,9 @@ if os ~= nil then
         
         newOS.rename = (function(oldFilePath, newFilePath)  
             local canWrite1
-            oldFilePath, canWrite1 = makeSafeAbsolutePath(oldFilePath)
+            oldFilePath, canWrite1 = io.makeSafeAbsolutePathNoFileRestrictions(oldFilePath)
             local canWrite2
-            newFilePath, canWrite2 = makeSafeAbsolutePath(newFilePath)
+            newFilePath, canWrite2 = io.makeSafeAbsolutePathNoFileRestrictions(newFilePath)
             if canWrite1 and canWrite2 then
                 osRename(oldFilePath, newFilePath)
             else
@@ -60,7 +60,7 @@ if File ~= nil then
         local ogFileCopy = File.copy
         File.copy = (function(filePath1, filePath2)  
             local canWrite
-            filePath2, canWrite = io.makeSafeAbsolutePath(filePath2)
+            filePath2, canWrite = io.makeSafeAbsolutePathNoFileRestrictions(filePath2)
             if canWrite then
                 ogFileCopy(filePath1, filePath2)
             else
@@ -72,7 +72,7 @@ if File ~= nil then
         local ogFolderCreation = File.createFolder
         File.createFolder = (function(filePath)  
             local canWrite
-            filePath, canWrite = io.makeSafeAbsolutePath(filePath)
+            filePath, canWrite = io.makeSafeAbsolutePathNoFileRestrictions(filePath)
             if canWrite then
                 ogFolderCreation(filePath)
             else
@@ -86,14 +86,14 @@ end
 ------------------------
 -- Lock down Internet --
 ------------------------
---[[if Internet ~= nil then
+if Internet ~= nil then
     do
         local ogInternetDL = Internet.downloadFile
         Internet.downloadFile = (function(url, filePath)  
             -- Writing to a file
             if filePath ~= "" then
                 local canWrite
-                filePath, canWrite = io.makeSafeAbsolutePath(filePath)
+                filePath, canWrite = io.makeSafeAbsolutePathNoFileRestrictions(filePath)
                 if canWrite then
                     ogInternetDL(url, filePath)
                 else
@@ -106,7 +106,7 @@ end
             end
         end)
     end
-end]]
+end
 
 ------------------
 -- Lock down io --
@@ -135,10 +135,20 @@ do
 		
 		
 		LunaPathValidatorResult* LunaLuaMakeSafeAbsolutePath(const char* path);
+        LunaPathValidatorResult* LunaLuaMakeSafeAbsolutePathNoFileRestriction(const char* path);
 	]])
 	local LunaDLL = ffi.load("LunaDll.dll")
 	local function makeSafeAbsolutePath(path)
 		local ptr = LunaDLL.LunaLuaMakeSafeAbsolutePath(path)
+		if ptr == nil then
+			error("Invalid path!\nPath: " .. path)
+			return nil, false
+		end
+		
+		return ffi.string(ptr.path, ptr.len), ptr.canWrite
+	end
+    local function makeSafeAbsolutePathNoFileRestrictions(path)
+		local ptr = LunaDLL.LunaLuaMakeSafeAbsolutePathNoFileRestriction(path)
 		if ptr == nil then
 			error("Invalid path!\nPath: " .. path)
 			return nil, false
@@ -179,6 +189,7 @@ do
 		return nativeIO.lines(path)
 	end
 	newIO.makeSafeAbsolutePath = makeSafeAbsolutePath
+    newIO.makeSafeAbsolutePathNoFileRestrictions = makeSafeAbsolutePathNoFileRestrictions
 	
 	io = newIO
 	_G.io = newIO
