@@ -51,10 +51,21 @@ setmetatable(audio.volume, VolumeSet);
 --Determine whether to listen for audio from the camera or the player.
 audio.listener = audio.LISTEN_CAMERA;
 
+-- This is used for settings related to SFXs.
+audio.settings = {}
+audio.settings.sfx = {}
+for i = 1, Audio.SfxCount() do
+    audio.settings.sfx[i] = {}
+end
+
+-- Set this to true to use the original SMMBX sound system.
+audio.settings.legacyMode = false
+
 function audio.onInitAPI()
 	registerEvent(audio, "onCameraDraw", "onCameraDraw", false);
 	registerEvent(audio, "onDraw", "onDraw", false);
 	registerEvent(audio, "onExitLevel", "onExitLevel", false);
+    registerEvent(audio, "onSFXStart", "onSFXStart", false);
 end
 
 local sources = {};
@@ -432,6 +443,12 @@ function audio.onExitLevel()
 		k:Volume(128);
 		k:SetPanning(255,255);
 	end
+end
+
+function audio.onSFXStart(evt, id, sfxFile)
+    if not audio.settings.legacyMode then
+        
+    end
 end
 
 do

@@ -200,7 +200,8 @@ local tableremove = table.remove
 
 local blockTableToFuncMap = {
 	SOLID = function(v) return not (v.passthrough or v.semisolid or v.sizable) and (v.playerfilter == 0) and (v.npcfilter == 0) end,
-	NONSOLID = function(v) return v.passthrough end, -- TODO: This name seems misleading. I would tend to expect "NONSOLID" to mean all blocks not in the list "SOLID". That's not at all what it actually is though.
+	NONSOLID = function(v) return v.passthrough end, -- (Kept for compatibility)
+    PASSTHROUGH = function(v) return v.passthrough end,
 	SEMISOLID = function(v) return (not v.passthrough) and (v.semisolid or v.sizable) end,
 	SIZEABLE = function(v) return v.sizable end,
 	HURT = function(v) return v.customhurt end,
@@ -303,6 +304,12 @@ local npcTableToFuncMap = {
 	CLEARPIPE = function(v) return v.useclearpipe end,
 	COIN = function(v) return v.iscoin end,
 	WEIGHT = function(v) return v.isheavy end, -- isheavy is true if the NPC has weight
+    -- If an NPC is a vine head (That spawns vines), this returns them.
+    VINEHEAD = function(v) return (
+        v.id == 225 or
+        v.id == 226 or
+        v.id == 227
+    ) end
 }
 
 expandedDefines.NPC_LISTS = {}
