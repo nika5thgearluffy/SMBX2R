@@ -563,7 +563,7 @@ do
 			if configFileReader == nil then
 				configFileReader = require(getSMBXPath().."\\scripts\\base\\configFileReader.lua")
 			end
-			local ini = Misc.resolveFile("npc-"..npcid..".ini") or getSMBXPath().."/PGE/configs/SMBX2-Integration/items/npc/npc-"..npcid..".ini"
+			local ini = Misc.resolveFile("npc-"..npcid..".ini") or getSMBXPath().."/PGE/configs/SMBX2R-Integration/items/npc/npc-"..npcid..".ini"
 			if ini == nil then
 				editorProps[npcid] = {}
 			else

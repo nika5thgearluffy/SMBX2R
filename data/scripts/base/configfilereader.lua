@@ -66,12 +66,11 @@ end
 
 function configFileReader.rawParse(objectPath, keephex)	
 	local finalArray = {}
-	if objectPath ~= nil then	
-	
-	local lns = io.readFileLines(objectPath)
-	if lns == nil then
-		error("Error loading config file "..objectPath, 2)
-	end
+	if objectPath ~= nil then
+        local lns = io.readFileLines(objectPath)
+        if lns == nil then
+            error("Error loading config file "..objectPath, 2)
+        end
 		for _,line in ipairs(lns) do
 			if not match(line, "^%s*$") then
 				local key, value, err = parseLine(line, nil, false, keephex);
