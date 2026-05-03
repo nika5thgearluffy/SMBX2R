@@ -38,7 +38,7 @@ Misc.LUNALUA_EVENTS = {
 	"onCollide", "onIntersect", -- Defined for block collisions
     -- LunarLua events below
     "onSFXStart",
-    "onGIFRecord", "onScreenCapture", "onLetterboxToggle",
+    "onGIFRecord", "onGIFRecordFull", "onScreenCapture", "onLetterboxToggle",
     "onPlayerDie", "onPostPlayerDie", "onPlayersDead", "onPostPlayersDead",
     "onBattleModeWin",
     "onDownloadStart", "onDownloadComplete",
