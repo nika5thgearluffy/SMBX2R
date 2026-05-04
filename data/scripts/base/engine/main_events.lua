@@ -37,11 +37,18 @@ Misc.LUNALUA_EVENTS = {
 	-- CUSTOM events below
 	"onCollide", "onIntersect", -- Defined for block collisions
     -- LunarLua events below
+    -- [SFX]
     "onSFXStart",
+    -- [F-Commands]
     "onGIFRecord", "onGIFRecordFull", "onScreenCapture", "onLetterboxToggle",
+    -- [Player Death States]
     "onPlayerDie", "onPostPlayerDie", "onPlayersDead", "onPostPlayersDead",
+    -- [Classic Battle Mode]
     "onBattleModeWin",
+    -- [Downloads]
     "onDownloadStart", "onDownloadComplete",
+    -- [Thread]
+    "onThread", "onThreadBusy", "onThreadBusyComplete",
     -- "HIDDEN" functions (Not exactly, but still)
     "_onDrawOverworld",
 }
