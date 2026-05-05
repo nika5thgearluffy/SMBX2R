@@ -147,11 +147,11 @@ function autoscroll.scrollRight(speed, boundary, section)
 		x1 = c.x
 	end
 	
-	x2 = x1 + 800
+	x2 = x1 + camera.width
 	setSectionBounds(section, x1, y1, y2, x2)
 	
 	x2 = boundary
-	x1 = x2 - 800
+	x1 = x2 - camera.width
 	
 	autoscroll.scrollToBox(x1, y1, x2, y2, speed, section)
 end
@@ -178,11 +178,11 @@ function autoscroll.scrollLeft(speed, boundary, section)
 		x2 = c.x + c.width
 	end
 	
-	x1 = x2 - 800
+	x1 = x2 - camera.width
 	setSectionBounds(section, x1, y1, y2, x2)
 	
 	x1 = boundary
-	x2 = x1 + 800
+	x2 = x1 + camera.width
 	
 	autoscroll.scrollToBox(x1, y1, x2, y2, speed, section)
 end
@@ -209,11 +209,11 @@ function autoscroll.scrollUp(speed, boundary, section)
 		y2 = c.y + c.height
 	end
 	
-	y1 = y2 - 600
+	y1 = y2 - camera.height
 	setSectionBounds(section, x1, y1, y2, x2)
 	
 	y1 = boundary
-	y2 = y1 + 600
+	y2 = y1 + camera.height
 	
 	autoscroll.scrollToBox(x1, y1, x2, y2, speed, section)
 end
@@ -240,11 +240,11 @@ function autoscroll.scrollDown(speed, boundary, section)
 		y1 = c.y
 	end
 	
-	y2 = y1 + 600
+	y2 = y1 + camera.height
 	setSectionBounds(section, x1, y1, y2, x2)
 	
 	y2 = boundary
-	y1 = y2 - 600
+	y1 = y2 - camera.height
 	
 	autoscroll.scrollToBox(x1, y1, x2, y2, speed, section)
 end
@@ -257,8 +257,8 @@ function autoscroll.scrollTo(left, bottom, speed, section)
 	if section == nil then section = player.section end
 	
 	local x1, y2 = left, bottom
-	local x2 = x1 + 800
-	local y1 = y2 - 600
+	local x2 = x1 + camera.width
+	local y1 = y2 - camera.height
 	
 	if (speed ~= nil) and (speed ~= 0) and (section == player.section) then
 		autoscroll.lockScreen(1)

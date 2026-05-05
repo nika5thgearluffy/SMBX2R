@@ -29,6 +29,7 @@ local frameBuffer = Graphics.CaptureBuffer(800, 600)
 function keyhole.onInitAPI()
 	registerEvent(keyhole, "onStart", "onStart", true)
 	registerEvent(keyhole, "onCameraDraw", "onCameraDraw", true)
+    registerEvent(keyhole, "onFramebufferResize", "onFramebufferResize", true)
 end
 
 local function worldToScreen(x,y,camNumber)
@@ -41,6 +42,11 @@ local function worldToScreen(x,y,camNumber)
 end	
 
 
+
+function keyhole.onFramebufferResize()
+    local width,height = Graphics.getMainFramebufferSize()
+    frameBuffer = Graphics.CaptureBuffer(width,height)
+end
 
 -- Define the lock mesh offsets
 function keyhole.onStart()
