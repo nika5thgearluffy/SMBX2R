@@ -303,9 +303,10 @@ function keyhole.render (scale, mask)
 	-- UVs
 	local vertColors = {}
 	local uvPoints = {}
+    local width,height = Graphics.getMainFramebufferSize()
 	for  i=1,#meshPoints-1,2  do
-		uvPoints[i] = meshPoints[i]/800
-		uvPoints[i+1] = meshPoints[i+1]/600
+		uvPoints[i] = meshPoints[i]/width
+		uvPoints[i+1] = meshPoints[i+1]/height
 	end
 	
 	-- vertex colors (for debugging)
