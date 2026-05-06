@@ -30,6 +30,12 @@ end
 local playerRiding = 0
 local saveMount = 0
 
+function pop.isRidingPop(p)
+    return (playerRiding == p)
+end
+
+Player._inPop = pop.isRidingPop
+
 function pop.onTickEndNPC(v)
 	--Don't act during time freeze
 	if Defines.levelFreeze then return end

@@ -311,62 +311,82 @@ local function npcEnvironmentCallback(name, env)
 	})
 end
 
+local basegameNpcRequire
+local customNpcRequire
+
 local doneLoadingNpcCode = false
+local overriddenIDs = {}
+
 function npcManager.loadNpcCode()
-	-- Be sure to only run once
-	if (doneLoadingNpcCode) then
-		return
-	end
-	doneLoadingNpcCode = true
-	
-	local require_utils = require("require_utils")
-	local string_gsub = string.gsub
-	
-	local relEpisodePath = require_utils.normalizeRelPath(Misc.episodePath())
-	
-	local basegameNpcPath = string_gsub(getSMBXPath(), ";", "<") .. "\\scripts\\npcs\\npc-?.lua;"
-	local basegameNpcRequire = require_utils.makeRequire(
-		basegameNpcPath, -- Path
-		Misc.getBasegameEnvironment(),  -- Global table
-		{}, -- Loaded Table
-		false, -- Share globals
-		false,  -- Assign require
-		nil, function() return nil end,
-		npcEnvironmentCallback)
-	
-	local customNpcPath = (
-			string_gsub(__customFolderPath, ";", "<") .. "npc-?.lua;" ..
-			string_gsub(__episodePath, ";", "<") .. "npc-?.lua"
-		)
-		
-	local customNpcRequire = require_utils.makeRequire(
-		customNpcPath, -- Path
-		Misc.getCustomEnvironment(),  -- Global table
-		{}, -- Loaded Table
-		false, -- Share globals
-		false,  -- Assign require
-		nil, function() return nil end,
-		npcEnvironmentCallback,
-		nil, true)
-	
-	-- TODO: more efficiently check what files exist
-	for id = 1,NPC_MAX_ID do
-		local lib = basegameNpcRequire(tostring(id))
-		if (type(lib) == "table") and (lib.onInitAPI ~= nil) then
-			lib.onInitAPI()
-		end
-	end
-	local debugstats = require("base\\engine\\debugstats")
-	for id = 1,NPC_MAX_ID do
-		local lib,pth = customNpcRequire(tostring(id))
-		if (lib ~= nil) then
-			-- Libraries that don't return their table should still show up in debugstats
-			debugstats.add(require_utils.normalizeRelPath(pth, relEpisodePath))
-			if (type(lib) == "table") and (lib.onInitAPI ~= nil) then
-				lib.onInitAPI()
-			end
-		end
-	end
+    if (doneLoadingNpcCode) then return end
+    doneLoadingNpcCode = true
+    
+    local require_utils = require("require_utils")
+    local string_gsub = string.gsub
+    local relEpisodePath = require_utils.normalizeRelPath(Misc.episodePath())
+    
+    local basegameNpcPath = string_gsub(getSMBXPath(), ";", "<") .. "\\scripts\\npcs\\npc-?.lua;"
+    basegameNpcRequire = require_utils.makeRequire(
+        basegameNpcPath,
+        Misc.getBasegameEnvironment(),
+        {},
+        false,
+        false,
+        nil, function() return nil end,
+        npcEnvironmentCallback)
+    
+    local customNpcPath = (
+        string_gsub(__customFolderPath, ";", "<") .. "npc-?.lua;" ..
+        string_gsub(__episodePath, ";", "<") .. "npc-?.lua"
+    )
+    
+    customNpcRequire = require_utils.makeRequire(
+        customNpcPath,
+        Misc.getCustomEnvironment(),
+        {},
+        true,
+        false,
+        nil, function() return nil end,
+        npcEnvironmentCallback,
+        nil, true)
+
+    local debugstats = require("base\\engine\\debugstats")
+
+    -- Check which IDs have custom files first
+    for id = 1, NPC_MAX_ID do
+        local lib, pth = customNpcRequire(tostring(id))
+        if lib ~= nil then
+            overriddenIDs[id] = true
+            debugstats.add(require_utils.normalizeRelPath(pth, relEpisodePath))
+        end
+    end
+
+    -- Load NPCs, using custom version if available, basegame otherwise
+    for id = 1, NPC_MAX_ID do
+        local lib
+        if overriddenIDs[id] then
+            -- Use custom file, skip basegame entirely
+            lib = customNpcRequire(tostring(id))
+        else
+            -- No custom file, use basegame
+            lib = basegameNpcRequire(tostring(id))
+        end
+
+        if (type(lib) == "table") and (lib.onInitAPI ~= nil) then
+            lib.onInitAPI()
+        end
+    end
+end
+
+function npcManager.isOverridden(id)
+    return overriddenIDs[id] == true
+end
+
+function npcManager.getActiveLib(id)
+    if overriddenIDs[id] then
+        return customNpcRequire(tostring(id))
+    end
+    return basegameNpcRequire(tostring(id))
 end
 
 return npcManager

@@ -531,6 +531,14 @@ function Misc.getBasegameEnvironment()
 	return basegameContext
 end
 
+function Misc.getCustomPackage()
+    return customPackage
+end
+
+function Misc.getBasegamePackage()
+    return basegamePackage
+end
+
 -- Make this globally accessible (is this really needed?)
 basegameContext._G.EventManager = EventManager
 

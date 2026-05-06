@@ -73,8 +73,9 @@ local function blockEnvironmentCallback(name, env)
 	})
 end
 
-
 local doneLoadingBlockCode = false
+local overriddenIDs = {}
+
 function blockManager.loadBlockCode()
 	-- Be sure to only run once
 	if (doneLoadingBlockCode) then
@@ -95,12 +96,14 @@ function blockManager.loadBlockCode()
 		false, -- Share globals
 		false,  -- Assign require
 		nil, function() return nil end,
-		blockEnvironmentCallback)
+		blockEnvironmentCallback
+    )
 	
 	local customBlockPath = (
 			string_gsub(__customFolderPath, ";", "<") .. "block-?.lua;" ..
 			string_gsub(__episodePath, ";", "<") .. "block-?.lua"
-		)
+	)
+
 	local customBlockRequire = require_utils.makeRequire(
 		customBlockPath, -- Path
 		Misc.getCustomEnvironment(),  -- Global table
@@ -109,26 +112,46 @@ function blockManager.loadBlockCode()
 		false,  -- Assign require
 		nil, function() return nil end,
 		blockEnvironmentCallback,
-		nil, true)
-	
-	-- TODO: more efficiently check what files exist
-	for id = 1,BLOCK_MAX_ID do
-		local lib = basegameBlockRequire(tostring(id))
-		if (type(lib) == "table") and (lib.onInitAPI ~= nil) then
-			lib.onInitAPI()
-		end
-	end
-	local debugstats = require("base\\engine\\debugstats")
-	for id = 1,BLOCK_MAX_ID do
-		local lib,pth = customBlockRequire(tostring(id))
-		if (lib ~= nil) then
-			-- Libraries that don't return their table should still show up in debugstats
-			debugstats.add(require_utils.normalizeRelPath(pth, relEpisodePath))
-			if (type(lib) == "table") and (lib.onInitAPI ~= nil) then
-				lib.onInitAPI()
-			end
-		end
-	end
+		nil, true
+    )
+
+    local debugstats = require("base\\engine\\debugstats")
+
+    -- Check which IDs have custom files first
+    for id = 1, BLOCK_MAX_ID do
+        local lib, pth = customBlockRequire(tostring(id))
+        if lib ~= nil then
+            overriddenIDs[id] = true
+            debugstats.add(require_utils.normalizeRelPath(pth, relEpisodePath))
+        end
+    end
+
+    -- Load blocks, using custom version if available, basegame otherwise
+    for id = 1, BLOCK_MAX_ID do
+        local lib
+        if overriddenIDs[id] then
+            -- Use custom file, skip basegame entirely
+            lib = customBlockRequire(tostring(id))
+        else
+            -- No custom file, use basegame
+            lib = basegameBlockRequire(tostring(id))
+        end
+
+        if (type(lib) == "table") and (lib.onInitAPI ~= nil) then
+            lib.onInitAPI()
+        end
+    end
+end
+
+function blockManager.isOverridden(id)
+    return overriddenIDs[id] == true
+end
+
+function blockManager.getActiveLib(id)
+    if overriddenIDs[id] then
+        return customBlockRequire(tostring(id))
+    end
+    return basegameBlockRequire(tostring(id))
 end
 
 return blockManager

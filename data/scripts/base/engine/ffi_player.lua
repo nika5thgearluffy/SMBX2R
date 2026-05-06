@@ -161,6 +161,10 @@ local function playerGetIsInLaunchBarrel(pl)
 	return pl:_inLaunchBarrel()
 end
 
+local function playerGetIsInPop(pl)
+	return pl:_inPop()
+end
+
 -- starman is the same situation as megashroom
 local function playerGetHasStarman(pl)
 	return pl:_hasStarman()
@@ -337,6 +341,7 @@ local PlayerFields = {
 		inClearPipe             = {get=playerGetIsInClearPipe, readonly=true},
 		clearPipeDirection      = {get=playerGetClearPipeDir, readonly=true},
 		inLaunchBarrel          = {get=playerGetIsInLaunchBarrel, readonly=true},
+        inPop                   = {get=playerGetIsInPop, readonly=true},
 		isMega                  = {get=playerGetIsMega, readonly=true},
 		hasStarman              = {get=playerGetHasStarman, readonly=true},
 		keepPowerOnMega         = {get=playerGetMegaPowerKeep, set=playerSetMegaPowerKeep},
