@@ -83,6 +83,11 @@ function Misc.getLoadingFinished()
 	return _G._loadingFinished
 end
 
+-- Function to get if the engine booted for the first time
+function Misc.hasFirstBooted()
+	return _G._firstBooted
+end
+
 -- Utility code to generate a normalized relative path
 -- TODO: Move to common file
 local normalizeRelPath
