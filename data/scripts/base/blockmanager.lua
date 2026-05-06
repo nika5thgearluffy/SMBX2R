@@ -74,6 +74,7 @@ local function blockEnvironmentCallback(name, env)
 end
 
 local doneLoadingBlockCode = false
+local overriddenIDsFolder = {}
 local overriddenIDs = {}
 
 function blockManager.loadBlockCode()
@@ -99,10 +100,19 @@ function blockManager.loadBlockCode()
 		blockEnvironmentCallback
     )
 	
-	local customBlockPath = (
-			string_gsub(__customFolderPath, ";", "<") .. "block-?.lua;" ..
-			string_gsub(__episodePath, ";", "<") .. "block-?.lua"
-	)
+    local customFolderBlockPath = string_gsub(__customFolderPath, ";", "<") .. "block-?.lua;"
+	local customBlockPath = string_gsub(__episodePath, ";", "<") .. "block-?.lua;"
+
+    local customFolderBlockRequire = require_utils.makeRequire(
+		customFolderBlockPath, -- Path
+		Misc.getCustomEnvironment(),  -- Global table
+		{}, -- Loaded Table
+		false, -- Share globals
+		false,  -- Assign require
+		nil, function() return nil end,
+		blockEnvironmentCallback,
+		nil, true
+    )
 
 	local customBlockRequire = require_utils.makeRequire(
 		customBlockPath, -- Path
@@ -119,18 +129,29 @@ function blockManager.loadBlockCode()
 
     -- Check which IDs have custom files first
     for id = 1, BLOCK_MAX_ID do
-        local lib, pth = customBlockRequire(tostring(id))
+        local lib, pth = customFolderBlockRequire(tostring(id))
         if lib ~= nil then
             overriddenIDs[id] = true
+            overriddenIDsFolder[id] = true
             debugstats.add(require_utils.normalizeRelPath(pth, relEpisodePath))
+        else
+            lib2, pth2 = customBlockRequire(tostring(id))
+            if lib2 ~= nil then
+                overriddenIDs[id] = true
+                overriddenIDsFolder[id] = false
+                debugstats.add(require_utils.normalizeRelPath(pth2, relEpisodePath))
+            end
         end
     end
 
     -- Load blocks, using custom version if available, basegame otherwise
     for id = 1, BLOCK_MAX_ID do
         local lib
-        if overriddenIDs[id] then
-            -- Use custom file, skip basegame entirely
+        if overriddenIDs[id] and overriddenIDsFolder[id] then
+            -- Use custom file on level folder, skip basegame entirely
+            lib = customFolderBlockRequire(tostring(id))
+        elseif overriddenIDs[id] and not overriddenIDsFolder[id] then
+            -- Use custom file on episode path, skip basegame entirely
             lib = customBlockRequire(tostring(id))
         else
             -- No custom file, use basegame
@@ -148,8 +169,10 @@ function blockManager.isOverridden(id)
 end
 
 function blockManager.getActiveLib(id)
-    if overriddenIDs[id] then
+    if overriddenIDs[id] and not overriddenIDsFolder[id] then
         return customBlockRequire(tostring(id))
+    elseif overriddenIDs[id] and overriddenIDsFolder[id] then
+        return customFolderBlockRequire(tostring(id))
     end
     return basegameBlockRequire(tostring(id))
 end

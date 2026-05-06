@@ -315,6 +315,7 @@ local basegameNpcRequire
 local customNpcRequire
 
 local doneLoadingNpcCode = false
+local overriddenIDsFolder = {}
 local overriddenIDs = {}
 
 function npcManager.loadNpcCode()
@@ -335,13 +336,21 @@ function npcManager.loadNpcCode()
         nil, function() return nil end,
         npcEnvironmentCallback)
     
-    local customNpcPath = (
-        string_gsub(__customFolderPath, ";", "<") .. "npc-?.lua;" ..
-        string_gsub(__episodePath, ";", "<") .. "npc-?.lua"
-    )
+    local customFolderNpcPath = string_gsub(__customFolderPath, ";", "<") .. "npc-?.lua;"
+    local customNpcPath = string_gsub(__episodePath, ";", "<") .. "npc-?.lua;"
     
     customNpcRequire = require_utils.makeRequire(
         customNpcPath,
+        Misc.getCustomEnvironment(),
+        {},
+        true,
+        false,
+        nil, function() return nil end,
+        npcEnvironmentCallback,
+        nil, true)
+
+    customFolderNpcRequire = require_utils.makeRequire(
+        customFolderNpcPath,
         Misc.getCustomEnvironment(),
         {},
         true,
@@ -354,18 +363,29 @@ function npcManager.loadNpcCode()
 
     -- Check which IDs have custom files first
     for id = 1, NPC_MAX_ID do
-        local lib, pth = customNpcRequire(tostring(id))
+        local lib, pth = customFolderNpcRequire(tostring(id))
         if lib ~= nil then
             overriddenIDs[id] = true
+            overriddenIDsFolder[id] = true
             debugstats.add(require_utils.normalizeRelPath(pth, relEpisodePath))
+        else
+            lib2, pth2 = customNpcRequire(tostring(id))
+            if lib2 ~= nil then
+                overriddenIDs[id] = true
+                overriddenIDsFolder[id] = false
+                debugstats.add(require_utils.normalizeRelPath(pth2, relEpisodePath))
+            end
         end
     end
 
     -- Load NPCs, using custom version if available, basegame otherwise
     for id = 1, NPC_MAX_ID do
         local lib
-        if overriddenIDs[id] then
-            -- Use custom file, skip basegame entirely
+        if overriddenIDs[id] and overriddenIDsFolder[id] then
+            -- Use custom file on level folder, skip basegame entirely
+            lib = customFolderNpcRequire(tostring(id))
+        elseif overriddenIDs[id] and not overriddenIDsFolder[id] then
+            -- Use custom file on episode path, skip basegame entirely
             lib = customNpcRequire(tostring(id))
         else
             -- No custom file, use basegame
@@ -383,8 +403,10 @@ function npcManager.isOverridden(id)
 end
 
 function npcManager.getActiveLib(id)
-    if overriddenIDs[id] then
+    if overriddenIDs[id] and not overriddenIDsFolder[id] then
         return customNpcRequire(tostring(id))
+    elseif overriddenIDs[id] and overriddenIDsFolder[id] then
+        return customFolderNpcRequire(tostring(id))
     end
     return basegameNpcRequire(tostring(id))
 end
