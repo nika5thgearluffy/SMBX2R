@@ -695,6 +695,22 @@ function Misc.score(n)
 	end
 end
 
+function Misc.lives(n, playLifeSound)
+	if n then
+		if playLifeSound then
+			local l = mem(offset_lives, FIELD_FLOAT);
+			if n >= l  then
+				SFX.play(15);
+			else
+				SFX.play(54);
+			end
+		end
+		mem(offset_lives, FIELD_FLOAT, math.clamp(n,0,99));
+	else
+		return mem(offset_lives, FIELD_FLOAT);
+	end
+end
+
 if(not isOverworld) then
 
 	-- This is only for levels, the overworld one is defined with LunaDLL
