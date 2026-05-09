@@ -49,6 +49,8 @@ Misc.LUNALUA_EVENTS = {
     "onDownloadStart", "onDownloadComplete",
     -- [Thread]
     "onThread", "onThreadBusy", "onThreadBusyComplete",
+    -- [Keyboard Key Up/Down]
+    "onKeyboardKeyDown", "onKeyboardKeyUp",
     -- "HIDDEN" functions (Not exactly, but still)
     "_onDrawOverworld",
 }

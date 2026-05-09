@@ -225,7 +225,7 @@ repl.background = Color(0,0,0,0.5)
 
 function repl.onInitAPI()
 	registerEvent(repl, "onKeyboardPressDirect")
-	registerEvent(repl, "onDraw")
+	registerEvent(repl, "onCameraDraw")
 	registerEvent(repl, "onPasteText")
 end
 
@@ -362,10 +362,13 @@ do
 		listidx = listidx + 1
 	end
 	
-	function repl.onDraw()
+	function repl.onCameraDraw(camIdx)
 		if not repl.active then
 			return
 		end
+
+		local screenWidth,screenHeight = Graphics.getMainFramebufferSize()
+		local cam = Camera(camIdx)
 		
 		Graphics.drawScreen(bgobj)
 		local buffer
@@ -375,8 +378,8 @@ do
 			buffer = {repl.buffer}
 		end
 
-		local baseX = 0
-		local baseY = camera.height
+		local baseX = -cam.renderX
+		local baseY = screenHeight - cam.renderY
 
 		local y = baseY
 		for i = #buffer, 1, -1 do
