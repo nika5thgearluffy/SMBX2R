@@ -2,7 +2,8 @@ do
 	-- Blank namespaces
 	_G.Graphics = {}
 	_G.Text = {}
-	_G.Misc = {}
+    -- Misc already exists, no need
+	--_G.Misc = {}
 	
 	-- Implement getSMBXPath
 	local smbxPath = _smbxPath
@@ -81,11 +82,6 @@ end
 -- Function for getting if the load screen is done loading
 function Misc.getLoadingFinished()
 	return _G._loadingFinished
-end
-
--- Function to get if the engine booted for the first time
-function Misc.hasFirstBooted()
-	return _G._firstBooted
 end
 
 -- Utility code to generate a normalized relative path
