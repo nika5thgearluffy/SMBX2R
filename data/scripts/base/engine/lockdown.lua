@@ -80,6 +80,18 @@ if File ~= nil then
                 return
             end
         end)
+
+        local ogFileCreation = File.createBlank
+        File.createBlank = (function(filePath)  
+            local canWrite
+            filePath, canWrite = io.makeSafeAbsolutePathNoFileRestrictions(filePath)
+            if canWrite then
+                ogFileCreation(filePath)
+            else
+                error("Creating a file at '" .. filePath .. "' is not allowed.")
+                return
+            end
+        end)
     end
 end
 
