@@ -430,19 +430,15 @@ do
 			error("Invalid type for window title.")
 		end
 
-		-- Append program name/version so it's clear what this is
-		if (newName == nil) or (newName == "") then
-			newName = "SMBX2 – (" .. getSMBXVersionString() .. ")"
+		-- Append program name/version if nil so it's clear what this is
+		if (newName == nil) then
+			newName = "Super Mario Bros. X2R"
 		end
 
 		-- Originally implemented via C++ side but it's here now
 		-- for consistency with setWindowIcon, since it needed it.
 		LunaDLL.LunaLuaSetWindowTitle(newName)
 	end
-    
-    --[[function Misc.getWindowTitle()
-        return LunaDLL.LunaLuaGetWindowTitle()
-    end]]
 
 	function Misc.setWindowIcon(iconImageSmall,iconImageBig)
 		if type(iconImageSmall) ~= "LuaImageResource" then
