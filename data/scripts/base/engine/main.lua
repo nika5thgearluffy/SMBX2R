@@ -71,12 +71,13 @@ do
 	_G["VER_BETA5_PATCH_1_2"] 	= 	makeVersion(2,	0,	0,	5,	0,	1,	2)
 	_G["VER_BETA5_PATCH_2"] 	= 	makeVersion(2,	0,	0,	5,	0,	2,	0)
 	_G["VER_BETA5_PATCH_3"] 	= 	makeVersion(2,	0,	0,	5,	0,	3,	0)
+    _G["VER_SMBX2R_PATCH_1"]    = 	makeVersion(10,	0,	0,	0,	0,	0,	0)
 	
 	--								e.g.		2  .0  .0 .b4 .p2  .0  .1    = PAL Hotfix
 	
 	
 	--Update this to the latest version 
-	_G["SMBX_VERSION"] = VER_BETA5_PATCH_3
+	_G["SMBX_VERSION"] = VER_SMBX2R_PATCH_1
 	
 	
 	
