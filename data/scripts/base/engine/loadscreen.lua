@@ -118,8 +118,13 @@ local function initDefaultLoadScreen(showSplash)
 	local loaderDelay = 12
 	local fadeTime = 42
 	local animSpd = 8
-	
+
+    if showSplash == nil then
+        showSplash = false
+    end
+
 	_G.onDraw = function()
+        local width,height = Graphics.getMainFramebufferSize()
 		if (showSplash) then
 			Graphics.drawImage(Graphics.sprites.hardcoded["30-4"].img, 0, 0)
 		end
@@ -132,7 +137,7 @@ local function initDefaultLoadScreen(showSplash)
 			local imgw = img.width
 			local imgh = img.height/7
 			
-			Graphics.glDraw{vertexCoords={800-imgw,600-imgh,800,600-imgh,800-imgw,600,800,600}, texture=img, textureCoords={0,t1,1,t1,0,t2,1,t2},
+			Graphics.glDraw{vertexCoords={width-imgw,height-imgh,width,height-imgh,width-imgw,height,width,height}, texture=img, textureCoords={0,t1,1,t1,0,t2,1,t2},
 				primitive=Graphics.GL_TRIANGLE_STRIP, color={1.0, 1.0, 1.0, alpha}}
 		end
 		cnt = cnt + 1
@@ -160,9 +165,6 @@ function init()
 			end
 		end
 	else
-		-- TODO: Is there a nice way to only show the splash screen initially? When launching into
-		--       a level this will be called twice. For the heck of it I'm leaving this just always
-		--       true for right this moment --A quick moment, indeed ~Emral
-		initDefaultLoadScreen(false)
+		initDefaultLoadScreen()
 	end
 end
