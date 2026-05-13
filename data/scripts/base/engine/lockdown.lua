@@ -81,12 +81,15 @@ if File ~= nil then
             end
         end)
 
-        local ogFileCreation = File.createBlank
-        File.createBlank = (function(filePath)  
+        local ogFileCreation = File.create
+        File.create = (function(filePath, data)
+            if data == nil then
+                data = ""
+            end
             local canWrite
             filePath, canWrite = io.makeSafeAbsolutePathNoFileRestrictions(filePath)
             if canWrite then
-                ogFileCreation(filePath)
+                ogFileCreation(filePath, data)
             else
                 error("Creating a file at '" .. filePath .. "' is not allowed.")
                 return
