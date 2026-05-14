@@ -332,6 +332,9 @@ do
 	local function obj_isfading(obj)
 		return obj[4]:IsFading();
 	end
+    local function obj_isfinished(obj)
+		return obj[4]:IsFinished();
+	end
 
 	function AudioObj.__index(tbl, key)
 		if(key == "vol" or key == "volume") then
@@ -356,6 +359,8 @@ do
 			return obj_ispaused;
 		elseif(key == "IsFading" or key == "isFading" or key == "isfading") then
 			return obj_isfading;
+        elseif(key == "IsFinished" or key == "isFinished" or key == "isfinished") then
+			return obj_isfinished;
 		elseif(key == "isValid") then
 			return true;
 		end
@@ -416,19 +421,33 @@ function audio.PlaySound(args, vol, loops, delay)
 	tableinsert(tags, args.tag);
 	
 	local obj = Audio.SfxPlayObjVol(soundData, loops, min(vol*128*ComputeTagVolume(tags),128));
-	local pan = args.pan or 0;
-	
-	obj:SetPanning(MapPanning(pan));
-	
-	local s = {vol, tags, pan, obj};
-	playingSounds[obj] = s;
-	tableinsert(playingSoundsList, obj);
-	
-	setmetatable(s, AudioObj);
-	
-	soundDelays[sound][2] = s
-	
-	return s;
+
+	-- If cancelled or failed, return null object without adding to tracking tables
+    if not obj:IsPlaying() and obj:IsFinished() then
+        soundDelays[sound] = nil
+        for i = #soundDelayArray, 1, -1 do
+            if soundDelayArray[i] == sound then
+                table.remove(soundDelayArray, i)
+                break
+            end
+        end
+        return setmetatable({}, NullMT)
+    end
+
+    local pan = args.pan or 0
+    obj:SetPanning(MapPanning(pan))
+
+    local s = {vol, tags, pan, obj}
+    playingSounds[obj] = s
+    tableinsert(playingSoundsList, obj)
+    setmetatable(s, AudioObj)
+
+    -- Assign [2] right away in case onDraw runs before we return
+    if soundDelays[sound] ~= nil then
+        soundDelays[sound][2] = s
+    end
+
+    return s
 end
 audio.playSound = audio.PlaySound;
 audio.play = audio.PlaySound;
