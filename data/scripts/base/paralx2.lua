@@ -18,6 +18,8 @@ local floor = math.floor
 local max = math.max
 local min = math.min
 
+local screenWidth,screenHeight = Graphics.getMainFramebufferSize()
+
 paralx2.depth = {INFINITE = mathhuge, MAX = mathhuge, MIN = -focus*minlt1}
 
 paralx2.align = {LEFT = 0, RIGHT = 1, BOTTOM = 1, TOP = 0, CENTRE = 0.5, MID = 0.5, CENTER = 0.5, MIDDLE = 0.5}
@@ -81,6 +83,7 @@ end
 function paralx2.onInitAPI()
 	registerEvent(paralx2, "onCameraDraw", "onCameraDraw", false)
 	registerEvent(paralx2, "onTick")
+    registerEvent(paralx2, "onFramebufferResize")
 
 	for i=1,BG_MAX_ID do
 		local ini = Misc.multiResolveFile("background2-"..i..".txt", "background2-"..i..".ini") or Misc.multiResolveFile("config/backgrounds/background2-"..i..".txt", "config/backgrounds/background2-"..i..".ini")
@@ -89,6 +92,11 @@ function paralx2.onInitAPI()
 			bgObjs[i] = ParseIni(ini)
 		end
 	end
+end
+
+function paralx2.onFramebufferResize(width, height)
+    screenWidth = width
+    screenHeight = height
 end
 
 --Update the virtual camera's "focal length", which alters how fast the parallax layers move based on their depth.
