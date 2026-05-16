@@ -14,8 +14,8 @@ local rerollCount = 150;
 local levelsPlayed = {}
 local fullLevelList;
 
-local topEpisodeName = "SMBX Mario Challenge"
-local introLevel = "hub.lvl"
+local topEpisodeName = "Mario Challenge"
+local introLevel = "hub.lvlx"
 local datapath = "\\worlds\\Mario Challenge\\data.json"
 
 Graphics.sprites.Register("mariochallenge", "mariochallenge-rerolls")
@@ -577,7 +577,7 @@ local function loadNextLevel(dontIncrement)
 	end
 	if not dontIncrement and mcTable.config_levels > 0 and mcTable.playIndex >= mcTable.config_levels then
 		mcTable.hasWon = true;
-		loadLevel("victory.lvl", mcTable.hubLocation)
+		loadLevel("victory.lvlx", mcTable.hubLocation)
 	elseif not dontIncrement and mcTable.hasLost then
 		refreshData();
 		mcTable.character = player.character;
@@ -649,8 +649,8 @@ function marioChallenge.onExitLevel(winState)
 			mcTable.levelsPlayed[mcTable.currentLevel.episodeName..":"..Level.filename()] = true;
 		end
 		
-		if (((mcTable.hasWon and Level.filename() == "victory.lvl") or (mcTable.hasLost and Level.filename() == "results.lvl"))) then
-			local shouldwin = (mcTable.hasWon and Level.filename() == "victory.lvl");
+		if (((mcTable.hasWon and Level.filename() == "victory.lvlx") or (mcTable.hasLost and Level.filename() == "results.lvlx"))) then
+			local shouldwin = (mcTable.hasWon and Level.filename() == "victory.lvlx");
 			refreshData();
 			mcTable.character = player.character;
 			mcTable.justWon = shouldwin;
@@ -890,7 +890,7 @@ local function RunDeathEvent()
 			loadLevel(mcTable.currentLevel.levelFile, mcTable.currentLevel.episodeNumber)
 		else
 			mcTable.hasLost = true;
-			loadLevel("results.lvl", mcTable.hubLocation)
+			loadLevel("results.lvlx", mcTable.hubLocation)
 		end
 	end
 end
@@ -938,6 +938,10 @@ function marioChallenge.onCameraDraw(idx)
 	end
 end
 
+local function pause()
+    paused = true;
+end
+
 local function unpause()
 	paused = false;
 end
@@ -945,7 +949,7 @@ end
 local function exitChallenge()
 	mcTable.loadInProgress = true;
 	mcTable.hasLost = true;
-	loadLevel("results.lvl", mcTable.hubLocation)
+	loadLevel("results.lvlx", mcTable.hubLocation)
 end
 
 local function reroll()
@@ -1130,14 +1134,16 @@ function marioChallenge.onInputUpdate()
 	
 	if(player.keys.pause and not lastPauseKey) then
 		if(paused) then
+            SFX.play(30)
 			paused = false;
 			Misc.unpause();
-			SFX.play(30)
+            player:mem(0x11E, FIELD_BOOL, false)
 		elseif(player:mem(0x13E, FIELD_WORD) == 0 and not dying and (isOverworld or Level.winState() == 0) and not Misc.isPaused()) then
+            SFX.play(30)
 			Misc.pause();
+            player:mem(0x11E, FIELD_BOOL, false)
 			paused = true;
 			pause_index = 0;
-			SFX.play(30)
 		end
 	end
 	lastPauseKey = player.keys.pause;
@@ -1341,7 +1347,7 @@ function marioChallenge.Activate()
 	if(isOverworld) then
 		flushData();
 	end
-	if not isOverworld and (Level.filename() == "intro.lvl" or Level.filename() == "outro.lvl") then
+	if not isOverworld and (Level.filename() == "intro.lvlx" or Level.filename() == "outro.lvlx") then
 		cleanUp()
 		return;
 	end

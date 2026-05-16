@@ -1,0 +1,7 @@
+{
+	"mainPage": "index.html",
+	"allowPlayerSelection" : false,
+	"allowTwoPlayer": false,
+	"allowSaveSelection" : false,
+	"episodeIcon": "icon.png"
+}

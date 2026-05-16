@@ -1,6 +1,10 @@
-# Keep the worlds folder, but don't include anything except ".gitkeep"
+# Keep the worlds folder, but don't include anything that's not the default games to choose from
 /data/worlds/*
 !.gitkeep
+!Mario Challenge
+!The Invasion 1
+!The Invasion 2
+!The Princess Cliche
 
 # Ignore everything in the user files folder except the do not delete file and folders like "!screenshots" and "!gif-recordings" (But exclude screenshots and GIF recordings)
 /!user-files/*
