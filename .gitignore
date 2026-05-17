@@ -35,8 +35,7 @@ data/PGE/settings/pge_editor.ini
 # Ignore any other configs on the editor
 data/PGE/configs/*
 !SMBX2R-Integration
-data/PGE/settings/pge_editor_config_TheXTech-SDK.ini
-data/PGE/settings/pge_editor_config_SMBX2R-Integration.ini
+data/PGE/settings/pge_editor_config_*.ini
 
 # Ignore any save files on default episodes
 data/worlds/The Princess Cliche/*.sav
