@@ -1264,7 +1264,7 @@ function marioChallenge.onTick()
 end
 
 function marioChallenge.onPause(obj)
-	obj.cancelled = true;
+    obj.cancelled = true
 end
 
 function marioChallenge.onPostNPCKill()
@@ -1367,6 +1367,7 @@ function marioChallenge.Activate()
 		registerEvent(marioChallenge, "onInputUpdate", "onInputUpdate", true)
 		registerEvent(marioChallenge, "onPause", "onPause", true)
 		registerEvent(marioChallenge, "onPostNPCKill", "onPostNPCKill", true)
+        registerEvent(marioChallenge, "onStart")
 		
 		timer = 400
 		selectKeyDown = 0
@@ -1387,6 +1388,11 @@ function marioChallenge.Activate()
 			end
 		end
 	end
+end
+
+function marioChallenge.onStart()
+    pauseMenu13.enabled = false
+    messageBox13.enabled = false
 end
 
 function marioChallenge.onInitAPI()

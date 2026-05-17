@@ -159,6 +159,7 @@ function newcheats.trigger(cheat, silent)
 		--onDeactivate is run when the cheat is typed again, while the cheat is active.
 		
 		if(cheat.active) then
+            EventManager.callEvent("onCheatActivate", cheat)
 			if(cheat.onActivate and cheat.onActivate()) then
 				cheat.active = false; --activation function should return true if the cheat finishes after running the initial function - i.e. it has no lasting effects. Cheats that are not toggleable should do this.
 			end
@@ -172,6 +173,7 @@ function newcheats.trigger(cheat, silent)
 				SFX.play(cheat.toggleSFX);
 			end
 		else
+            EventManager.callEvent("onCheatDeactivate", cheat)
 			if(cheat.onDeactivate) then
 				cheat.onDeactivate();
 			end

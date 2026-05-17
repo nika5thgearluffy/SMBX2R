@@ -36,3 +36,11 @@ data/PGE/settings/pge_editor.ini
 data/PGE/configs/TheXTech-SDK
 data/PGE/settings/pge_editor_config_TheXTech-SDK.ini
 data/PGE/settings/pge_editor_config_SMBX2R-Integration.ini
+
+# Ignore any save files on default episodes
+data/worlds/The Princess Cliche/*.sav
+data/worlds/The Princess Cliche/*-ext.dat
+data/worlds/The Invasion 1/*.sav
+data/worlds/The Invasion 1/*-ext.dat
+data/worlds/The Invasion 2/*.sav
+data/worlds/The Invasion 2/*-ext.dat

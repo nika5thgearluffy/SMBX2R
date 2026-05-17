@@ -241,3 +241,6 @@ if (isOverworld or Section(player.section).musicID == 0) then
 	Audio.MusicStop();
 	Audio.ReleaseStream(-1);
 end
+
+_G.pauseMenu13 = require("pausemenu13/pausemenu13");
+_G.messageBox13 = require("messagebox13/messagebox13");

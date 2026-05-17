@@ -51,6 +51,8 @@ Misc.LUNALUA_EVENTS = {
     "onThread", "onThreadBusy", "onThreadBusyComplete",
     -- [Keyboard Key Up/Down]
     "onKeyboardKeyDown", "onKeyboardKeyUp",
+    -- [Cheat Toggles]
+    "onCheatActivate", "onCheatDeactivate",
     -- "HIDDEN" functions (Not exactly, but still)
     "_onDrawOverworld",
 }
