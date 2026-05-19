@@ -122,6 +122,21 @@ platforms.thickPlatformSettings = table.join(
 
 --*************************************************************************
 --*
+--*								SMB1 2-Block Platform (new)
+--*
+--*************************************************************************
+
+--base 64 x 32 platform settings
+platforms.smallerPlatformSettings = table.join(
+	{
+		width=64,
+		height=32
+	},
+	platforms.basicPlatformSettings
+)
+
+--*************************************************************************
+--*
 --*								Switch platforms (new)
 --*
 --*************************************************************************

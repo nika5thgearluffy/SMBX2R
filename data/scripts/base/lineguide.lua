@@ -66,19 +66,24 @@ API Settings: (in the lineguide namespace)
 --*************************************************************************
 
 -- Line names
-local lineNames = {"buffer", "buffer2", "horiz", "vert", "slopeGent1", "slopeGent2", "slopeMid1", "slopeMid2", "slopeSteep1", "slopeSteep2", "circSmall1", "circSmall2", "circSmall3", "circSmall4", "circBig1", "circBig2", "circBig3", "circBig4",}
+local lineNames = {"buffer", "buffer2", "buffer3", "horiz", "horiz2", "vert", "vert2", "slopeGent1", "slopeGent2", "slopeMid1", "slopeMid12", "slopeMid2", "slopeMid22", "slopeSteep1", "slopeSteep2", "circSmall1", "circSmall2", "circSmall3", "circSmall4", "circBig1", "circBig2", "circBig3", "circBig4",}
 
 -- Default line IDs
 -- NOT intended to be altered by the user
 local defaultIds = {
 	buffer      = 201,
 	buffer2     = 202,
+    buffer3     = 448,
 	horiz       = 203,
+    horiz2      = 444,
 	vert        = 204,
+    vert2       = 445,
 	slopeGent1  = 205,
 	slopeGent2  = 206,
 	slopeMid1   = 207,
+    slopeMid12  = 446,
 	slopeMid2   = 208,
+    slopeMid22  = 447,
 	slopeSteep1 = 209,
 	slopeSteep2 = 210,
 	circSmall1  = 211,
@@ -378,9 +383,14 @@ local function createColliderGenerators()
 		--                    type                           offsetX  offsetY  width        height
 		[ids.horiz]       = { colliderType=colliders.Box,             yoff=16, arg1=32,     arg2=16 },
 		[ids.vert]        = { colliderType=colliders.Box,    xoff=8,           arg1=16,     arg2=32 },
+        [ids.horiz2]       = { colliderType=colliders.Box,             yoff=16, arg1=32,     arg2=16 },
+		[ids.vert2]        = { colliderType=colliders.Box,    xoff=8,           arg1=16,     arg2=32 },
 		--                                                                     p1           p2            p3            p4
 		[ids.slopeMid1]   = { colliderType=colliders.Poly,                     arg1={0,28}, arg2={32,-4}, arg3={32,4 }, arg4={0,36} },
 		[ids.slopeMid2]   = { colliderType=colliders.Poly,                     arg1={0,-4}, arg2={32,28}, arg3={32,36}, arg4={0,4 } },
+        [ids.slopeMid12]   = { colliderType=colliders.Poly,                     arg1={0,28}, arg2={32,-4}, arg3={32,4 }, arg4={0,36} },
+		[ids.slopeMid22]   = { colliderType=colliders.Poly,                     arg1={0,-4}, arg2={32,28}, arg3={32,36}, arg4={0,4 } },
+
 		[ids.slopeGent1]  = { colliderType=colliders.Poly,                     arg1={0,28}, arg2={64,-4}, arg3={64,4 }, arg4={0,36} },
 		[ids.slopeGent2]  = { colliderType=colliders.Poly,                     arg1={0,-4}, arg2={64,28}, arg3={64,36}, arg4={0,4 } },
 		[ids.slopeSteep1] = { colliderType=colliders.Poly,                     arg1={0,64}, arg2={32,-4}, arg3={32,4 }, arg4={0,68} },
@@ -427,6 +437,8 @@ local function createAttachHeightFunctions()
 	attachHeightFunctions = {
 		[ids.slopeMid1]   = function(x) return 32 - x end,
 		[ids.slopeMid2]   = function(x) return x end,
+        [ids.slopeMid12]   = function(x) return 32 - x end,
+		[ids.slopeMid22]   = function(x) return x end,
 		[ids.slopeGent1]  = function(x) return 32 - x/2 end,
 		[ids.slopeGent2]  = function(x) return x/2 end,
 		[ids.slopeSteep1] = function(x) return 64 - x*2 end,
@@ -450,8 +462,12 @@ local function createBaseMotionVectors()
 	baseMotionVectors = {
 		[ids.horiz]       = vectr.v2(1, 0),
 		[ids.vert]        = vectr.v2(0, 1),
+        [ids.horiz2]       = vectr.v2(1, 0),
+		[ids.vert2]        = vectr.v2(0, 1),
 		[ids.slopeMid1]   = vectr.v2(1,-1),
 		[ids.slopeMid2]   = vectr.v2(1,1),
+        [ids.slopeMid12]   = vectr.v2(1,-1),
+		[ids.slopeMid22]   = vectr.v2(1,1),
 		[ids.slopeGent1]  = vectr.v2(1,-.5),
 		[ids.slopeGent2]  = vectr.v2(1,.5),
 		[ids.slopeSteep1] = vectr.v2(.5,-1),
@@ -496,8 +512,12 @@ local function createNodeGenerators()
 	nodeGenerators = {
 		[ids.horiz]       = {node1 = {xoff = 0,  yoff = 16, dir = 0},  node2 = {xoff = 32, yoff = 16, dir = 8}},
 		[ids.vert]        = {node1 = {xoff = 16, yoff = 0,  dir = 12}, node2 = {xoff = 16, yoff = 32, dir = 4}},
+        [ids.horiz2]       = {node1 = {xoff = 0,  yoff = 16, dir = 0},  node2 = {xoff = 32, yoff = 16, dir = 8}},
+		[ids.vert2]        = {node1 = {xoff = 16, yoff = 0,  dir = 12}, node2 = {xoff = 16, yoff = 32, dir = 4}},
 		[ids.slopeMid1]   = {node1 = {xoff = 0,  yoff = 32, dir = 2},  node2 = {xoff = 32, yoff = 0,  dir = 10}},
 		[ids.slopeMid2]   = {node1 = {xoff = 0,  yoff = 0,  dir = 14}, node2 = {xoff = 32, yoff = 32, dir = 6}},
+        [ids.slopeMid12]   = {node1 = {xoff = 0,  yoff = 32, dir = 2},  node2 = {xoff = 32, yoff = 0,  dir = 10}},
+		[ids.slopeMid22]   = {node1 = {xoff = 0,  yoff = 0,  dir = 14}, node2 = {xoff = 32, yoff = 32, dir = 6}},
 		[ids.slopeGent1]  = {node1 = {xoff = 0,  yoff = 32, dir = 1},  node2 = {xoff = 64, yoff = 0,  dir = 9}},
 		[ids.slopeGent2]  = {node1 = {xoff = 0,  yoff = 0,  dir = 15}, node2 = {xoff = 64, yoff = 32, dir = 7}},
 		[ids.slopeSteep1] = {node1 = {xoff = 0,  yoff = 64, dir = 3},  node2 = {xoff = 32,  yoff = 0, dir = 11}},
@@ -567,9 +587,9 @@ local function attachToLine(npc, data, lineData)
 	-- Lock onto the line if we are not attaching from a previous line
 	if data.state ~= ONLINE then
 		local s = data.sensor
-		if id == ids.horiz then
+		if id == ids.horiz or id == ids.horiz2 then
 			s.y = lineData.line.y + 16
-		elseif id == ids.vert then
+		elseif id == ids.vert or id == ids.vert2 then
 			s.x = lineData.line.x + 16
 		else
 			s.y = lineData.line.y + attachHeightFunctions[id](s.x - lineData.line.x)
@@ -638,7 +658,7 @@ local function checkForLine(npc, data)
 	local s = data.sensor
 	for _,v in BGO.iterateIntersecting(s.x - 8, s.y - 8, s.x + 8, s.y - 8) do
 		if not v.isHidden or data.useHiddenLines then
-			if v.id == ids.buffer or v.id == ids.buffer2 then
+			if v.id == ids.buffer or v.id == ids.buffer2 or v.id == ids.buffer3 then
 				bounceOff(npc)
 				return
 			end
@@ -789,7 +809,7 @@ local function getAdjacentNodes(data)
 	local sensor = colliders.Circle(data.sensor.x, data.sensor.y, 8)
 	for _,line in BGO.iterateIntersecting(sensor.x - 8, sensor.y - 8, sensor.x + 8, sensor.y + 8) do
 		if not line.isHidden or data.useHiddenLines then
-			if line.id == ids.buffer or line.id == ids.buffer2 then -- A buffer was hit
+			if line.id == ids.buffer or line.id == ids.buffer2 or line.id == ids.buffer3 then -- A buffer was hit
 				return nil
 			end
 			col1, d1, col2, d2, sign = getNodes(line)

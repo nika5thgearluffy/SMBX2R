@@ -115,191 +115,220 @@ end
 
 --Set up BGO defaults
 do
-local BG = -95;
-local FG = -20;
-local LG = -63; --lineguide
+    local BG = -95;
+    local FG = -20;
+    local LG = -63; --lineguide
 
-local function set(id,p,f,s,c)
-	if (p ~= nil) then
-		bgodefaults[id].priority = p
+    local function set(id,p,f,s,c)
+        if (p ~= nil) then
+            bgodefaults[id].priority = p
+        end
+        if (f ~= nil) then
+            bgodefaults[id].frames = f
+        end
+        if (s ~= nil) then
+            bgodefaults[id].framespeed = s
+        end
+        if (c ~= nil) then
+            bgodefaults[id].climbable = c
+            bgoClimbableMem(id, c)
+        end
+    end
+
+    local function setlight(id, x, y, r, b, c, f)
+        bgodefaults[id].lightoffsetx = x;
+        bgodefaults[id].lightoffsety = y;
+        bgodefaults[id].lightradius=r;
+        bgodefaults[id].lightbrightness=b;
+        bgodefaults[id].lightcolor=c;
+        bgodefaults[id].lightflicker=f or false;
+    end
+
+
+    set(11,BG);
+    set(12,BG);
+
+    set(14,BG);
+
+    set(18,nil,4,12);
+    set(19,nil,4,12);
+    set(20,nil,4,12);
+
+    set(23,FG);
+    set(24,FG);
+    set(25,FG);
+
+    set(26,nil,8,8);
+
+    set(36,FG,4,2);
+
+    set(45,FG);
+    set(46,FG);
+
+    set(49,FG);
+    set(50,FG);
+    set(51,FG);
+
+    set(60,BG);
+    set(61,BG);
+
+    set(65,nil,4,8);
+    set(66,BG,4,8);
+
+    set(68,FG,4,2);
+    set(69,FG);
+    set(70,nil,4,8);
+
+    set(75,BG);
+    set(76,BG);
+    set(77,BG);
+    set(78,BG);
+
+    set(82,nil,4,10);
+
+    setlight(96, 0,0,64,0.5,Color.pink);
+
+    set(100,nil, 4,8);
+
+    set(106,FG);
+
+    set(125,nil,2,4);
+    setlight(125, 0,-16,64,1,Color.orange, true);
+
+    set(134,nil,4,8);
+    set(135,nil,4,8);
+    set(136,nil,4,8);
+    set(137,FG,4,8);
+    set(138,FG,4,8);
+
+    set(143,FG);
+
+    set(145,FG);
+
+    set(154,FG);
+    set(155,FG);
+    set(156,FG);
+    set(157,FG);
+    set(158,BG,4,6);
+    set(159,BG,8,6);
+    set(294,BG,4,6);
+
+    set(161,nil,4,12);
+
+    set(168,nil,8,8);
+
+    set(170,nil,4,8);
+    set(171,nil,4,8);
+    set(172,BG,4,8);
+    set(173,nil,2,8);
+
+    for i=174,186 do
+        set(i,nil,nil,nil,true)
+    end
+
+    set(187,FG,4,6);
+    set(188,FG,4,6);
+    set(189,nil,4,6);
+    set(190,nil,4,6);
+
+    set(201,LG,4,8);
+    set(202,LG,4,8);
+    set(203,LG);
+    set(204,LG);
+    set(205,LG);
+    set(206,LG);
+    set(207,LG);
+    set(208,LG);
+    set(209,LG);
+    set(210,LG);
+    set(211,LG);
+    set(212,LG);
+    set(213,LG);
+    set(214,LG);
+    set(215,LG);
+    set(216,LG);
+    set(217,LG);
+    set(218,LG);
+
+    set(235,nil,4,8);
+    set(236,FG,4,8);
+
+    set(237,FG);
+    set(238,FG);
+
+    set(249,FG);
+
+    set(251,FG);
+    set(252,FG);
+    set(253,FG);
+    set(254,FG);
+    set(255,FG);
+    set(256,FG);
+    set(257,FG);
+
+    setlight(263, -6,-8,64,1,Color.canary);
+
+    set(264,nil,4,8);
+
+    set(266,FG);
+    set(267,FG);
+    set(268,FG);
+    set(269,FG);
+    set(270,FG);
+
+    set(278,FG,8,6);
+    set(279,FG,8,6);
+
+    set(297,FG);
+    set(298,FG);
+    set(299,FG);
+    set(300,FG);
+
+    set(304,FG);
+    set(309,FG, 4, 2);
+    set(317,FG, 4, 2);
+
+    set(349,nil, 4, 8);
+    set(350,nil, 4, 8);
+    set(351,nil, 4, 8);
+
+    set(352,FG);
+
+    set(366,LG + 0.001);
+
+    -- Airship holders and screws
+	for i=354, 365 do
+		set(i,FG);
 	end
-	if (f ~= nil) then
-		bgodefaults[id].frames = f
+
+	set(366,LG + 0.001);
+
+	--Misc.dialog(bgodefaults[56],"",bgodefaults[54])
+
+	for i=378,393 do
+		set(i,-85)
 	end
-	if (s ~= nil) then
-		bgodefaults[id].framespeed = s
+
+	set(410,BG);
+	set(411,BG);
+	set(412,BG);
+	set(413,BG);
+	set(414,BG);
+	set(415,BG);
+	set(416,BG);
+
+	set(419,BG);
+	--set(423,BG);
+
+
+	for i=424,439 do
+		set(i,-85)
 	end
-	if (c ~= nil) then
-		bgodefaults[id].climbable = c
-		bgoClimbableMem(id, c)
-	end
-end
 
-local function setlight(id, x, y, r, b, c, f)
-	bgodefaults[id].lightoffsetx = x;
-	bgodefaults[id].lightoffsety = y;
-	bgodefaults[id].lightradius=r;
-	bgodefaults[id].lightbrightness=b;
-	bgodefaults[id].lightcolor=c;
-	bgodefaults[id].lightflicker=f or false;
-end
-
-
-set(11,BG);
-set(12,BG);
-
-set(14,BG);
-
-set(18,nil,4,12);
-set(19,nil,4,12);
-set(20,nil,4,12);
-
-set(23,FG);
-set(24,FG);
-set(25,FG);
-
-set(26,nil,8,8);
-
-set(36,FG,4,2);
-
-set(45,FG);
-set(46,FG);
-
-set(49,FG);
-set(50,FG);
-set(51,FG);
-
-set(60,BG);
-set(61,BG);
-
-set(65,nil,4,8);
-set(66,BG,4,8);
-
-set(68,FG,4,2);
-set(69,FG);
-set(70,nil,4,8);
-
-set(75,BG);
-set(76,BG);
-set(77,BG);
-set(78,BG);
-
-set(82,nil,4,10);
-
-setlight(96, 0,0,64,0.5,Color.pink);
-
-set(100,nil, 4,8);
-
-set(106,FG);
-
-set(125,nil,2,4);
-setlight(125, 0,-16,64,1,Color.orange, true);
-
-set(134,nil,4,8);
-set(135,nil,4,8);
-set(136,nil,4,8);
-set(137,FG,4,8);
-set(138,FG,4,8);
-
-set(143,FG);
-
-set(145,FG);
-
-set(154,FG);
-set(155,FG);
-set(156,FG);
-set(157,FG);
-set(158,BG,4,6);
-set(159,BG,8,6);
-set(294,BG,4,6);
-
-set(161,nil,4,12);
-
-set(168,nil,8,8);
-
-set(170,nil,4,8);
-set(171,nil,4,8);
-set(172,BG,4,8);
-set(173,nil,2,8);
-
-for i=174,186 do
-	set(i,nil,nil,nil,true)
-end
-
-set(187,FG,4,6);
-set(188,FG,4,6);
-set(189,nil,4,6);
-set(190,nil,4,6);
-
-set(201,LG,4,8);
-set(202,LG,4,8);
-set(203,LG);
-set(204,LG);
-set(205,LG);
-set(206,LG);
-set(207,LG);
-set(208,LG);
-set(209,LG);
-set(210,LG);
-set(211,LG);
-set(212,LG);
-set(213,LG);
-set(214,LG);
-set(215,LG);
-set(216,LG);
-set(217,LG);
-set(218,LG);
-
-set(235,nil,4,8);
-set(236,FG,4,8);
-
-set(237,FG);
-set(238,FG);
-
-set(249,FG);
-
-set(251,FG);
-set(252,FG);
-set(253,FG);
-set(254,FG);
-set(255,FG);
-set(256,FG);
-set(257,FG);
-
-setlight(263, -6,-8,64,1,Color.canary);
-
-set(264,nil,4,8);
-
-set(266,FG);
-set(267,FG);
-set(268,FG);
-set(269,FG);
-set(270,FG);
-
-set(278,FG,8,6);
-set(279,FG,8,6);
-
-set(297,FG);
-set(298,FG);
-set(299,FG);
-set(300,FG);
-
-set(304,FG);
-set(309,FG, 4, 2);
-set(317,FG, 4, 2);
-
-set(349,nil, 4, 8);
-set(350,nil, 4, 8);
-set(351,nil, 4, 8);
-
-set(352,FG);
-
-set(366,LG + 0.001);
-
--- Airship holders and screws
-for i=354, 365 do
-	set(i,FG);
-end
+	set(440,-84)
+	set(441,-84)
+	set(442,-84)
+	set(443,-84, 3)
 end
 
 for id=1,BGO_MAX_ID do

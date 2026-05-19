@@ -44,3 +44,10 @@ data/worlds/The Invasion 1/*.sav
 data/worlds/The Invasion 1/*-ext.dat
 data/worlds/The Invasion 2/*.sav
 data/worlds/The Invasion 2/*-ext.dat
+data/worlds/Mario Challenge/*.sav
+data/worlds/Mario Challenge/*-ext.dat
+data/worlds/Mario Challenge/data.json
+data/worlds/Mario Challenge/progress.json
+
+# Ignore any configs the engine uses
+data/config.dat
