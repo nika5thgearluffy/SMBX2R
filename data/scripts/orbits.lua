@@ -264,7 +264,7 @@ function orbits.onTickEnd()
 				for i = 1, orbit.number do
 					local rotationCounter = orbit.startPoints[i];
 
-					local spawnedNPC = NPC.spawn(orbit.id, centerX + radiusX*math.cos(rotationCounter), centerY + radiusY*math.cos(rotationCounter), orbit.section, true, true)
+					local spawnedNPC = NPC.spawn(orbit.id, centerX + radiusX*math.cos(rotationCounter), centerY + radiusY*math.sin(rotationCounter), orbit.section, true, true)
 
 					spawnedNPC.layerName = orbit.layer.layerName;
 
@@ -413,8 +413,8 @@ function orbits.onTickEnd()
 							-- increment the NPC's rotation counter
 
 							if not Defines.levelFreeze then
-								data.rotationCounter = data.rotationCounter + rotationSpeed;
-							end
+                                data.rotationCounter = data.rotationCounter + rotationSpeed
+                            end
 						end
 					end
 				end

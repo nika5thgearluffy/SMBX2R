@@ -196,7 +196,7 @@ end
 
 function pauseMenu13.onCheatActivate(cheat)
     if pauseMenu13.enableCheatedAndNotSaveMenuChanges then
-        if not (cheat.id == "redigitiscool" or cheat.id == "gdiredigit") and Defines.player_hasCheated then
+        --[[if not (cheat.id == "redigitiscool" or cheat.id == "gdiredigit") and Defines.player_hasCheated then
             if pauseMenu13.findMenuOption("SAVE & CONTINUE") ~= 0 then
                 pauseMenu13.removeMenuOption("SAVE & CONTINUE")
             end
@@ -210,7 +210,7 @@ function pauseMenu13.onCheatActivate(cheat)
             pauseMenu13.addMenuOption("SAVE & CONTINUE", (function() pauseMenu13.continueGame(true) end))
             pauseMenu13.addMenuOption("SAVE & QUIT", (function() Routine.run(pauseMenu13.saveAndQuitGame) end))
             GameData.__basegame_notCheated = true
-        end
+        end]]
     end
 end
 
