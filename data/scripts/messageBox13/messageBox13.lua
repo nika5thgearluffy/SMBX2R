@@ -21,6 +21,27 @@ messageBox13.pageSFX = 26
 -- The sound to play when closing a message box.
 messageBox13.closeSFX = 0
 
+-- All character names. Change one of these names to whoever character you want to be named as for the <characterName> tag.
+messageBox13.characterNames = {
+    [1]  = "Mario",
+    [2]  = "Luigi",
+    [3]  = "Peach",
+    [4]  = "Toad",
+    [5]  = "Link",
+    [6]  = "Megaman",
+    [7]  = "Wario",
+    [8]  = "Bowser",
+    [9]  = "Klonoa",
+    [10] = "Yoshi",
+    [11] = "Rosalina",
+    [12] = "Snake",
+    [13] = "Zelda",
+    [14] = "Steve",
+    [15] = "Uncle Broadsword",
+    [16] = "Samus",
+    [17] = "Tangent",
+}
+
 --Whether a message box is on or not.
 local messageBoxOn = false
 --The message shown on the screen
@@ -36,6 +57,27 @@ function messageBox13.onInitAPI()
     registerEvent(messageBox13,"onInputUpdate")
 end
 
+function customTags.characterName(fmt,out,args)
+    local text = ""
+
+    for index,p in ipairs(Player.get()) do
+        text = text.. (messageBox13.characterNames[p.character] or "Player")
+
+        if index < Player.count()-1 then
+            text = text.. ", "
+        elseif index < Player.count() then
+            text = text.. " and "
+        end
+    end
+
+    local segment = tplusUtils.strToCodes(text)
+    segment.fmt = fmt
+
+    out[#out+1] = segment
+
+    return fmt
+end
+
 local customTags = {}
 function customTags.page(fmt, out, args)
     out[#out+1] = {page=true} -- Add page tag to stream
@@ -43,7 +85,7 @@ function customTags.page(fmt, out, args)
 end
 
 function messageBox13.parseTextForDialogMessage(text, args)
-	local formattedText = textplus.parse(text, {font = messageBox13.font, xscale=1, yscale=1, color=Color.white}, customTags, {"page"})
+	local formattedText = textplus.parse(text, {font = messageBox13.font, xscale=1, yscale=1, color=Color.white}, customTags, {"page","characterName"})
 
 	local pages = {}
 	local page = {}
