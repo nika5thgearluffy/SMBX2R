@@ -1,0 +1,22 @@
+{
+	"style" : "groupbox",
+	"title" : "Boss Settings",
+	"layout": [	
+{
+			"control": "checkbox",
+			"name": "walk",
+			"title": "Walks around?",
+			"tooltip": "If checked, the NPC will run after the player.",
+			"text-visible": true,
+			"value-default": false
+		},
+		{
+			"control": "checkbox",
+			"name": "phase2",
+			"title": "Second Phase?",
+			"tooltip": "If checked, the NPC will remain stationary until at half HP, at which point it will begin pursuing the player. 'Walks Around?' must be unchecked in order for this extra setting to work.",
+			"text-visible": true,
+			"value-default": false
+		}
+		]
+}

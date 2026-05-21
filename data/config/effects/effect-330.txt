@@ -1,0 +1,6 @@
+[1]
+variants=12
+onTick=TICK_BOSSDEATH2
+lifetime=128
+framestyle=0
+frames=1
