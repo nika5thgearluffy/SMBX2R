@@ -57,6 +57,8 @@ function messageBox13.onInitAPI()
     registerEvent(messageBox13,"onInputUpdate")
 end
 
+local customTags = {}
+
 function customTags.characterName(fmt,out,args)
     local text = ""
 
@@ -78,7 +80,6 @@ function customTags.characterName(fmt,out,args)
     return fmt
 end
 
-local customTags = {}
 function customTags.page(fmt, out, args)
     out[#out+1] = {page=true} -- Add page tag to stream
     return fmt
