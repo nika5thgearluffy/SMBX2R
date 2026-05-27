@@ -92,6 +92,8 @@ function Buzz.onTickEndNPC(v)
 	if Defines.levelFreeze then return end
 	
 	local data = v.data
+    local settings = v.data._settings
+
 	local cfg = NPC.config[v.id]
 	local plr = Player.getNearest(v.x + v.width / 2, v.y + v.height / 2)
 	
@@ -119,11 +121,13 @@ function Buzz.onTickEndNPC(v)
 			v.friendly = false
 			
 			v.animationFrame = 0
-			if plr.x < v.x then
-				v.direction = DIR_LEFT
-			else
-				v.direction = DIR_RIGHT
-			end
+            if not settings.ignorePlayer then
+                if plr.x < v.x then
+                    v.direction = DIR_LEFT
+                else
+                    v.direction = DIR_RIGHT
+                end
+            end
 			if data.timer >= cfg.waitTime then
 				v.speedY = -cfg.jumpHeight
 				SFX.play(24)

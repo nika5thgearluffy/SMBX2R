@@ -1,0 +1,14 @@
+{
+	"style" : "groupbox",
+	"title" : "Fighter Fly Settings",
+	"layout": [
+		{
+			"control": "checkbox",
+			"name": "ignorePlayer",
+			"title": "Ignore Player",
+			"tooltip": "If this flag is set, the NPC will not jump near the player. It instead will <b>jump</b> towards the direction set on the editor.",
+			"text-visible": false,
+			"value-default": false
+		}
+	]
+}
