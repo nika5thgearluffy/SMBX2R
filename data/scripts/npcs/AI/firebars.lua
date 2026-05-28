@@ -74,6 +74,7 @@ function firebar.onTickNPC(v)
             
             data.center.x = v.x + (v.width / 4)
             data.center.y = v.y + (v.height / 4)
+            data.sharedRotation = data.sharedRotation or {counter = (270 + data._settings.angle) * (math.pi/180)}
 
             for i = 1, data._settings.length do
                 data.orbit[i] = orbits.new{
@@ -87,6 +88,7 @@ function firebar.onTickNPC(v)
                     friendly = v.friendly,
                 }
             end
+            orbits.SHARED_ROTATION = data.sharedRotation.counter;
             
             data.isMade = true
         

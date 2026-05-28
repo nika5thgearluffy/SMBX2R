@@ -46,6 +46,18 @@ typedef struct _LunaLuaKeyMap {
     short    pause; //Pause
 } LunaLuaKeyMap;
 LunaLuaKeyMap* LunaLuaGetRawKeymapArray(void);
+
+bool LunaLuaPlayerGetLegacyInputState();
+void LunaLuaPlayerSetLegacyInputState(bool toggle);
+
+bool LunaLuaPlayerGetPlayerSpecial(int idx);
+void LunaLuaPlayerSetPlayerSpecial(int idx, bool toggle);
+
+bool LunaLuaPlayerGetPlayerLTrigger(int idx);
+void LunaLuaPlayerSetPlayerLTrigger(int idx, bool toggle);
+
+bool LunaLuaPlayerGetPlayerRTrigger(int idx);
+void LunaLuaPlayerSetPlayerRTrigger(int idx, bool toggle);
 ]]
 local LunaDLL = ffi.load("LunaDll.dll")
 
@@ -271,6 +283,48 @@ local function setSimilarMovementAbove2Players(value)
 	LunaDLL.LunaLuaSetSimilarMovementAbove2Players(value)
 end
 
+local function getPlayerKeySpecial(pl)
+    if pl.idx < 1 or pl.idx > 2 then
+        return
+    end
+    return LunaDLL.LunaLuaPlayerGetPlayerSpecial(pl.idx)
+end
+
+local function setPlayerKeySpecial(pl, toggle)
+    if pl.idx < 1 or pl.idx > 2 then
+        return
+    end
+    LunaDLL.LunaLuaPlayerSetPlayerSpecial(pl.idx, toggle)
+end
+
+local function getPlayerKeyLTrigger(pl)
+    if pl.idx < 1 or pl.idx > 2 then
+        return
+    end
+    return LunaDLL.LunaLuaPlayerGetPlayerLTrigger(pl.idx)
+end
+
+local function setPlayerKeyLTrigger(pl, toggle)
+    if pl.idx < 1 or pl.idx > 2 then
+        return
+    end
+    LunaDLL.LunaLuaPlayerSetPlayerLTrigger(pl.idx, toggle)
+end
+
+local function getPlayerKeyRTrigger(pl)
+    if pl.idx < 1 or pl.idx > 2 then
+        return
+    end
+    return LunaDLL.LunaLuaPlayerGetPlayerRTrigger(pl.idx)
+end
+
+local function setPlayerKeyRTrigger(pl, toggle)
+    if pl.idx < 1 or pl.idx > 2 then
+        return
+    end
+    LunaDLL.LunaLuaPlayerSetPlayerRTrigger(pl.idx, toggle)
+end
+
 ------------------------
 -- CONSTANTS          --
 ------------------------
@@ -379,6 +433,10 @@ local PlayerFields = {
 		altRunKeyPressing       = {0x100, FIELD_BOOL},
 		dropItemKeyPressing     = {0x102, FIELD_BOOL},
 		pauseKeyPressing        = {0x104, FIELD_BOOL},
+
+        specialKeyPressing      = {get=getPlayerKeySpecial, set=setPlayerKeySpecial},
+        lTriggerKeyPressing     = {get=getPlayerKeyLTrigger, set=setPlayerKeyLTrigger},
+        rTriggerKeyPressing     = {get=getPlayerKeyRTrigger, set=setPlayerKeyRTrigger},
 
 		direction               = {0x106, FIELD_WORD},
 		deathTimer              = {0x13E, FIELD_WORD},
@@ -1081,6 +1139,9 @@ _G.Player = Player
 _G.player = Player(1)
 if (_G.player2 ~= nil) or (Player.count() > 1) then
 	_G.player2 = Player(2)
+end
+for i = 1,200 do
+    _G["player".. i] = Player(i)
 end
 
 _G.KEYS_UP = KEYS_UP

@@ -36,6 +36,7 @@ data/PGE/settings/pge_editor.ini
 data/PGE/configs/*
 !SMBX2R-Integration
 data/PGE/settings/pge_editor_config_*.ini
+data/PGE/settings/pge_calibrator.ini
 
 # Ignore any save files on default episodes
 data/worlds/The Princess Cliche/*.sav
@@ -51,3 +52,4 @@ data/worlds/Mario Challenge/progress.json
 
 # Ignore any configs the engine uses
 data/config.dat
+data/inputs.ini

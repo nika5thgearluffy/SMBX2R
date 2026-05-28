@@ -58,34 +58,36 @@ function classicEvents.doEvents()
     local players = Player.get()
     for plIndex, plData in ipairs(playerData) do
         local plObject = players[plIndex]
-        for _,keymapEnumValue in ipairs(playerKeymapKeys) do
-            local keymapPropertyName = playerKeymapProperties[keymapEnumValue]
-            checkKeyboardEvent(plObject, plIndex, plData, keymapPropertyName, keymapEnumValue)
+        if plObject ~= nil then
+            for _,keymapEnumValue in ipairs(playerKeymapKeys) do
+                local keymapPropertyName = playerKeymapProperties[keymapEnumValue]
+                checkKeyboardEvent(plObject, plIndex, plData, keymapPropertyName, keymapEnumValue)
+            end
+            
+            if(plObject:mem(0x60, FIELD_WORD) == -1 and plData.playerJumping == false)then
+                EventManager.callEventInternal("onJump", {plIndex})
+            elseif(plObject:mem(0x60, FIELD_WORD) == 0 and plData.playerJumping == true)then
+                EventManager.callEventInternal("onJumpEnd", {plIndex})
+            end
+            
+            local section = plObject.section
+            if(section ~= plData.currentSection)then
+                local evLoadSecitionName = "onLoadSection"
+                EventManager.callEventInternal(evLoadSecitionName, {plIndex})
+                EventManager.callEventInternal(evLoadSecitionName .. section, {plIndex})
+            end
+            EventManager.callEventInternal("onLoopSection" .. section, {plIndex})
+            
+            -- Copy new data here to plData
+            for _,keymapEnumValue in ipairs(playerKeymapKeys) do
+                local keymapPropertyName = playerKeymapProperties[keymapEnumValue]
+                plData[keymapPropertyName] = plObject[keymapPropertyName]
+            end
+            
+            plData.playerJumping = plObject:mem(0x60, FIELD_WORD) == -1
+            
+            plData.currentSection = section
         end
-        
-        if(plObject:mem(0x60, FIELD_WORD) == -1 and plData.playerJumping == false)then
-            EventManager.callEventInternal("onJump", {plIndex})
-        elseif(plObject:mem(0x60, FIELD_WORD) == 0 and plData.playerJumping == true)then
-            EventManager.callEventInternal("onJumpEnd", {plIndex})
-        end
-        
-        local section = plObject.section
-        if(section ~= plData.currentSection)then
-            local evLoadSecitionName = "onLoadSection"
-            EventManager.callEventInternal(evLoadSecitionName, {plIndex})
-            EventManager.callEventInternal(evLoadSecitionName .. section, {plIndex})
-        end
-        EventManager.callEventInternal("onLoopSection" .. section, {plIndex})
-        
-        -- Copy new data here to plData
-        for _,keymapEnumValue in ipairs(playerKeymapKeys) do
-            local keymapPropertyName = playerKeymapProperties[keymapEnumValue]
-            plData[keymapPropertyName] = plObject[keymapPropertyName]
-        end
-        
-        plData.playerJumping = plObject:mem(0x60, FIELD_WORD) == -1
-        
-        plData.currentSection = section
     end
 end
 

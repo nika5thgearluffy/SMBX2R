@@ -17,6 +17,8 @@ orbits.DEFAULT_RADIUS = 96; -- the default radius of all orbits if not specified
 orbits.DEFAULT_CENTERID = 630; -- default orbit center ID (the SMB3 dungeon stone ball)
 orbits.DEFAULT_ROTATIONSPEED = 1; -- the default speed of rotation (in revolutions per second)
 
+orbits.SHARED_ROTATION = 0; -- The shared rotation for any rotation that needs to be shared.
+
 math.randomseed(os.time());
 
 local Orbit = {};
@@ -56,6 +58,7 @@ function Orbit.new(args)
 	-- determining the position of the orbit
 
 	t.layer = Layer.get(args.layer or "Default")
+    t.sharedRotation = args.sharedRotation or nil
 
 	if (args.x ~= nil) and (args.y ~= nil) then
 		t.x = args.x;
@@ -412,12 +415,17 @@ function orbits.onTickEnd()
 
 							-- increment the NPC's rotation counter
 
-							if not Defines.levelFreeze then
+                            
+                            if orbit.sharedRotation == nil and not Defines.levelFreeze then
                                 data.rotationCounter = data.rotationCounter + rotationSpeed
                             end
 						end
 					end
 				end
+                
+                if orbit.sharedRotation and not Defines.levelFreeze then
+                    orbit.sharedRotation.counter = orbit.sharedRotation.counter + orbits.SHARED_ROTATION
+                end
 
 				if (orbit.attachedNPC) and (orbit.attachedNPC.isValid) then
 					-- if there is an attached NPC make sure it is also onscreen for one tick
