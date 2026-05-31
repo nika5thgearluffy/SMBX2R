@@ -13,10 +13,15 @@ starman.ignore[108] = true;
 local idMap = {}
 
 starman.sfxFile = Misc.resolveSoundFile("starman")
+local starPreviousSFXFile = starman.sfxFile
+
 local starSoundObject;
 local starTimers = {};
 local starActivePlayers = {};
 local starSparkleObjects = {};
+local starOpacity = {}
+local starScoreboard = {}
+
 local starlights = {};
 local sparklesize = {};
 
@@ -24,6 +29,8 @@ local activeStarIDs = {}
 
 local starmanMusicChunk = nil
 local musicvolcache;
+
+local timeFPS = Misc.GetEngineTPS()
 
 function starman.register(id, ignoreOnNPCKill)
 	table.insert(starman.ids, id)
@@ -74,10 +81,9 @@ local function stopMusic(idx)
 end
 
 local function resetMusic()
-	if(not starman.active()) then
-		Audio.MusicVolume(musicvolcache);
-		musicvolcache = nil;
-	end
+    Audio.MusicVolume(musicvolcache);
+    Audio.MusicRewind()
+    musicvolcache = nil;
 end
 
 function starman.stop(p)
@@ -89,8 +95,6 @@ function starman.stop(p)
 		starlights[idx]:destroy();
 	end
 	starlights[idx] = nil;
-	resetMusic();
-	stopMusic(idx);
 	p:mem(0x140, FIELD_WORD, 0);
 end
 
@@ -99,7 +103,7 @@ starman.stopTheStar = starman.stop;
 local function getDuration(id)
 	local t = starman.duration[id];		
 	if t == nil then
-		if NPC.config[id].duration then
+		if NPC.config[id].duration ~= nil and NPC.config[id].duration then
 			t = lunatime.toTicks(NPC.config[id].duration)
 		else --No duration set for this npc id
 			t = 1
@@ -118,6 +122,8 @@ function starman.start(p, id)
 	local idx = p.idx;
 	activeStarIDs[idx] = id
 	starTimers[idx] = getDuration(id)
+    starOpacity[idx] = 1
+    starScoreboard[idx] = 1;
 	
 	if(starlights[idx] == nil) then
 		starlights[idx] = darkness.addLight(darkness.light(0,0,300,2,Color.white));
@@ -140,19 +146,45 @@ local function starmanFilter(v)
 	return colliders.FILTER_COL_NPC_DEF(v) and not starman.ignore[v.id];
 end
 
+local function checkCollisionNoEntity(x1, y1, width1, height1, x2, y2, width2, height2) --Checks a collision between two things
+    return (y1 + height1 >= y2) and
+           (y1 <= y2 + height2) and
+           (x1 <= x2 + width2) and
+           (x1 + width1 >= x2)
+end
+
+local function restoreOldScoreRoutine(npcID, oldScore)
+    Routine.waitFrames(5, true)
+    NPC.config[npcID].score = oldScore
+end
+
 local function checkStarStatus(p)
 	local idx = p.idx;
 	if(starActivePlayers[idx]) then
 		p:mem(0x140, FIELD_WORD, -2);
 		p:mem(0x142, FIELD_WORD, 0);
 		
-		for _,v in ipairs(colliders.getColliding{a = p, b = NPC.HITTABLE, btype = colliders.NPC, filter = starmanFilter, collisionGroup = p.collisionGroup}) do
-			v:harm(HARM_TYPE_EXT_HAMMER);
-		end
+		for k,v in ipairs(NPC.get(NPC.HITTABLE)) do
+            -- TODO: Doesn't work well with piranha plants underneath pipes, giving a ton of score. Will either need a check for piranhas underneath pipes, or they'll need to be underneath 1 or 2 pixels deeper
+            if(v and v.isValid and starActivePlayers[p.idx] and checkCollisionNoEntity(p.x - 2, p.y + 2, p.width + 2, p.height + 2, v.x, v.y, v.width, v.height)) then
+                local oldScore = NPC.config[v.id].score
+                if starScoreboard[p.idx] < 10 then
+                    starScoreboard[p.idx] = starScoreboard[p.idx] + 1
+                end
+                NPC.config[v.id].score = 0
+                Misc.givePoints(starScoreboard[p.idx],{x = v.x+v.width*0.5,y = v.y+v.height*0.5},true)
+                if starScoreboard[p.idx] >= 10 then
+                    SFX.play(15)
+                end
+                Routine.run(restoreOldScoreRoutine, v.id, oldScore)
+                v:harm(HARM_TYPE_NPC)
+            end
+        end
 		
 		starTimers[idx] = starTimers[idx] - 1;
 		if(starTimers[idx] == math.min(getDuration(activeStarIDs[idx])-1, math.floor(lunatime.toTicks(1)))) then
 			stopMusic(idx);
+            resetMusic();
 			if(starSparkleObjects[idx] ~= nil) then
 				starSparkleObjects[idx].enabled = false;
 			end
@@ -160,6 +192,10 @@ local function checkStarStatus(p)
 			starTimers[idx] = nil;
 			starman.stop(p);
 		end
+        
+        if (starTimers[idx] ~= nil and activeStarIDs[idx] ~= nil and (starTimers[idx] <= math.min(getDuration(activeStarIDs[idx])-1, math.floor(lunatime.toTicks(1))))) then
+            starOpacity[idx] = starOpacity[idx] - (1 / timeFPS)
+        end
 	end
 end
 
@@ -181,6 +217,7 @@ end
 
 function starman.reloadMusic()
 	starmanMusicChunk = Audio.SfxOpen(starman.sfxFile)
+    starPreviousSFXFile = starman.sfxFile
 end
 
 local function drawStar(p)
@@ -208,8 +245,12 @@ local function drawStar(p)
 			starSparkleObjects[idx]:setParam("xOffset",wid);
 			starSparkleObjects[idx]:setParam("yOffset",hei);
 		end
-		
-		
+        
+        local priority = -25;
+        if(p.forcedState == 3) then
+            priority = -70;
+        end
+
 		if(starActivePlayers[idx] and starman.animationCheck(p)) then
 			p:render{
 						shader = shader, 
@@ -217,13 +258,12 @@ local function drawStar(p)
 								{
 									time = lunatime.tick()*2;
 								},
-						drawmounts = (player:mem(0x108, FIELD_WORD) ~= 3)
+						drawmounts = (p:mem(0x108, FIELD_WORD) ~= 3),
+                        priority = priority,
+                        color = Color(1, 1, 1) .. starOpacity[idx]
 					};
 					
-			local priority = -25;
-			if(p.forcedState == 3) then
-				priority = -70;
-			end
+			
 			starSparkleObjects[idx]:Draw(priority);
 		
 		end
@@ -231,6 +271,9 @@ local function drawStar(p)
 end
 
 function starman.onDraw()
+    if starman.sfxFile ~= starPreviousSFXFile then
+        starman.reloadMusic()
+    end
 	for _,v in ipairs(Player.get()) do
 		local idx = v.idx;
 		if(starActivePlayers[idx]) then
@@ -245,6 +288,7 @@ end
 function starman.onPostNPCCollect(npc,p)
 	local id = npc.id;
 	if(idMap[npc.id]) then
+        SFX.play(6)
 		starman.start(p, npc.id)
 	end
 end
@@ -259,7 +303,7 @@ end
 
 function starman.onExitLevel()
 	for _,v in ipairs(Player.get()) do
-			starman.stop(v);
+        starman.stop(v);
 	end
 end
 
