@@ -60,6 +60,7 @@ function pauseMenu13.onFramebufferResize(width, height)
     pauseMenu13.screenW = width
     pauseMenu13.screenH = height
     pauseMenu13.menu_left_X = pauseMenu13.screenW / 2 - 183 + 62 --pauseMenu13.screenW / 2 - 190 + 62
+    pauseMenu13.menu_top_Y = pauseMenu13.screenH / 2 - pauseMenu13.total_menu_height / 2;
 end
 
 -- Adds a menu item to the pause menu.
