@@ -506,10 +506,12 @@ function clearpipe.onInputUpdate()
 	--Used in onTick and turnJunction
 	--I really wish I didn't have to do this but to my knowledge I do
 	for i, p in ipairs(Player.get()) do
-		keys[i] = keys[i] or {}
-		for k, v in pairs(p.rawKeys) do
-			keys[i][k] = v
-		end
+        if p and p.isValid then
+            keys[i] = keys[i] or {}
+            for k, v in pairs(p.rawKeys) do
+                keys[i][k] = v
+            end
+        end
 	end
 end
 
@@ -519,179 +521,186 @@ end
 
 function clearpipe.onTick()
 	for i, p in ipairs(Player.get()) do
-		--If the player would be able to enter a noyoshi pipe warp:
-		--If the player's pushing against a surface:
-		--run enterPipe at that surface.
-		if not inPipe[i] and
-		   p.WarpTimer == 0 and
-		   p.mount == 0 and
-		   p.forcedState == 0 and
-		   p.TanookiStatueActive == 0 and
-		   not p.isMega then
-			if keys[i].down and p.LayerStateStanding == 2 then
-				enterPipe(DOWN, i, p)
-			elseif keys[i].up and p.LayerStateTopContact == 2 then
-				enterPipe(UP, i, p)
-			elseif keys[i].right and p.LayerStateRightContact == 2 then
-				enterPipe(RIGHT, i, p)
-			elseif keys[i].left and p.LayerStateLeftContact == 2 then
-				enterPipe(LEFT, i, p)
-			end
-		end
-		if inPipe[i] then --TODO: Collect coins while in pipes
-			--[[local _,_,coins = Colliders.collideNPC(p,{10,33,88,103,138,258})
-			for _,v in ipairs(coins) do
-				v:harm()
-			end]]
-			if p.deathTimer > 0 then
-				inPipe[i] = false
-				inPipe.all = inPipe.all - 1
-			else
-				local bounce = false
-				local dir = getDirection(i)
-				local blocks = getCollidingBlocks(p, i, p, dir, false)
-				local foundCannon = false
-				for _,v in ipairs(blocks) do
-					if clearpipe.PIPES[v.id] and (clearpipe.PIPES[v.id][dir] or not isEntering(v, i, p)) then
-						if clearpipe.ELBS[v.id] or clearpipe.JUNCS[v.id] or clearpipe.CANNONS[v.id] then
-							local axis = "x"
-							if dir <= DOWN then
-								axis = "y"
-							end
-							lastPos = getMiddle(projectLastPos(i, p))[axis]
-							currPos = getMiddle(p)[axis]
-							nextPos = getMiddle(projectNextPos(i, p))[axis]
-							pipePos = getMiddle(v)
-							if clearpipe.JUNCS[v.id] then
-								pipePos.x = v.x + v.width * clearpipe.JUNC_OFFSETS[clearpipe.JUNCS[v.id]].x
-								pipePos.y = v.y + v.height * clearpipe.JUNC_OFFSETS[clearpipe.JUNCS[v.id]].y
-							end
-							pipePos = pipePos[axis]
-							--if, in the course of this frame's movement, the player would pass through the pipe's midpoint, then
-							if math.sign(currPos - pipePos) ~= math.sign(nextPos - pipePos)	then
-								if clearpipe.ELBS[v.id] then
-									turnElbow(v, i, p)
-								elseif clearpipe.JUNCS[v.id] then
-									turnJunction(v, i, p)
-								elseif clearpipe.CANNONS[v.id] and inPipe[i] ~= 4 then
-									inPipe[i] = 3
-									if dir == UP or dir == DOWN then
-										p.y = pipePos - p.height / 2
-									else
-										p.x = pipePos - p.width / 2
-									end
-								end
-							end
-						end
-					else
-						bounce = true
-					end
-				end
+        if p and p.isValid then
+            --If the player would be able to enter a noyoshi pipe warp:
+            --If the player's pushing against a surface:
+            --run enterPipe at that surface.
+            if i ~= nil and not inPipe[i] and (
+            p.WarpTimer == 0
+            and p.mount == 0
+            and p.forcedState == 0
+            and p.TanookiStatueActive == 0
+            and not p.isMega
+            ) then
+                if keys[i] ~= nil then
+                    if keys[i].down and p.LayerStateStanding == 2 then
+                        enterPipe(DOWN, i, p)
+                    elseif keys[i].up and p.LayerStateTopContact == 2 then
+                        enterPipe(UP, i, p)
+                    elseif keys[i].right and p.LayerStateRightContact == 2 then
+                        enterPipe(RIGHT, i, p)
+                    elseif keys[i].left and p.LayerStateLeftContact == 2 then
+                        enterPipe(LEFT, i, p)
+                    end
+                end
+            end
+            if inPipe[i] then --TODO: Collect coins while in pipes
+                --[[local _,_,coins = Colliders.collideNPC(p,{10,33,88,103,138,258})
+                for _,v in ipairs(coins) do
+                    v:harm()
+                end]]
+                if p.deathTimer > 0 then
+                    inPipe[i] = false
+                    inPipe.all = inPipe.all - 1
+                else
+                    local bounce = false
+                    local dir = getDirection(i)
+                    local blocks = getCollidingBlocks(p, i, p, dir, false)
+                    local foundCannon = false
+                    for _,v in ipairs(blocks) do
+                        if clearpipe.PIPES[v.id] and (clearpipe.PIPES[v.id][dir] or not isEntering(v, i, p)) then
+                            if clearpipe.ELBS[v.id] or clearpipe.JUNCS[v.id] or clearpipe.CANNONS[v.id] then
+                                local axis = "x"
+                                if dir <= DOWN then
+                                    axis = "y"
+                                end
+                                lastPos = getMiddle(projectLastPos(i, p))[axis]
+                                currPos = getMiddle(p)[axis]
+                                nextPos = getMiddle(projectNextPos(i, p))[axis]
+                                pipePos = getMiddle(v)
+                                if clearpipe.JUNCS[v.id] then
+                                    pipePos.x = v.x + v.width * clearpipe.JUNC_OFFSETS[clearpipe.JUNCS[v.id]].x
+                                    pipePos.y = v.y + v.height * clearpipe.JUNC_OFFSETS[clearpipe.JUNCS[v.id]].y
+                                end
+                                pipePos = pipePos[axis]
+                                --if, in the course of this frame's movement, the player would pass through the pipe's midpoint, then
+                                if math.sign(currPos - pipePos) ~= math.sign(nextPos - pipePos)	then
+                                    if clearpipe.ELBS[v.id] then
+                                        turnElbow(v, i, p)
+                                    elseif clearpipe.JUNCS[v.id] then
+                                        turnJunction(v, i, p)
+                                    elseif clearpipe.CANNONS[v.id] and inPipe[i] ~= 4 then
+                                        inPipe[i] = 3
+                                        if dir == UP or dir == DOWN then
+                                            p.y = pipePos - p.height / 2
+                                        else
+                                            p.x = pipePos - p.width / 2
+                                        end
+                                    end
+                                end
+                            end
+                        else
+                            bounce = true
+                        end
+                    end
 
-				--Bounce if the player touches an unregistered block, or enters a pipe in an invalid direction
-				if bounce then
-					vPipe[i].x = -vPipe[i].x
-					vPipe[i].y = -vPipe[i].y
-				end
+                    --Bounce if the player touches an unregistered block, or enters a pipe in an invalid direction
+                    if bounce then
+                        vPipe[i].x = -vPipe[i].x
+                        vPipe[i].y = -vPipe[i].y
+                    end
 
-				--Give the reins back to vanilla for one tick if the player's on top of a warp.
-				for _,warp in ipairs(
-					Warp.getIntersectingEntrance(
-						p.x - 1 + p.width  / 2,
-						p.y - 1 + p.height / 2,
-						p.x + 1 + p.width  / 2,
-						p.y + 1 + p.height / 2
-					)
-				) do
-					if warp.warpType == 0 and p.WarpTimer == 0 and not warp.isHidden then
-						inPipe[i] = 2
-						p.forcedState = 0
-						p.forcedTimer = 1
-						p.keys.run = false
-						p.keys.jump = false
-						p.keys.altRun = false
-						p.keys.altJump = false
-						break
-					end
-				end
-				if inPipe[i] == 3 and (keys[i].jump == KEYS_PRESSED or keys[i].altJump == KEYS_PRESSED) then
-					inPipe[i] = 4
-					vPipe[i].x = vPipe[i].x * clearpipe.cannonBoost
-					vPipe[i].y = vPipe[i].y * clearpipe.cannonBoost
-					clearpipe.cannonEffect(p)
-				end
-				if inPipe[i] ~= 3 then
-					p.x = p.x + vPipe[i].x * clearpipe.speed
-					p.y = p.y + vPipe[i].y * clearpipe.speed
+                    --Give the reins back to vanilla for one tick if the player's on top of a warp.
+                    for _,warp in ipairs(
+                        Warp.getIntersectingEntrance(
+                            p.x - 1 + p.width  / 2,
+                            p.y - 1 + p.height / 2,
+                            p.x + 1 + p.width  / 2,
+                            p.y + 1 + p.height / 2
+                        )
+                    ) do
+                        if warp.warpType == 0 and p.WarpTimer == 0 and not warp.isHidden then
+                            inPipe[i] = 2
+                            p.forcedState = 0
+                            p.forcedTimer = 1
+                            p.keys.run = false
+                            p.keys.jump = false
+                            p.keys.altRun = false
+                            p.keys.altJump = false
+                            break
+                        end
+                    end
+                    if inPipe[i] == 3 and (keys[i].jump == KEYS_PRESSED or keys[i].altJump == KEYS_PRESSED) then
+                        inPipe[i] = 4
+                        vPipe[i].x = vPipe[i].x * clearpipe.cannonBoost
+                        vPipe[i].y = vPipe[i].y * clearpipe.cannonBoost
+                        clearpipe.cannonEffect(p)
+                    end
+                    if inPipe[i] ~= 3 then
+                        p.x = p.x + vPipe[i].x * clearpipe.speed
+                        p.y = p.y + vPipe[i].y * clearpipe.speed
 
-					local sect = p.sectionObj
-					if sect.isLevelWarp then
-						if p.x + p.width < sect.boundary.left then
-							p.x = sect.boundary.right
-						elseif p.x > sect.boundary.right then
-							p.x = sect.boundary.left - p.width
-						end
-					elseif sect.hasOffscreenExit then
-						if p.x + p.width < sect.boundary.left or p.x > sect.boundary.right then
-							Level.exit(LEVEL_WIN_TYPE_OFFSCREEN)
-						end
-					end
+                        local sect = p.sectionObj
+                        if sect.isLevelWarp then
+                            if p.x + p.width < sect.boundary.left then
+                                p.x = sect.boundary.right
+                            elseif p.x > sect.boundary.right then
+                                p.x = sect.boundary.left - p.width
+                            end
+                        elseif sect.hasOffscreenExit then
+                            if p.x + p.width < sect.boundary.left or p.x > sect.boundary.right then
+                                Level.exit(LEVEL_WIN_TYPE_OFFSCREEN)
+                            end
+                        end
 
-					--If the player's not intersecting with a pipe:
-					--Set the player's exit speed
-					--Play a sound
-					--Reset a few variables
-					--Make sure the player can't jump.
-					blocks = Colliders.getColliding{
-						a = p,
-						b = clearpipe.PIPES_LIST,
-						btype = Colliders.BLOCK,
-						collisionGroup = p.collisionGroup
-					}
-					if #blocks == 0 then
-						inPipe[i] = false
-						inPipe.all = #inPipe - 1
-						p.speedX = clearpipe.exitBoost * vPipe[i].x * clearpipe.speed
-						p.speedY = clearpipe.exitBoost * vPipe[i].y * clearpipe.speed
-						vPipe[i] = nil
-						SFX.play(clearpipe.sfx)
-						p.forcedState = 0
-						p.forcedTimer = 0
-						p.keys.jump = false
-						p.keys.altJump = false
-						p.WarpTimer = 10
-						p.HasJumped = -1
-						Routine.run(cor_goFast, p)
-					end
-				end
-			end
-		end
-	end
+                        --If the player's not intersecting with a pipe:
+                        --Set the player's exit speed
+                        --Play a sound
+                        --Reset a few variables
+                        --Make sure the player can't jump.
+                        blocks = Colliders.getColliding{
+                            a = p,
+                            b = clearpipe.PIPES_LIST,
+                            btype = Colliders.BLOCK,
+                            collisionGroup = p.collisionGroup
+                        }
+                        if #blocks == 0 then
+                            inPipe[i] = false
+                            inPipe.all = #inPipe - 1
+                            p.speedX = clearpipe.exitBoost * vPipe[i].x * clearpipe.speed
+                            p.speedY = clearpipe.exitBoost * vPipe[i].y * clearpipe.speed
+                            vPipe[i] = nil
+                            SFX.play(clearpipe.sfx)
+                            p.forcedState = 0
+                            p.forcedTimer = 0
+                            p.keys.jump = false
+                            p.keys.altJump = false
+                            p.WarpTimer = 10
+                            p.HasJumped = -1
+                            Routine.run(cor_goFast, p)
+                        end
+                    end
+                end
+            end
+        end
+    end
 end
 
 function clearpipe.onTickEnd()
 	if #inPipe > 0 then
 		for i, p in ipairs(Player.get()) do
-			if inPipe[i] == 2 then
-				inPipe[i] = true
-				p.forcedState = 7
-				p.forcedTimer = 1
-				for _,warp in ipairs(Warp.getIntersectingExit(p.x, p.y, p.x + p.width, p.y + p.height)) do
-					if warp.warpType == 0 and not warp.isHidden then
-						p.x = warp.exitX + 16 - p.width / 2
-						p.y = warp.exitY + 16 - p.height / 2
-						break
-					end
-				end
-				for _,bgo in ipairs(BGO.getIntersecting(p.x, p.y, p.x + p.width, p.y + p.height)) do
-					local vec = clearpipe.REDIRECTS[bgo.id]
-					if vec ~= nil then
-						vPipe[i].x = clearpipe.DIR_VECTORS[vec].x
-						vPipe[i].y = clearpipe.DIR_VECTORS[vec].y
-						break
-					end
-				end
-			end
+            if p and p.isValid then
+                if inPipe[i] == 2 then
+                    inPipe[i] = true
+                    p.forcedState = 7
+                    p.forcedTimer = 1
+                    for _,warp in ipairs(Warp.getIntersectingExit(p.x, p.y, p.x + p.width, p.y + p.height)) do
+                        if warp.warpType == 0 and not warp.isHidden then
+                            p.x = warp.exitX + 16 - p.width / 2
+                            p.y = warp.exitY + 16 - p.height / 2
+                            break
+                        end
+                    end
+                    for _,bgo in ipairs(BGO.getIntersecting(p.x, p.y, p.x + p.width, p.y + p.height)) do
+                        local vec = clearpipe.REDIRECTS[bgo.id]
+                        if vec ~= nil then
+                            vPipe[i].x = clearpipe.DIR_VECTORS[vec].x
+                            vPipe[i].y = clearpipe.DIR_VECTORS[vec].y
+                            break
+                        end
+                    end
+                end
+            end
 		end
 	end
 end
@@ -734,24 +743,26 @@ function clearpipe.onDraw()
 	]]
 	if #inPipe > 0 then
 		for i, p in ipairs(Player.get()) do
-			if inPipe[i] then
-				if vPipe[i].x > 0 then
-					p.direction = 1
-				elseif vPipe[i].x < 0 then
-					p.direction = -1
-				end
-				p.forcedTimer = 1
-				p.frame = getSprite(i, p)
-				if p.holdingNPC then
-					local npc = p.holdingNPC
-					if vPipe[i].x > 0 then
-						npc.x = p.x + p.width
-					elseif vPipe[i].x < 0 then
-						npc.x = p.x - npc.width
-					end
-				end
-			end
-		end
+            if p and p.isValid then
+                if inPipe[i] then
+                    if vPipe[i].x > 0 then
+                        p.direction = 1
+                    elseif vPipe[i].x < 0 then
+                        p.direction = -1
+                    end
+                    p.forcedTimer = 1
+                    p.frame = getSprite(i, p)
+                    if p.holdingNPC then
+                        local npc = p.holdingNPC
+                        if vPipe[i].x > 0 then
+                            npc.x = p.x + p.width
+                        elseif vPipe[i].x < 0 then
+                            npc.x = p.x - npc.width
+                        end
+                    end
+                end
+            end
+        end
 	end
 end
 
