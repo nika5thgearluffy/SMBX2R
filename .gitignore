@@ -32,6 +32,9 @@
 # Ignore editor files that's set by the user
 data/PGE/settings/pge_editor.ini
 
+# Ignore logs from the editor
+data/PGE/logs/*
+
 # Ignore any other configs on the editor
 data/PGE/configs/*
 !SMBX2R-Integration

@@ -71,7 +71,7 @@ local function setDir(dir, v)
 end
 
 local function chasePlayers(v)
-	if player2 then
+	if player2 and player2.isValid then
 		local p1, dir1 = getDistance(v, player)
 		local p2, dir2 = getDistance(v, player2)
 		if p1 > p2 then
@@ -166,10 +166,10 @@ function montyMoles.onTickNPC(v)
 	if data.state == ST_HIDDEN then --buried
 		v.friendly = true
 		
-		if player2 then
-		local p1, dir1 = getDistance(v, player)
-		local p2, dir2 = getDistance(v, player2)
-		if p1 > p2 then
+		if player2 and player2.isValid then
+            local p1, dir1 = getDistance(v, player)
+            local p2, dir2 = getDistance(v, player2)
+            if p1 > p2 then
 				data.onGround = checkAwake(v, p2, data, v.data._settings.needsWhistle)
 			else
 				data.onGround = checkAwake(v, p1, data, v.data._settings.needsWhistle)

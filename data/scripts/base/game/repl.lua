@@ -225,7 +225,11 @@ repl.background = Color(0,0,0,0.5)
 
 function repl.onInitAPI()
 	registerEvent(repl, "onKeyboardPressDirect")
-	registerEvent(repl, "onCameraDraw")
+    if isOverworld then
+        registerEvent(repl, "onDraw")
+    else
+        registerEvent(repl, "onCameraDraw")
+    end
 	registerEvent(repl, "onPasteText")
 end
 
@@ -362,84 +366,162 @@ do
 		listidx = listidx + 1
 	end
 	
-	function repl.onCameraDraw(camIdx)
-		if not repl.active then
-			return
-		end
+    if not isOverworld then
+        function repl.onCameraDraw(camIdx)
+            if not repl.active then
+                return
+            end
 
-		local screenWidth,screenHeight = Graphics.getMainFramebufferSize()
-		local cam = Camera(camIdx)
-		
-		Graphics.drawScreen(bgobj)
-		local buffer
-		if find(repl.buffer, "\n") then
-			buffer = split(repl.buffer, "\n")
-		else
-			buffer = {repl.buffer}
-		end
+            local screenWidth,screenHeight = Graphics.getMainFramebufferSize()
+            local cam = Camera(camIdx)
+            
+            Graphics.drawScreen(bgobj)
+            local buffer
+            if find(repl.buffer, "\n") then
+                buffer = split(repl.buffer, "\n")
+            else
+                buffer = {repl.buffer}
+            end
 
-		local baseX = -cam.renderX
-		local baseY = screenHeight - cam.renderY
+            local baseX = -cam.renderX
+            local baseY = screenHeight - cam.renderY
 
-		local y = baseY
-		for i = #buffer, 1, -1 do
-			if (i ~= #buffer) then
-				y = y - 9*doprint.yscale
-				addprint("\n")
-			end
-			if y < 0 then
-				break
-			end
-			addprint(buffer[i])
-			if i == 1 then
-				addprint(">")
-			else
-				addprint(" ")
-			end
-		end
-		
-		if blinker > 0 then
-			local x = baseX + glyphwid/2
-			local y = y
-			if #buffer > 1 then
-				local t = 0
-				for i = 1, #buffer do
-					local nt = t + #(buffer[i]) + 1
-					if nt > repl.cursorPos then
-						x = x + (glyphwid * (repl.cursorPos - t))
-						break
-					elseif nt == repl.cursorPos then
-						x = baseX + 4*doprint.xscale
-						y = y + 9*doprint.yscale
-						break
-					end
-					y = y + 9*doprint.yscale
-					t = nt
-				end
-			else
-				x = x + (glyphwid * repl.cursorPos)
-			end
-			_print("|", x, y)
-		end
-		blinker = blinker + 1
-		if blinker > 32 then
-			blinker = -32
-		end
-		
-		for i = #repl.log, 1, -1 do
-			y = y - 18
-			addprint("\n")
-			if y < 0 then
-				break
-			end
-			addprint(repl.log[i])
-		end
+            local y = baseY
+            for i = #buffer, 1, -1 do
+                if (i ~= #buffer) then
+                    y = y - 9*doprint.yscale
+                    addprint("\n")
+                end
+                if y < 0 then
+                    break
+                end
+                addprint(buffer[i])
+                if i == 1 then
+                    addprint(">")
+                else
+                    addprint(" ")
+                end
+            end
+            
+            if blinker > 0 then
+                local x = baseX + glyphwid/2
+                local y = y
+                if #buffer > 1 then
+                    local t = 0
+                    for i = 1, #buffer do
+                        local nt = t + #(buffer[i]) + 1
+                        if nt > repl.cursorPos then
+                            x = x + (glyphwid * (repl.cursorPos - t))
+                            break
+                        elseif nt == repl.cursorPos then
+                            x = baseX + 4*doprint.xscale
+                            y = y + 9*doprint.yscale
+                            break
+                        end
+                        y = y + 9*doprint.yscale
+                        t = nt
+                    end
+                else
+                    x = x + (glyphwid * repl.cursorPos)
+                end
+                _print("|", x, y)
+            end
+            blinker = blinker + 1
+            if blinker > 32 then
+                blinker = -32
+            end
+            
+            for i = #repl.log, 1, -1 do
+                y = y - 18
+                addprint("\n")
+                if y < 0 then
+                    break
+                end
+                addprint(repl.log[i])
+            end
 
-		printlist[listidx] = nil
-		listidx = 1
-		
-		_print(table.concat(table.reverse(printlist)), baseX, baseY)
-	end
+            printlist[listidx] = nil
+            listidx = 1
+            
+            _print(table.concat(table.reverse(printlist)), baseX, baseY)
+        end
+    else
+        function repl.onDraw()
+            if not repl.active then
+                return
+            end
+            
+            Graphics.drawScreen(bgobj)
+            local buffer
+            if find(repl.buffer, "\n") then
+                buffer = split(repl.buffer, "\n")
+            else
+                buffer = {repl.buffer}
+            end
+
+            local baseX = 0
+            local baseY = camera.height
+
+            local y = baseY
+            for i = #buffer, 1, -1 do
+                if (i ~= #buffer) then
+                    y = y - 9*doprint.yscale
+                    addprint("\n")
+                end
+                if y < 0 then
+                    break
+                end
+                addprint(buffer[i])
+                if i == 1 then
+                    addprint(">")
+                else
+                    addprint(" ")
+                end
+            end
+            
+            if blinker > 0 then
+                local x = baseX + glyphwid/2
+                local y = y
+                if #buffer > 1 then
+                    local t = 0
+                    for i = 1, #buffer do
+                        local nt = t + #(buffer[i]) + 1
+                        if nt > repl.cursorPos then
+                            x = x + (glyphwid * (repl.cursorPos - t))
+                            break
+                        elseif nt == repl.cursorPos then
+                            x = baseX + 4*doprint.xscale
+                            y = y + 9*doprint.yscale
+                            break
+                        end
+                        y = y + 9*doprint.yscale
+                        t = nt
+                    end
+                else
+                    x = x + (glyphwid * repl.cursorPos)
+                end
+                _print("|", x, y)
+            end
+            blinker = blinker + 1
+            if blinker > 32 then
+                blinker = -32
+            end
+            
+            for i = #repl.log, 1, -1 do
+                y = y - 18
+                addprint("\n")
+                if y < 0 then
+                    break
+                end
+                addprint(repl.log[i])
+            end
+
+            printlist[listidx] = nil
+            listidx = 1
+            
+            _print(table.concat(table.reverse(printlist)), baseX, baseY)
+        end
+    end
 end
 
 return repl
