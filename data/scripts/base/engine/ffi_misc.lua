@@ -91,15 +91,26 @@ do
 	
 	function Misc.GetKeyState(keyCode, keyboardID, nonBoolean)
         if keyboardID == nil then
-            keyboardID = 1
+            keyboardID = -1
         end
 		if (type(keyCode) ~= "number") or (keyCode < 0) or (keyCode > 255) then
 			error("Invalid keycode")
 		end
-        if nonBoolean == nil or not nonBoolean then
-            return keyArray[keyboardID][keyCode] ~= 0
-        elseif nonBoolean then
-            return keyArray[keyboardID][keyCode]
+        local keyPressedIfAll = false
+        if keyboardID == -1 then
+            for i = 1,10 do
+                if (keyArray[i][keyCode] ~= 0) then
+                    keyPressedIfAll = (keyArray[i][keyCode] ~= 0)
+                    break
+                end
+            end
+            return keyPressedIfAll
+        else
+            if nonBoolean == nil or not nonBoolean then
+                return keyArray[keyboardID][keyCode] ~= 0
+            elseif nonBoolean then
+                return keyArray[keyboardID][keyCode]
+            end
         end
 	end
 end
