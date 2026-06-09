@@ -1,0 +1,24 @@
+{
+	"style" : "groupbox",
+	"title" : "Bubble Settings",
+	"layout": [
+		{
+			"control": "multiLineEdit",
+			"name": "tagsInput",
+			"title": "Tags",
+			"value-default": ""
+		},
+		{
+			"control": "group",
+			"title": "Examples",
+			"children": [
+			{
+			  "control": "lineEdit",
+			  "title": "Example",
+			  "value-default": "v.ai1 = 1;",
+			  "read-only": true
+			}]
+		}
+	]
+}
+
