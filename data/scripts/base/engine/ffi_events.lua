@@ -298,6 +298,11 @@ function Events:trigger()
 	return triggerEvent(self.name)
 end
 
+-- This should fix the issue where Events.trigger(eventName) had an error on the original SMBX2 and doesn't run at all. SMBX2R does what SMBX2-don't!
+function Events.trigger(name)
+    return triggerEvent(name)
+end
+
 Events.run = Events.trigger -- alias
 
 --------------------
