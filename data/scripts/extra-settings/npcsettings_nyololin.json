@@ -1,0 +1,33 @@
+{
+	"style" : "groupbox",
+	"title" : "Nyololin Settings",
+	"layout": [	
+		{
+			"control" : "group",
+			"title" : "",
+			"name" : "..",
+			"children": [
+			{
+				"control": "spinBox",
+				"type": "int",
+				"name": "delay",
+				"title": "Shoot Delay",
+				"tooltip": "The delay in which the Nyololin shoots.",
+				"value-default": 180,
+				"value-min": 10,
+				"value-max": 1000,
+				"single-step": 1
+			},
+			{
+			"control": "checkbox",
+			"name": "walk",
+			"title": "Walks?",
+			"tooltip": "If checked, the NPC will walk and shoot rather than stay in place.",
+			"text-visible": true,
+			"value-default": false
+			}
+			]
+		}
+			
+	]
+}
