@@ -538,7 +538,9 @@ local function DrawLayer(l, camera, section, bounds)
 	local w,h = ComputeLayerWidth(l, lw, lh)
 
 	--cx,cy,cw,ch = Cached camera information
-	local c = camera
+    local c = camera
+    local widthDifference = c.width - 800
+    local heightDifference = c.height - 600
 	local cx = c.x
 	local cy = c.y
 	local cw = c.width
@@ -562,8 +564,8 @@ local function DrawLayer(l, camera, section, bounds)
 	local sw = sb.right - sb.left
 	local sh = sb.bottom - sb.top
 	--bw,bh = Boundary width and height
-	local bw = bounds.right - bounds.left
-	local bh = bounds.bottom - bounds.top
+	local bw = (bounds.right - bounds.left)
+	local bh = (bounds.bottom - bounds.top)
 
 	--Compute speed based on depth if depth was supplied
 	if l.depth ~= nil then
@@ -597,8 +599,8 @@ local function DrawLayer(l, camera, section, bounds)
 	local speedx = l.parallaxX or d
 	local speedy = l.parallaxY or d
 	--xoffset,yoffset = Layer offset from anchor position
-	local xoffset = l.x
-	local yoffset = l.y
+	local xoffset = l.x + (widthDifference / 2)
+	local yoffset = l.y + (heightDifference / 2)
 
 	local vcw = 800
 	local vch = 600
