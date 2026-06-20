@@ -123,7 +123,7 @@ function CheckCollision(Loc1, Loc2) --Checks a collision between two things
 end
 
 function EasyModeCollision(Loc1, Loc2, StandOn)
-    local tempEasyModeCollision = Collisionz.CollisionSpot.COLLISION_NONE
+    local tempEasyModeCollision = CollisionSpot.COLLISION_NONE
     
     if StandOn == nil then
         error("Must specify if this is being standed on or not.")
