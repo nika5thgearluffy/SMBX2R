@@ -252,7 +252,7 @@ local function setDir(dir, v)
 end
 
 local function chasePlayers(v, t)
-	if player2 then
+	if player2 and player2.isValid then
 		local p1, dir1 = getDistance[t](v, player)
 		local p2, dir2 = getDistance[t](v, player2)
 		if p1 > p2 then
