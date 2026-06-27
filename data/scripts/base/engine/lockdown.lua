@@ -81,6 +81,18 @@ if File ~= nil then
             end
         end)
 
+        local ogFolderRemove = File.removeDirectory
+        File.removeDirectory = (function(folderPath)  
+            local canWrite
+            folderPath, canWrite = io.makeSafeAbsolutePathNoFileRestrictions(folderPath)
+            if canWrite then
+                ogFolderRemove(folderPath)
+            else
+                error("Removing at '" .. folderPath .. "' is not allowed.")
+                return
+            end
+        end)
+
         local ogFileCreation = File.create
         File.create = (function(filePath, data)
             if data == nil then
