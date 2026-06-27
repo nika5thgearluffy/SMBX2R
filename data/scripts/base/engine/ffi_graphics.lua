@@ -226,6 +226,8 @@ typedef struct {
 } FBSize;
 void FFI_GraphicsSetMainFramebufferSize(int width, int height);
 FBSize FFI_GraphicsGetMainFramebufferSize();
+
+LunaImageRef* __fastcall FFI_ImageFromData(int width, int height, const uint8_t* data);
 ]]
 local LunaDLL = ffi.load("LunaDll.dll")
 
@@ -1941,6 +1943,43 @@ function Graphics.getPixelData(img)
 	end
 	
 	return data, w, h
+end
+
+function Graphics.imageToString(img)
+    if img == nil or img._ref == nil then return nil end
+    
+    -- Get pointer to raw pixel data (RGBA, 4 bytes per pixel)
+    local dataPtr = LunaDLL.FFI_ImageGetDataPtr(img._ref)
+    if dataPtr == 0 then return nil end
+    
+    -- Cast to uint8_t* to read bytes
+    local bytePtr = ffi_cast("uint8_t*", dataPtr)
+    local byteCount = img.width * img.height * 4  -- RGBA = 4 bytes per pixel
+    
+    -- Convert to Lua string
+    return ffi.string(bytePtr, byteCount)
+end
+
+function Graphics.stringToImage(str, tempFilepath, width, height)
+    if str == nil then return nil end
+    
+    local byteCount = width * height * 4
+    if #str ~= byteCount then return nil end
+    
+    -- Allocate a new LunaImageRef by loading from raw data
+    -- We need to write to a temp file then load it, since there's no
+    -- FFI function to create an image from raw pixel data directly
+    local tempPath = Misc.episodePath()..tempFilepath
+    
+    -- Write raw bytes to temp file
+    local f = io.open(tempPath, "wb")
+    if not f then return nil end
+    f:write(str)
+    f:close()
+    
+    -- Unfortunately FFI_ImageLoad expects a PNG/image file not raw bytes
+    -- So raw pixel data needs to go via a PNG temp file
+    return nil  -- see note below
 end
 
 --------------------

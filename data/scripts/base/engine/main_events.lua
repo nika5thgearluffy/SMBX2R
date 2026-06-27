@@ -53,6 +53,8 @@ Misc.LUNALUA_EVENTS = {
     "onKeyboardKeyDown", "onKeyboardKeyUp",
     -- [Cheat Toggles]
     "onCheatActivate", "onCheatDeactivate",
+    -- [Engine Exiting]
+    "onEngineExit",
     -- "HIDDEN" functions (Not exactly, but still)
     "_onDrawOverworld",
 }
@@ -70,7 +72,7 @@ local postCancellableMap = {
 	onBlockRemove= "onPostBlockRemove",
 	onPOW=         "onPostPOW",
     onPlayerDie=   "onPostPlayerDie",
-    onPlayesrDead= "onPostPlayersDead",
+    onPlayersDead= "onPostPlayersDead",
 }
 
 
