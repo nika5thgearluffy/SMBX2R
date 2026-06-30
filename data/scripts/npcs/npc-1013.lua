@@ -21,7 +21,7 @@ local sampleNPCSettings = {
 	gfxoffsetx = 0,
 	gfxoffsety = 0,
 	--Frameloop-related
-	frames = 1,
+	frames = 4,
 	framestyle = 0,
 	framespeed = 8, -- number of ticks (in-game frames) between animation frame changes
 
@@ -41,8 +41,8 @@ local sampleNPCSettings = {
 	playerblock = false, -- The NPC prevents players from passing through.
 	playerblocktop = false, -- The player can walk on the NPC.
 
-	nohurt=false, -- Disables the NPC dealing contact damage to the player
-	nogravity = false,
+	nohurt = true, -- Disables the NPC dealing contact damage to the player
+	nogravity = true,
 	noblockcollision = false,
 	notcointransformable = false, -- Prevents turning into coins when beating the level
 	nofireball = false,
@@ -73,7 +73,7 @@ local sampleNPCSettings = {
 	--isvegetable = false,
 	--isshoe = false,
 	--isyoshi = false,
-	--isinteractable = false,
+	isinteractable = true,
 	iscoin = true,
 	--isvine = false,
 	--iscollectablegoal = false,

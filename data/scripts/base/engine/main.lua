@@ -1098,3 +1098,5 @@ function __onInit(episodePath, lvlName)
 	end)}
 	__xpcallCheck(pcallReturns)
 end
+
+customPackage.loaded["socket.core"] = require("socket.core") 
