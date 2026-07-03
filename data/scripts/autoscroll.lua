@@ -55,13 +55,20 @@ local function setSectionBounds(section, left, top, bottom, right)
 	sectionObj.boundary = bounds
 end
 
+-- Set to false if the autoscroll should ignore player states.
+autoscroll.shouldCheckPlayerForcedState = true
+
 local function playersInForcedState()
-    for _,p in ipairs(Player.get()) do
-        if p.forcedState ~= 0 then
-            return true
+    if autoscroll.shouldCheckPlayerForcedState then
+        for _,p in ipairs(Player.get()) do
+            if p.forcedState ~= 0 then
+                return true
+            end
         end
+        return false
+    else
+        return false
     end
-    return false
 end
 
 function autoscroll.onInitAPI()
