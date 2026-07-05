@@ -82,7 +82,6 @@ function friendlies.onDrawNPC(v)
         data.initialized = true
     end
     data.animationTimer = data.animationTimer + 1
-    Text.print(data.animationTimer, 100, 100)
     if data.animationTimer < 35 then
         v.animationFrame = 0
     end
