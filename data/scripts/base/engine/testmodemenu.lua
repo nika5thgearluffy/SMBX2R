@@ -804,6 +804,29 @@ end
 
 local lockSelect = false
 
+-- Gets settings the editor has set.
+function Editor.getSettings()
+    local testModeSettings = LunaDLL.LunaLuaGetTestModeSettings()
+    return {
+        player1 = {
+            character = testModeSettings.players[0].identity,
+            powerup = testModeSettings.players[0].powerup,
+            mountType = testModeSettings.players[0].mountType,
+            mountColor = testModeSettings.players[0].mountColor,
+        },
+        player2 = {
+            character = testModeSettings.players[1].identity,
+            powerup = testModeSettings.players[1].powerup,
+            mountType = testModeSettings.players[1].mountType,
+            mountColor = testModeSettings.players[1].mountColor,
+        },
+        playerCount = testModeSettings.playerCount,
+        showFPS = testModeSettings.showFPS,
+        godMode = testModeSettings.godMode,
+        entranceIndex = testModeSettings.entranceIndex,
+    }
+end
+
 function testModeMenu.onTestModeMenu()
 	if controlConfigOpen then
 		

@@ -819,6 +819,16 @@ if isOverworld then
     end]]
 end
 
+do
+    -- Certain editor functions will need to be set if outside the editor
+    if not Misc.inEditor() then
+        -- Just return a blank table if outside the editor since no settings exist in-game
+        function Editor.getSettings()
+            return {}
+        end
+    end
+end
+
 do --Table helper functions
 	function table.ifindlast(t, val)
 		for i = #t,1,-1 do
