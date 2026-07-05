@@ -204,4 +204,9 @@ Block.config[1422].ceilingslope = 1
 Block.config[1424].ceilingslope = -1
 Block.config[1425].ceilingslope = 1
 
+-- SMB3 Airship Wheels
+Block.config[1441].frames = 6
+Block.config[1442].frames = 6
+Block.config[1443].frames = 6
+
 return {}
