@@ -3,6 +3,8 @@ This is an SMBX2 fork separate from the original SMBX2 that adds new features an
 
 Everything from SMBX2 Beta 5, Patch 3 and below is compatible, anything above it will NOT WORK and is not recommended to run such episodes under this engine. Use SMBX2 instead.
 
+We also have a Discord server for the official project for any questions you have. Join it here: https://discord.gg/PNJhPJsH7h
+
 ## How to install
 Since this repo is always updated, we recommend you install git (For Windows you can download it here: https://git-scm.com/install/windows ) to download the engine, or you can use GitHub Desktop for a GUI ( https://desktop.github.com/download/ ).
 
