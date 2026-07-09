@@ -787,36 +787,34 @@ if(not isOverworld) then
 end
 
 if isOverworld then
-    --[[function Level.getIntersecting(x1, y1, x2, y2)
+    function Level.getIntersecting(x1, y1, x2, y2)
         if (type(x1) ~= "number") or (type(y1) ~= "number") or (type(x2) ~= "number") or (type(y2) ~= "number") then
             error("Invalid parameters to getIntersecting")
         end
 
-        local LEVEL_STRUCT_SIZE = 0x62
-        local GM_LEVEL_ADDR = readmem(0x00B25994, FIELD_DWORD) + LEVEL_STRUCT_SIZE
-
         local ret = {}
 
-        local ptr = GM_LEVEL_ADDR
         for idx = 1, Level.count() do
-            local bx = readmem(ptr + 0x00, FIELD_DFLOAT)
-            if (x2 > bx) then
-                local by = readmem(ptr + 0x08, FIELD_DFLOAT)
-                if (y2 > by) then
-                    local bw = readmem(ptr + 0x18, FIELD_DFLOAT)
-                    if (bx + bw > x1) then
-                        local bh = readmem(ptr + 0x10, FIELD_DFLOAT)
-                        if (by + bh > y1) then
-                            ret[#ret+1] = Level.get(idx)[1]
+            local level = Level.get()[idx]
+            if level then
+                local bx = level.x
+                if (x2 > bx) then
+                    local by = level.y
+                    if (y2 > by) then
+                        local bw = level:mem(0x10, FIELD_DFLOAT)
+                        if (bx + bw > x1) then
+                            local bh = level:mem(0x18, FIELD_DFLOAT)
+                            if (by + bh > y1) then
+                                ret[#ret+1] = Level.get(idx)[1]
+                            end
                         end
                     end
                 end
             end
-            ptr = ptr + LEVEL_STRUCT_SIZE
         end
 
         return ret
-    end]]
+    end
 end
 
 do

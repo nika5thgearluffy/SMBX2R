@@ -56,3 +56,7 @@ data/worlds/Mario Challenge/progress.json
 # Ignore any configs the engine uses
 data/config.dat
 data/inputs.ini
+
+# Ignore any autosave wldx/lvlx files made from default episodes
+*_autosave.wldx
+*_autosave.lvlx
