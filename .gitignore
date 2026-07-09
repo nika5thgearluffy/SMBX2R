@@ -1,6 +1,7 @@
 # Keep the worlds folder, but don't include anything that's not the default games to choose from
 /data/worlds/*
 !.gitkeep
+!Adventures of Demo
 !Mario Challenge
 !The Invasion 1
 !The Invasion 2
