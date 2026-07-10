@@ -53,6 +53,8 @@ data/worlds/Mario Challenge/*.sav
 data/worlds/Mario Challenge/*-ext.dat
 data/worlds/Mario Challenge/data.json
 data/worlds/Mario Challenge/progress.json
+data/worlds/Adventures of Demo/*.sav
+data/worlds/Adventures of Demo/*-ext.dat
 
 # Ignore any configs the engine uses
 data/config.dat
